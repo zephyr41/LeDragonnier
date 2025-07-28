@@ -3,880 +3,504 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline Le Dragonnier</title>
+    <title>Forgez votre propre exception</title>
+    <link href="https://fonts.googleapis.com/css2?family=Immortal&display=swap" rel="stylesheet">
     <style>
-/* ===============================================
-   VARIABLES ET BASE
-=============================================== */
-:root {
-    --primary-red: #9D0208;
-    --secondary-orange: #FAA307;
-    --accent-orange: #E85D04;
-    --dark-text: #121212;
-    --light-bg: #F8F6F3;
-    --warm-white: #FEFCFA;
-    --shadow-warm: rgba(157, 2, 8, 0.08);
-    --shadow-amber: rgba(250, 163, 7, 0.12);
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-* {
-    box-sizing: border-box;
-}
+        body {
+            font-family: 'Immortal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #2d3748;
+            color: white;
+            overflow: hidden;
+        }
 
-body {
-    font-family: 'Georgia', serif;
-    background: var(--light-bg);
-    color: var(--dark-text);
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    line-height: 1.6;
-}
+        /* Main Container */
+        .main-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* ===============================================
-   TIMELINE SECTION - STRUCTURE OPTIMISÉE
-=============================================== */
-.timeline-section {
-    background: var(--warm-white);
-    padding: 140px 0;
-    position: relative;
-    overflow: hidden;
-}
+        /* Background Image */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://c4.wallpaperflare.com/wallpaper/376/461/209/digital-art-knight-soldier-flag-wallpaper-preview.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
 
-.timeline-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 15%;
-    width: 70%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--secondary-orange), var(--accent-orange), transparent);
-    opacity: 0.6;
-}
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 40px;
+        }
 
-/* CONTENEUR PRINCIPAL */
-.timeline-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 40px;
-    position: relative;
-}
+        .subtitle {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-weight: 200;
+        }
 
-.timeline-header {
-    text-align: center;
-    margin-bottom: 120px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+        .title {
+            font-family: 'Immortal', serif;
+            font-size: 72px;
+            font-weight: 200;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            letter-spacing: -2px;
+        }
 
-.timeline-header.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+        .description {
+            font-family: 'Immortal', serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 50px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            text-align: center;
+        }
 
-.timeline-number {
-    display: block;
-    font-size: 1.1rem;
-    color: var(--accent-orange);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 15px;
+        }
 
-.timeline-main-title {
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    color: var(--primary-red);
-    margin: 0 0 30px 0;
-    font-weight: 500;
-    letter-spacing: 2px;
-    position: relative;
-}
+        .ornament::before,
+        .ornament::after {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background: #d4af37;
+        }
 
-.timeline-main-title::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--secondary-orange), var(--accent-orange));
-    border-radius: 2px;
-}
+        .ornament-center {
+            width: 8px;
+            height: 8px;
+            background: #d4af37;
+            border-radius: 50%;
+            position: relative;
+        }
 
-.timeline-description {
-    font-size: 1.2rem;
-    color: var(--dark-text);
-    opacity: 0.8;
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.8;
-}
+        .ornament-center::before,
+        .ornament-center::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #d4af37;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-/* ===============================================
-   TIMELINE - STRUCTURE CORRECTE
-=============================================== */
-.timeline {
-    position: relative;
-    padding: 0;
-    margin: 0;
-    z-index: 1;
-}
+        .ornament-center::before {
+            left: -15px;
+        }
 
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, 
-        transparent 0%, 
-        var(--primary-red) 10%, 
-        var(--accent-orange) 50%, 
-        var(--secondary-orange) 90%, 
-        transparent 100%);
-    transform: translateX(-50%);
-    z-index: -1;
-    border-radius: 2px;
-    box-shadow: 0 0 20px rgba(157, 2, 8, 0.1);
-}
+        .ornament-center::after {
+            right: -15px;
+        }
 
-/* ===============================================
-   ÉTAPES - ANIMATIONS ACCÉLÉRÉES
-=============================================== */
-.timeline-step {
-    position: relative;
-    padding: 120px 0;
-    opacity: 0;
-    transform: translateY(60px);
-    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 2;
-}
+        .buttons-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
 
-.timeline-step.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+        /* ===============================================
+           BOUTON PRINCIPAL PREMIUM FORGE - ROUGE MOODBOARD
+        =============================================== */
+        .create-btn {
+            position: relative;
+            background: linear-gradient(135deg, #9D0208 0%, #7A0106 50%, #4D0103 100%);
+            color: #F8F6F3;
+            padding: 18px 45px;
+            font-family: 'Immortal', serif;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            
+            /* Running border avec conic-gradient */
+            --angle: 0deg;
+            --border-size: 2px;
+            border: var(--border-size) solid transparent;
+            border-image: conic-gradient(
+                from var(--angle),
+                transparent 0deg 45deg,
+               
+                rgba(250, 163, 7, 0.6) 90deg 135deg,
+                rgba(250, 163, 7, 0.4) 180deg 225deg,
+                rgba(212, 175, 55, 0.2) 225deg 270deg,
+                transparent 270deg 315deg,
+                rgba(255, 196, 0, 0.1) 315deg 360deg
+            ) 1 stretch;
+            
+            /* Effet métal forgé */
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+                0 4px 0 #4D0103,
+                0 8px 25px rgba(0, 0, 0, 0.4);
+                
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            
+            /* Animation du gradient qui tourne */
+            animation: border-rotate 13s linear infinite;
+        }
 
-/* GRILLE POUR CHAQUE ÉTAPE */
-.step-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
-    align-items: center;
-    min-height: 400px;
-    position: relative;
-    z-index: 2;
-}
+        /* Définition de la propriété CSS custom pour l'animation */
+        @property --angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
 
-/* ALTERNANCE GAUCHE/DROITE */
-.timeline-step:nth-child(even) .step-content {
-    grid-template-columns: 1fr 1fr;
-    direction: rtl;
-}
+        @keyframes border-rotate {
+            to {
+                --angle: 360deg;
+            }
+        }
 
-.timeline-step:nth-child(even) .step-content > * {
-    direction: ltr;
-}
+        /* Flash métallique au hover */
+        .create-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+            z-index: 2;
+        }
 
-/* COLONNES AVEC MARGES */
-.step-text {
-    padding: 0 clamp(40px, 5vw, 80px) 0 0;
-    max-width: 600px;
-    justify-self: end;
-}
+        /* Effet métal brossé subtil - SUPPRIMÉ pour éviter conflit avec l'étincelle */
 
-.timeline-step:nth-child(even) .step-text {
-    padding: 0 0 0 clamp(40px, 5vw, 80px);
-    justify-self: start;
-}
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+                0 6px 0 #4D0103,
+                0 12px 35px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
+            
+            /* Accélération de la rotation au hover */
+            animation-duration: 1.5s;
+        }
 
-.step-visual {
-    max-width: 600px;
-    justify-self: start;
-}
+        .create-btn:hover::before {
+            left: 100%;
+        }
 
-.timeline-step:nth-child(even) .step-visual {
-    justify-self: end;
-}
+        .create-btn:active {
+            transform: translateY(2px);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 2px 0 #4D0103,
+                0 4px 15px rgba(0, 0, 0, 0.3);
+        }
 
-/* ===============================================
-   MARQUEURS - ANIMATIONS RAPIDES
-=============================================== */
-.step-marker {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 32px;
-    height: 32px;
-    background: var(--secondary-orange);
-    border: 5px solid var(--warm-white);
-    border-radius: 50%;
-    z-index: 100;
-    box-shadow: 
-        0 0 0 4px var(--secondary-orange),
-        0 10px 25px rgba(250, 163, 7, 0.25);
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
+        .view-btn {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 16px 40px;
+            font-size: 11px;
+            font-weight: 400;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Immortal', serif;
+        }
 
-.timeline-step.visible .step-marker {
-    animation: markerGlow 1.2s ease-out 0.2s;
-}
+        .view-btn::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
 
-@keyframes markerGlow {
-    0%, 100% { 
-        transform: translate(-50%, -50%) scale(1);
-        box-shadow: 
-            0 0 0 4px var(--secondary-orange),
-            0 10px 25px rgba(250, 163, 7, 0.25);
-    }
-    50% { 
-        transform: translate(-50%, -50%) scale(1.2);
-        box-shadow: 
-            0 0 0 6px var(--accent-orange),
-            0 15px 35px rgba(232, 93, 4, 0.4);
-    }
-}
+        .view-btn:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-1px);
+        }
 
-.timeline-step:hover .step-marker {
-    transform: translate(-50%, -50%) scale(1.3);
-    background: var(--accent-orange);
-    box-shadow: 
-        0 0 0 5px var(--accent-orange),
-        0 15px 35px rgba(232, 93, 4, 0.35);
-}
+        .view-btn:hover::before {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
 
-/* ===============================================
-   CONTENU TEXTUEL - ANIMATIONS ACCÉLÉRÉES
-=============================================== */
-.step-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--accent-orange), var(--primary-red));
-    color: var(--warm-white);
-    padding: 10px 24px;
-    border-radius: 25px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 700;
-    margin-bottom: 30px;
-    opacity: 0;
-    transform: scale(0.8) translateY(25px);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 0 6px 18px rgba(232, 93, 4, 0.25);
-}
+        .scroll-indicator {
+            width: 1px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 auto;
+            position: relative;
+        }
 
-.timeline-step.visible .step-badge {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    transition-delay: 0.1s;
-}
+        .scroll-indicator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background: white;
+            animation: scrollMove 2s ease-in-out infinite;
+        }
 
-.step-title {
-    font-size: clamp(2.2rem, 4vw, 3.2rem);
-    color: var(--primary-red);
-    margin: 0 0 25px 0;
-    font-weight: 500;
-    letter-spacing: 1px;
-    opacity: 0;
-    transform: translateY(35px);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    position: relative;
-    line-height: 1.2;
-}
+        @keyframes scrollMove {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(25px); opacity: 0.3; }
+        }
 
-.step-title::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background: var(--secondary-orange);
-    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 2px;
-}
+        /* Left side decorative elements */
+        .side-decoration {
+            position: absolute;
+            left: 50px;
+            top: 20%;
+            z-index: 20;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d4af37;
+            transform: rotate(45deg);
+            background: transparent;
+            animation: floatRotate 4s ease-in-out infinite;
+        }
 
-.timeline-step.visible .step-title {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-}
+        /* Right side decorative elements */
+        .side-decoration-right {
+            position: absolute;
+            right: 50px;
+            bottom: 20%;
+            z-index: 20;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d4af37;
+            transform: rotate(45deg);
+            background: transparent;
+            animation: floatRotateReverse 4s ease-in-out infinite;
+        }
 
-.timeline-step.visible .step-title::after {
-    width: 80px;
-    transition-delay: 0.4s;
-}
+        /* Additional ornaments */
+        .top-ornament {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            animation: pulse 3s ease-in-out infinite;
+        }
 
-.step-description {
-    font-size: 1.3rem;
-    line-height: 1.9;
-    color: var(--dark-text);
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    margin: 0;
-}
+        .bottom-ornament {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: breathe 4s ease-in-out infinite;
+        }
 
-.timeline-step.visible .step-description {
-    opacity: 0.85;
-    transform: translateY(0);
-    transition-delay: 0.3s;
-}
+        .bottom-ornament::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            animation: innerSpin 8s linear infinite;
+        }
 
-/* ===============================================
-   ÉLÉMENTS VISUELS - ANIMATIONS ACCÉLÉRÉES
-=============================================== */
-.step-image-container {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(50px) scale(0.95);
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 
-        0 25px 70px rgba(157, 2, 8, 0.12),
-        0 10px 35px rgba(250, 163, 7, 0.08);
-    min-height: 380px;
-}
+        @keyframes floatRotate {
+            0%, 100% { 
+                transform: rotate(45deg) translateY(0px);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: rotate(45deg) translateY(-8px);
+                opacity: 1;
+            }
+        }
 
-.timeline-step.visible .step-image-container {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    transition-delay: 0.2s;
-}
+        @keyframes floatRotateReverse {
+            0%, 100% { 
+                transform: rotate(45deg) translateY(0px);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: rotate(45deg) translateY(8px);
+                opacity: 1;
+            }
+        }
 
-.step-image-container:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 
-        0 35px 90px rgba(157, 2, 8, 0.18),
-        0 15px 45px rgba(250, 163, 7, 0.12);
-}
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 0.6;
+                width: 60px;
+            }
+            50% { 
+                opacity: 1;
+                width: 80px;
+            }
+        }
 
-.step-image {
-    width: 100%;
-    height: 380px;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+        @keyframes breathe {
+            0%, 100% { 
+                transform: translateX(-50%) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateX(-50%) scale(1.1);
+                opacity: 1;
+            }
+        }
 
-.step-image-container:hover .step-image {
-    transform: scale(1.05);
-}
+        @keyframes innerSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-.image-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(18, 18, 18, 0.85));
-    color: var(--warm-white);
-    padding: 50px 30px 25px;
-    font-size: 1rem;
-    font-style: italic;
-    text-align: center;
-    transform: translateY(100%);
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 3;
-}
-
-.step-image-container:hover .image-caption {
-    transform: translateY(0);
-}
-
-/* ===============================================
-   CONNECTEURS NARRATIFS - DEVANT LA LIGNE
-=============================================== */
-.story-connector {
-    text-align: center;
-    margin: 100px 0 80px 0;
-    position: relative;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 200;
-}
-
-.story-connector.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.connector-text {
-    display: inline-block;
-    background: rgba(254, 252, 250, 0.95);
-    color: var(--primary-red);
-    padding: 18px 40px;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    font-style: italic;
-    letter-spacing: 0.8px;
-    border: 2px solid rgba(250, 163, 7, 0.3);
-    position: relative;
-    z-index: 200;
-    box-shadow: 
-        0 8px 25px rgba(250, 163, 7, 0.2),
-        0 2px 8px rgba(157, 2, 8, 0.1);
-    font-weight: 500;
-    backdrop-filter: blur(8px);
-}
-
-.connector-text::before,
-.connector-text::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 100px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--secondary-orange));
-}
-
-.connector-text::before {
-    left: -120px;
-}
-
-.connector-text::after {
-    right: -120px;
-    background: linear-gradient(90deg, var(--secondary-orange), transparent);
-}
-
-/* ===============================================
-   NOUVELLE SECTION TRANSITION AVEC IMAGE BACKGROUND
-=============================================== */
-.timeline-conclusion-section {
-    position: relative;
-    width: 100%;
-    min-height: 80vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* IMAGE D'ARRIÈRE-PLAN ATELIER + DÉGRADÉ ÉLÉGANT */
-    background: 
-        linear-gradient(
-            to bottom,
-            rgba(248, 246, 243, 0.3) 0%,
-            rgba(248, 246, 243, 0.5) 15%,
-            rgba(248, 246, 243, 0.7) 30%,
-            rgba(248, 246, 243, 0.85) 50%,
-            rgba(248, 246, 243, 0.92) 70%,
-            rgba(248, 246, 243, 0.96) 85%,
-            var(--light-bg) 100%
-        ),
-        url('https://images.unsplash.com/photo-1609205807107-e12e43b9b802?w=1920&h=1080&fit=crop&crop=center&q=85') 
-        center top/cover no-repeat fixed;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 48px;
+            }
+            
+            .content {
+                padding: 0 20px;
+            }
+            
+            .side-decoration {
+                display: none;
+            }
+            
+            .side-decoration-right {
+                display: none;
+            }
+            
+            .top-ornament {
+                display: none;
+            }
+            
+            .bottom-ornament {
+                display: none;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .create-btn, .view-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Background -->
+        <div class="bg-image"></div>
         
-    /* Transition douce depuis la section précédente */
-    padding: 0 0 100px 0;
-}
+        <!-- Side Decoration Left -->
+        <div class="side-decoration"></div>
 
-/* ===============================================
-   PROLONGEMENT VISUEL DE LA LIGNE TIMELINE
-=============================================== */
-.timeline-bridge-extended {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 200px;
-    background: linear-gradient(180deg, 
-        var(--accent-orange) 0%,
-        var(--secondary-orange) 20%,
-        rgba(250, 163, 7, 0.7) 40%,
-        rgba(250, 163, 7, 0.4) 70%,
-        rgba(250, 163, 7, 0.2) 90%,
-        transparent 100%
-    );
-    border-radius: 0 0 3px 3px;
-    z-index: 5;
-    opacity: 0;
-    transform: translateX(-50%) scaleY(0);
-    transform-origin: top;
-    animation: bridgeExtend 1.5s ease-out 0.5s forwards;
-    box-shadow: 0 4px 15px rgba(250, 163, 7, 0.15);
-}
+        <!-- Side Decoration Right -->
+        <div class="side-decoration-right"></div>
 
-/* ===============================================
-   ORNEMENTS ARTISANAUX SUBTILS
-=============================================== */
-.timeline-conclusion-section::before {
-    content: '';
-    position: absolute;
-    top: 12%;
-    right: 8%;
-    width: 80px;
-    height: 120px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 120' fill='none'%3E%3Cpath d='M40 15 C46 22, 52 35, 48 50 C44 65, 40 80, 45 95 C50 110, 52 125, 40 135 C32 125, 28 110, 32 95 C36 80, 40 65, 36 50 C32 35, 28 22, 40 15' stroke='%23FAA307' stroke-width='1.5' opacity='0.12' fill='none'/%3E%3Ccircle cx='42' cy='60' r='2.5' fill='%23E85D04' opacity='0.15'/%3E%3Ccircle cx='38' cy='90' r='2' fill='%23FAA307' opacity='0.18'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0;
-    z-index: 3;
-    animation: ornementFadeIn 1.2s ease-out 2s forwards, breathe 6s ease-in-out infinite 3s;
-}
-
-.timeline-conclusion-section::after {
-    content: '';
-    position: absolute;
-    bottom: 20%;
-    left: 6%;
-    width: 60px;
-    height: 90px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 90' fill='none'%3E%3Cpath d='M20 12 C25 20, 30 35, 25 50 C22 65, 20 75, 25 82 C30 75, 35 65, 32 50 C28 35, 25 20, 35 12 C40 18, 45 25, 40 40' stroke='%239D0208' stroke-width='1.2' opacity='0.1' fill='none'/%3E%3Ccircle cx='28' cy='35' r='1.5' fill='%23E85D04' opacity='0.12'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0;
-    z-index: 3;
-    animation: ornementFadeIn 1.2s ease-out 2.3s forwards, breathe 7s ease-in-out infinite 4s;
-}
-
-/* ===============================================
-   CONTENU PRINCIPAL DE TRANSITION
-=============================================== */
-.timeline-conclusion-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    max-width: 800px;
-    padding: 80px 40px 60px 40px;
-    margin-top: 120px;
-    
-    /* Carte élégante avec glassmorphism */
-    background: rgba(254, 252, 250, 0.85);
-    border-radius: 16px;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(250, 163, 7, 0.15);
-    box-shadow: 
-        0 20px 60px rgba(157, 2, 8, 0.12),
-        0 8px 32px rgba(18, 18, 18, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        <!-- Top Ornament -->
+        <div class="top-ornament"></div>
         
-    /* Animation d'entrée progressive */
-    opacity: 0;
-    transform: translateY(80px);
-    animation: contentSlideIn 1.2s ease-out 1s forwards;
-}
+        <!-- Bottom Ornament -->
+        <div class="bottom-ornament"></div>
 
-/* ===============================================
-   ORNEMENTS COINS DU CONTENU - ADOUCIS
-=============================================== */
-.timeline-conclusion-content::before {
-    content: '';
-    position: absolute;
-    top: -15px;
-    left: -15px;
-    width: 30px;
-    height: 30px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none'%3E%3Cpath d='M5 5 L25 5 L25 25' stroke='%23FAA307' stroke-width='2' opacity='0.2' fill='none'/%3E%3Ccircle cx='20' cy='10' r='1.5' fill='%23E85D04' opacity='0.2'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0;
-    animation: ornementAppear 1s ease-out 2s forwards;
-}
+        <!-- Content -->
+        <div class="content">
+            <div class="subtitle">STAGES DE COUTELLERIE AVEC LE DRAGONNIER</div>
+            <h1 class="title">Forgez votre première lame</h1>
+            <div class="ornament">
+                <div class="ornament-center"></div>
+            </div>
+            <p class="description">
+                Venez réserver une séance pour forger votre propre couteau avec le Dragonnier. 
+                Nous proposons des stages pour tous ceux qui souhaitent découvrir ce métier passionnant 
+                et créer leurs propres lames d'exception.
+            </p>
+            <div class="buttons-container">
+                <button class="create-btn">CRÉEZ VOTRE COUTEAU</button>
+                <button class="view-btn">voir les créations</button>
+            </div>
+        </div>
+    </div>
 
-.timeline-conclusion-content::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    right: -15px;
-    width: 30px;
-    height: 30px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none'%3E%3Cpath d='M25 25 L5 25 L5 5' stroke='%23E85D04' stroke-width='2' opacity='0.6' fill='none'/%3E%3Ccircle cx='10' cy='20' r='1.5' fill='%23FAA307' opacity='0.7'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0;
-    animation: ornementAppear 1s ease-out 2.2s forwards;
-}
-
-/* ===============================================
-   TITRES STYLE DRAGONNIER AVEC ANIMATIONS
-=============================================== */
-.conclusion-transition-text {
-    color: var(--accent-orange);
-    font-size: 1.1rem;
-    font-style: italic;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    margin: 0 0 35px 0;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: textFadeIn 0.8s ease-out 1.5s forwards;
-    
-    /* Soulignement décoratif */
-    position: relative;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(250, 163, 7, 0.2);
-    display: inline-block;
-}
-
-.conclusion-main-title {
-    font-family: 'Georgia', serif;
-    color: var(--primary-red);
-    font-size: clamp(2.8rem, 5vw, 4.2rem);
-    font-weight: 400;
-    margin: 0 0 40px 0;
-    letter-spacing: 1.5px;
-    line-height: 1.2;
-    position: relative;
-    cursor: default;
-    
-    /* Animation d'apparition */
-    opacity: 0;
-    transform: translateY(40px);
-    animation: titleSlideIn 1s ease-out 1.8s forwards;
-}
-
-.conclusion-main-title:hover {
-    transform: translateY(-3px);
-    text-shadow: 0 4px 8px rgba(157, 2, 8, 0.2);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Soulignement progressif */
-.conclusion-main-title::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--secondary-orange) 0%, var(--accent-orange) 100%);
-    border-radius: 2px;
-    animation: underlineGrow 1s ease-out 2.5s forwards;
-}
-
-.conclusion-description {
-    font-family: 'Georgia', serif;
-    color: var(--dark-text);
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin: 0 0 50px 0;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: textFadeIn 0.8s ease-out 2.2s forwards;
-    letter-spacing: 0.3px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 50px;
-}
-
-/* ===============================================
-   CALL-TO-ACTION ÉLÉGANT
-=============================================== */
-.conclusion-cta-group {
-    display: flex;
-    gap: 25px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: ctaFadeIn 0.8s ease-out 2.8s forwards;
-}
-
-.btn-conclusion-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 18px 35px;
-    border-radius: 2px;
-    text-decoration: none;
-    font-family: 'Georgia', serif;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: pointer;
-    border: 1px solid transparent;
-    min-width: 220px;
-    text-align: center;
-    
-    /* Style Dragonnier authentique */
-    background: var(--dark-text);
-    color: var(--warm-white);
-    border-color: rgba(250, 163, 7, 0.2);
-    box-shadow: 
-        0 2px 8px rgba(18, 18, 18, 0.08),
-        0 4px 15px rgba(18, 18, 18, 0.1);
-}
-
-.btn-conclusion-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(250, 163, 7, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.btn-conclusion-primary:hover {
-    transform: translateY(-2px);
-    background: rgba(18, 18, 18, 0.95);
-    border-color: rgba(250, 163, 7, 0.3);
-    box-shadow: 
-        0 6px 20px rgba(18, 18, 18, 0.15),
-        0 2px 8px rgba(250, 163, 7, 0.1);
-}
-
-.btn-conclusion-primary:hover::before {
-    left: 100%;
-}
-
-.btn-conclusion-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 18px 35px;
-    border-radius: 2px;
-    text-decoration: none;
-    font-family: 'Georgia', serif;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: pointer;
-    min-width: 200px;
-    text-align: center;
-    
-    /* Style outline élégant */
-    background: transparent;
-    color: var(--primary-red);
-    border: 1px solid var(--primary-red);
-    box-shadow: 0 2px 8px rgba(18, 18, 18, 0.05);
-}
-
-.btn-conclusion-secondary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--primary-red);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: -1;
-}
-
-.btn-conclusion-secondary:hover {
-    color: var(--warm-white);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(157, 2, 8, 0.15);
-}
-
-.btn-conclusion-secondary:hover::before {
-    transform: scaleX(1);
-}
-
-/* ===============================================
-   ANIMATIONS PROGRESSIVES
-=============================================== */
-@keyframes bridgeExtend {
-    0% {
-        opacity: 0;
-        transform: translateX(-50%) scaleY(0);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(-50%) scaleY(1);
-    }
-}
-
-@keyframes ornementFadeIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes contentSlideIn {
-    0% {
-        opacity: 0;
-        transform: translateY(80px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes textFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes titleSlideIn {
-    0% {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes underlineGrow {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 100px;
-    }
-}
-
-@keyframes ctaFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes ornementAppear {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes breathe {
-    0%, 100% { 
-        opacity: 0.8; 
-        transform: scale(1); 
-    }
-    50% { 
-        opacity: 1; 
-        transform: scale(1.02); 
-    }
-}
+    <script>
+        // Buttons
+        document.querySelector('.create-btn').addEventListener('click', function() {
+            // Effet de confirmation visuel
+            this.style.transform = 'scale(0.95) translateY(2px)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
+            alert('Création de votre couteau personnalisé...');
+        });
+        
+        document.querySelector('.view-btn').addEventListener('click', function() {
+            alert('Découvrez nos créations...');
+        });
+    </script>
+</body>
+</html>
