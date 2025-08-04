@@ -3,483 +3,887 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgez votre propre exception</title>
-    <link href="https://fonts.googleapis.com/css2?family=Immortal&display=swap" rel="stylesheet">
+    <title>Le Dragonnier - Timeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* ===============================================
+   VARIABLES CSS
+=============================================== */
+:root {
+    --primary-red: #9D0208;
+    --secondary-orange: #FAA307;
+    --accent-orange: #E85D04;
+    --dark-text: #121212;
+    --light-bg: #F8F6F3;
+    --warm-white: #FEFCFA;
+    --font-family: 'Playfair Display', serif;
+    --transition-smooth: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-        body {
-            font-family: 'Immortal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #2d3748;
-            color: white;
-            overflow: hidden;
-        }
+/* ===============================================
+   BASE
+=============================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        /* Main Container */
-        .main-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+body {
+    font-family: var(--font-family);
+    background: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
 
-        /* Background Image */
-        .bg-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://c4.wallpaperflare.com/wallpaper/376/461/209/digital-art-knight-soldier-flag-wallpaper-preview.jpg');
-            background-size: cover;
-            background-position: center;
-            z-index: 1;
-        }
+/* ===============================================
+   SECTION TIMELINE
+=============================================== */
+.timeline-section {
+    position: relative;
+    background: var(--warm-white);
+    padding: 120px 0;
+}
 
-        /* Content */
-        .content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 900px;
-            padding: 0 40px;
-        }
+.timeline-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+}
 
-        .subtitle {
-            font-size: 11px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-            font-weight: 200;
-        }
+/* ===============================================
+   HEADER
+=============================================== */
+.timeline-header {
+    text-align: center;
+    margin-bottom: 100px;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: var(--transition-smooth);
+}
 
-        .title {
-            font-family: 'Immortal', serif;
-            font-size: 72px;
-            font-weight: 200;
-            line-height: 1.1;
-            margin-bottom: 40px;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-            letter-spacing: -2px;
-        }
+.timeline-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        .description {
-            font-family: 'Immortal', serif;
-            font-size: 16px;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 50px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 300;
-            text-align: center;
-        }
+.timeline-number {
+    display: block;
+    font-size: 1rem;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
 
-        .ornament {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 40px 0;
-            gap: 15px;
-        }
+.timeline-main-title {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--primary-red);
+    margin: 0 0 35px 0;
+    font-weight: 400;
+    letter-spacing: 2px;
+    position: relative;
+}
 
-        .ornament::before,
-        .ornament::after {
-            content: '';
-            width: 60px;
-            height: 1px;
-            background: #d4af37;
-        }
+.timeline-main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--secondary-orange), var(--accent-orange));
+    transition: width 1s ease 0.8s;
+}
 
-        .ornament-center {
-            width: 8px;
-            height: 8px;
-            background: #d4af37;
-            border-radius: 50%;
-            position: relative;
-        }
+.timeline-header.visible .timeline-main-title::after {
+    width: 120px;
+}
 
-        .ornament-center::before,
-        .ornament-center::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #d4af37;
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-        }
+.timeline-description {
+    font-size: 1.2rem;
+    color: var(--dark-text);
+    opacity: 0.85;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
 
-        .ornament-center::before {
-            left: -15px;
-        }
+/* ===============================================
+   TIMELINE
+=============================================== */
+.timeline {
+    position: relative;
+}
 
-        .ornament-center::after {
-            right: -15px;
-        }
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 4px;
+    height: calc(100% - 100px);
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        var(--primary-red) 15%, 
+        var(--accent-orange) 45%, 
+        var(--secondary-orange) 75%, 
+        transparent 100%);
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
 
-        .buttons-container {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 60px;
-            flex-wrap: wrap;
-        }
+/* ===============================================
+   ÉTAPES
+=============================================== */
+.timeline-step {
+    position: relative;
+    padding: 100px 0;
+    opacity: 0;
+    transform: translateY(80px);
+    transition: var(--transition-smooth);
+}
 
-        /* ===============================================
-           BOUTON PRINCIPAL PREMIUM FORGE
-        =============================================== */
-        .create-btn {
-            position: relative;
-            background: linear-gradient(135deg, #8B1538 0%, #6B1129 50%, #4A0D1C 100%);
-            color: #F8F6F3;
-            border: none;
-            padding: 18px 45px;
-            font-family: 'Immortal', serif;
-            font-size: 13px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            border-radius: 6px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            
-            /* Effet métal forgé */
-            box-shadow: 
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-                0 4px 0 #4A0D1C,
-                0 8px 25px rgba(0, 0, 0, 0.4);
-                
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
+.timeline-step.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        /* Flash métallique au hover */
-        .create-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-            z-index: 1;
-        }
+.step-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    min-height: 400px;
+}
 
-        /* Effet métal brossé subtil */
-        .create-btn::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            bottom: 6px;
-            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
-            border-radius: 4px;
-            pointer-events: none;
-            z-index: 0;
-        }
+/* Alternance gauche/droite */
+.timeline-step:nth-child(even) .step-content {
+    direction: rtl;
+}
 
-        .create-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 
-                inset 0 1px 0 rgba(255, 255, 255, 0.15),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-                0 6px 0 #4A0D1C,
-                0 12px 35px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(135deg, #A0522D 0%, #8B1538 50%, #6B1129 100%);
-        }
+.timeline-step:nth-child(even) .step-content > * {
+    direction: ltr;
+}
 
-        .create-btn:hover::before {
-            left: 100%;
-        }
+.step-text {
+    padding: 0 60px 0 0;
+    max-width: 600px;
+    justify-self: end;
+}
 
-        .create-btn:active {
-            transform: translateY(2px);
-            box-shadow: 
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 2px 0 #4A0D1C,
-                0 4px 15px rgba(0, 0, 0, 0.3);
-        }
+.timeline-step:nth-child(even) .step-text {
+    padding: 0 0 0 60px;
+    justify-self: start;
+}
 
-        .view-btn {
-            background: transparent;
-            color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 16px 40px;
-            font-size: 11px;
-            font-weight: 400;
-            text-transform: lowercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            font-family: 'Immortal', serif;
-        }
+.step-visual {
+    max-width: 600px;
+    justify-self: start;
+}
 
-        .view-btn::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            bottom: 2px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
+.timeline-step:nth-child(even) .step-visual {
+    justify-self: end;
+}
 
-        .view-btn:hover {
-            color: white;
-            border-color: rgba(255, 255, 255, 0.6);
-            transform: translateY(-1px);
-        }
+/* Marqueurs */
+.step-marker {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    background: var(--secondary-orange);
+    border: 4px solid var(--warm-white);
+    border-radius: 50%;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(250, 163, 7, 0.3);
+}
 
-        .view-btn:hover::before {
-            border-color: rgba(255, 255, 255, 0.3);
-        }
+/* ===============================================
+   CONTENU ÉTAPES
+=============================================== */
+.step-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent-orange), var(--primary-red));
+    color: var(--warm-white);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
 
-        .scroll-indicator {
-            width: 1px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.3);
-            margin: 0 auto;
-            position: relative;
-        }
+.step-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    color: var(--primary-red);
+    margin: 0 0 20px 0;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
 
-        .scroll-indicator::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 25px;
-            background: white;
-            animation: scrollMove 2s ease-in-out infinite;
-        }
+.step-description {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--dark-text);
+    opacity: 0.85;
+    margin: 0 0 15px 0;
+}
 
-        @keyframes scrollMove {
-            0%, 100% { transform: translateY(0); opacity: 1; }
-            50% { transform: translateY(25px); opacity: 0.3; }
-        }
+.step-description:last-child {
+    margin-bottom: 0;
+}
 
-        /* Left side decorative elements */
-        .side-decoration {
-            position: absolute;
-            left: 50px;
-            top: 20%;
-            z-index: 20;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #d4af37;
-            transform: rotate(45deg);
-            background: transparent;
-            animation: floatRotate 4s ease-in-out infinite;
-        }
+/* ===============================================
+   IMAGES
+=============================================== */
+.step-image-container {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    transition: all 0.6s ease;
+    box-shadow: 0 20px 60px rgba(157, 2, 8, 0.12);
+    min-height: 380px;
+    background: var(--dark-text);
+}
 
-        /* Right side decorative elements */
-        .side-decoration-right {
-            position: absolute;
-            right: 50px;
-            bottom: 20%;
-            z-index: 20;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #d4af37;
-            transform: rotate(45deg);
-            background: transparent;
-            animation: floatRotateReverse 4s ease-in-out infinite;
-        }
+.timeline-step.visible .step-image-container {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: 0.3s;
+}
 
-        /* Additional ornaments */
-        .top-ornament {
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #d4af37, transparent);
-            animation: pulse 3s ease-in-out infinite;
-        }
+.step-image-container:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 35px 90px rgba(157, 2, 8, 0.18);
+}
 
-        .bottom-ornament {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: breathe 4s ease-in-out infinite;
-        }
+.step-image {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
 
-        .bottom-ornament::before {
-            content: '';
-            width: 20px;
-            height: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 50%;
-            animation: innerSpin 8s linear infinite;
-        }
+.step-image-container:hover .step-image {
+    transform: scale(1.05);
+}
 
-        @keyframes floatRotate {
-            0%, 100% { 
-                transform: rotate(45deg) translateY(0px);
-                opacity: 0.8;
-            }
-            50% { 
-                transform: rotate(45deg) translateY(-8px);
-                opacity: 1;
-            }
-        }
+.image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(18, 18, 18, 0.9));
+    color: var(--warm-white);
+    padding: 40px 25px 20px;
+    font-size: 0.95rem;
+    font-style: italic;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
 
-        @keyframes floatRotateReverse {
-            0%, 100% { 
-                transform: rotate(45deg) translateY(0px);
-                opacity: 0.8;
-            }
-            50% { 
-                transform: rotate(45deg) translateY(8px);
-                opacity: 1;
-            }
-        }
+.step-image-container:hover .image-caption {
+    transform: translateY(0);
+}
 
-        @keyframes pulse {
-            0%, 100% { 
-                opacity: 0.6;
-                width: 60px;
-            }
-            50% { 
-                opacity: 1;
-                width: 80px;
-            }
-        }
+/* ===============================================
+   CONNECTEURS
+=============================================== */
+.story-connector {
+    text-align: center;
+    margin: 80px 0 60px 0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+}
 
-        @keyframes breathe {
-            0%, 100% { 
-                transform: translateX(-50%) scale(1);
-                opacity: 0.6;
-            }
-            50% { 
-                transform: translateX(-50%) scale(1.1);
-                opacity: 1;
-            }
-        }
+.story-connector.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        @keyframes innerSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+.connector-text {
+    display: inline-block;
+    background: var(--warm-white);
+    color: var(--primary-red);
+    padding: 15px 35px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    border: 2px solid rgba(250, 163, 7, 0.2);
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 48px;
-            }
-            
-            .content {
-                padding: 0 20px;
-            }
-            
-            .side-decoration {
-                display: none;
-            }
-            
-            .side-decoration-right {
-                display: none;
-            }
-            
-            .top-ornament {
-                display: none;
-            }
-            
-            .bottom-ornament {
-                display: none;
-            }
-            
-            .buttons-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .create-btn, .view-btn {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
+.connector-text:hover {
+    border-color: rgba(250, 163, 7, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(250, 163, 7, 0.2);
+}
+
+/* ===============================================
+   CTA FINALE
+=============================================== */
+.cta-finale {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: url('https://images.pexels.com/photos/4588602/pexels-photo-4588602.jpeg') center center / cover no-repeat;
+    background-attachment: fixed;
+}
+
+.cta-finale::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(18, 18, 18, 0.4) 0%,
+        rgba(18, 18, 18, 0.8) 50%,
+        rgba(18, 18, 18, 1) 100%
+    );
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 40px;
+}
+
+.subtitle {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    font-weight: 200;
+}
+
+.title {
+    font-size: clamp(3.5rem, 8vw, 72px);
+    font-weight: 200;
+    line-height: 1.1;
+    margin-bottom: 40px;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    letter-spacing: -2px;
+}
+
+.description {
+    font-size: clamp(1.2rem, 3vw, 24px);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 50px;
+    font-weight: 500;
+}
+
+#highlight {
+    font-weight: bold;
+    color: var(--secondary-orange);
+}
+
+.buttons-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.create-btn {
+    position: relative;
+    background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
+    color: #F8F6F3;
+    padding: 18px 45px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 
+        0 4px 0 #4D0103,
+        0 8px 25px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+}
+
+.create-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 0 #4D0103,
+        0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+.view-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 16px 40px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: lowercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-1px);
+}
+
+/* ===============================================
+   RESPONSIVE
+=============================================== */
+@media (max-width: 1024px) {
+    .step-content {
+        gap: 60px;
+    }
+    
+    .step-text {
+        padding: 0 30px 0 0;
+    }
+    
+    .timeline-step:nth-child(even) .step-text {
+        padding: 0 0 0 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline-container {
+        padding: 0 20px;
+    }
+    
+    .timeline::before {
+        left: 30px;
+        transform: none;
+    }
+    
+    .step-content {
+        display: block !important;
+        direction: ltr !important;
+        padding-left: 70px;
+    }
+    
+    .step-text,
+    .step-visual {
+        padding: 0 !important;
+        max-width: 100% !important;
+        justify-self: unset !important;
+        margin-bottom: 30px;
+    }
+    
+    .step-marker {
+        left: 30px;
+        transform: translateY(-50%);
+    }
+    
+    .timeline-step {
+        padding: 60px 0;
+    }
+    
+    .cta-finale {
+        background-attachment: scroll;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .create-btn,
+    .view-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-section {
+        padding: 80px 0 60px 0;
+    }
+    
+    .timeline-header {
+        margin-bottom: 60px;
+    }
+    
+    .step-image {
+        height: 280px;
+    }
+    
+    .content {
+        padding: 0 20px;
+    }
+    
+    .create-btn,
+    .view-btn {
+        max-width: 280px;
+        padding: 15px 35px;
+    }
+}
     </style>
 </head>
 <body>
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Background -->
-        <div class="bg-image"></div>
-        
-        <!-- Side Decoration Left -->
-        <div class="side-decoration"></div>
 
-        <!-- Side Decoration Right -->
-        <div class="side-decoration-right"></div>
-
-        <!-- Top Ornament -->
-        <div class="top-ornament"></div>
-        
-        <!-- Bottom Ornament -->
-        <div class="bottom-ornament"></div>
-
-        <!-- Content -->
-        <div class="content">
-            <div class="subtitle">STAGES DE COUTELLERIE AVEC LE DRAGONNIER</div>
-            <h1 class="title">Forgez votre première lame</h1>
-            <div class="ornament">
-                <div class="ornament-center"></div>
-            </div>
-            <p class="description">
-                Venez réserver une séance pour forger votre propre couteau avec le Dragonnier. 
-                Nous proposons des stages pour tous ceux qui souhaitent découvrir ce métier passionnant 
-                et créer leurs propres lames d'exception.
+<!-- SECTION TIMELINE -->
+<section class="timeline-section">
+    <div class="timeline-container">
+        <!-- HEADER -->
+        <header class="timeline-header">
+            <span class="timeline-number">Processus de création</span>
+            <h2 class="timeline-main-title">Dix étapes vers l'excellence</h2>
+            <p class="timeline-description">
+                Chaque étape révèle une facette du métier, chaque geste porte l'héritage d'un savoir-faire transmis de génération en génération. Découvrez le processus complet de création d'un couteau artisanal.
             </p>
-            <div class="buttons-container">
-                <button class="create-btn">CRÉEZ VOTRE COUTEAU</button>
-                <button class="view-btn">voir les créations</button>
+        </header>
+
+        <div class="timeline">
+            <!-- ÉTAPE 1 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 1</div>
+                        <h3 class="step-title">DESIGN</h3>
+                        <p class="step-description">Réalisation d'un croquis</p>
+                        <p class="step-description">Choix des matériaux</p>
+                        <p class="step-description">Définition du type de couteau</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Croquis et plans techniques de couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Les premiers traits qui donneront naissance au couteau</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Ensuite, le geste s'affine...</span>
+            </div>
+
+            <!-- ÉTAPE 2 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 2</div>
+                        <h3 class="step-title">SOUS-TRAITANCE</h3>
+                        <p class="step-description">Permet des prix abordables et d'accélérer le travail d'ornementation</p>
+                        <p class="step-description">Préparation de la matière brute (découpe, traitements thermiques)</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://www.rapiddirect.com/wp-content/uploads-v0/2021/06/welding-process-in-sheet-metal-fabrication.jpg" 
+                                 class="step-image" 
+                                 alt="Préparation minutieuse des pièces"
+                                 loading="lazy">
+                            <div class="image-caption">L'attention portée aux moindres détails</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Le métal prend forme...</span>
+            </div>
+
+            <!-- ÉTAPE 3 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 3</div>
+                        <h3 class="step-title">PRÉPARATION</h3>
+                        <p class="step-description">Retouche des joints et contacts mécaniques</p>
+                        <p class="step-description">Polissage des parties inaccessibles</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://img.freepik.com/photos-premium/affutage-lame-creant-processus-meuleuse-bande-couteau-faisant-mains-maitre-se-bouchent_157402-342.jpg" 
+                                 class="step-image" 
+                                 alt="Façonnage et ponçage du couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Sculpter dans l'acier pour révéler l'âme</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Chaque détail se précise...</span>
+            </div>
+
+            <!-- ÉTAPE 4 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 4</div>
+                        <h3 class="step-title">ORNEMENTATION</h3>
+                        <p class="step-description">Guillochage</p>
+                        <p class="step-description">Gravure</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Assemblage des pièces du couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Quand chaque pièce trouve sa juste place</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Puis vient la lumière du polissage...</span>
+            </div>
+
+            <!-- ÉTAPE 5 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 5</div>
+                        <h3 class="step-title">MONTAGE</h3>
+                        <p class="step-description">Montage des différentes pièces du couteau</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1609205807107-e12e43b9b802?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Polissage des lames et manches"
+                                 loading="lazy">
+                            <div class="image-caption">L'éclat naît sous les gestes du maître</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">On sépare pour mieux parfaire...</span>
+            </div>
+
+            <!-- ÉTAPE 6 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 6</div>
+                        <h3 class="step-title">FAÇONNAGE</h3>
+                        <p class="step-description">Ponçage du couteau</p>
+                        <p class="step-description">Donne son volume et son corps au produit</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://img.freepik.com/photos-premium/affutage-lame-creant-processus-meuleuse-bande-couteau-faisant-mains-maitre-se-bouchent_157402-342.jpg" 
+                                 class="step-image" 
+                                 alt="Démontage méticuleux du couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Chaque pièce révèle ses secrets</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Tout s'assemble avec précision...</span>
+            </div>
+
+            <!-- ÉTAPE 7 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 7</div>
+                        <h3 class="step-title">DÉMONTAGE</h3>
+                        <p class="step-description">Démontage des pièces du couteau</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Remontage final du couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Renaissance dans la précision absolue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Le fil se sculpte...</span>
+            </div>
+
+            <!-- ÉTAPE 8 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 8</div>
+                        <h3 class="step-title">POLISSAGE</h3>
+                        <p class="step-description">Polissage des pièces du couteau</p>
+                        <p class="step-description">Finitions différentes sur les différentes pièces</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1609205807107-e12e43b9b802?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Affûtage professionnel de la lame"
+                                 loading="lazy">
+                            <div class="image-caption">Quand l'acier rencontre la pierre sacrée</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Chaque pièce est contrôlée...</span>
+            </div>
+
+            <!-- ÉTAPE 9 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 9</div>
+                        <h3 class="step-title">REMONTAGE</h3>
+                        <p class="step-description">Remontage final du couteau</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Inspection minutieuse du couteau fini"
+                                 loading="lazy">
+                            <div class="image-caption">L'œil du maître ne laisse rien passer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Le couteau est prêt...</span>
+            </div>
+
+            <!-- ÉTAPE 10 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 10</div>
+                        <h3 class="step-title">CONTRÔLE QUALITÉ</h3>
+                        <p class="step-description">Vérification de la qualité du produit</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1609205807107-e12e43b9b802?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Présentation du couteau dans son écrin"
+                                 loading="lazy">
+                            <div class="image-caption">L'écrin qui honore l'excellence</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</section>
 
-    <script>
-        // Buttons
-        document.querySelector('.create-btn').addEventListener('click', function() {
-            // Effet de confirmation visuel
-            this.style.transform = 'scale(0.95) translateY(2px)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-            
-            alert('Création de votre couteau personnalisé...');
-        });
+<!-- CTA FINALE -->
+<section class="cta-finale">
+    <div class="content">
+        <div class="subtitle">STAGES DE COUTELLERIE AVEC LE DRAGONNIER</div>
+        <h1 class="title">Forgez votre première lame</h1>
         
-        document.querySelector('.view-btn').addEventListener('click', function() {
-            alert('Découvrez nos créations...');
+        <p class="description">
+            Venez réserver une séance pour forger votre propre couteau avec <span id="highlight">Le Dragonnier</span><br>
+            Nous proposons des stages pour tous ceux qui souhaitent découvrir ce métier passionnant 
+            et créer leurs propres couteaux
+        </p>
+
+        <div class="buttons-container">
+            <button class="create-btn">CRÉEZ VOTRE COUTEAU</button>
+            <button class="view-btn">voir les créations</button>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fallback pour navigateurs sans IntersectionObserver
+    if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.timeline-header, .timeline-step, .story-connector').forEach(function(el) {
+            el.classList.add('visible');
         });
-    </script>
+        return;
+    }
+
+    // Observer pour la timeline
+    const timelineObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                timelineObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    // Observer tous les éléments timeline
+    document.querySelectorAll('.timeline-header, .timeline-step, .story-connector').forEach(function(el) {
+        timelineObserver.observe(el);
+    });
+
+    // Interactions des boutons
+    const createBtn = document.querySelector('.create-btn');
+    const viewBtn = document.querySelector('.view-btn');
+    
+    if (createBtn) {
+        createBtn.addEventListener('click', function() {
+            console.log('Création de couteau personnalisé...');
+        });
+    }
+    
+    if (viewBtn) {
+        viewBtn.addEventListener('click', function() {
+            console.log('Découvrez nos créations...');
+        });
+    }
+});
+</script>
+
 </body>
 </html>

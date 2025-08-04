@@ -3,17 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Dragonnier - Timeline PROPRE</title>
-    <!-- ✅ Police Immortal hébergée localement + fallback élégant -->
+    <title>Le Dragonnier - Timeline Nettoyée</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
     <style>
 /* ===============================================
-   POLICE IMMORTAL HÉBERGÉE LOCALEMENT
+   VARIABLES CSS CENTRALISÉES
+=============================================== */
+:root {
+    /* Couleurs principales */
+    --primary-red: #9D0208;
+    --secondary-orange: #FAA307;
+    --accent-orange: #E85D04;
+    --dark-text: #121212;
+    --light-bg: #F8F6F3;
+    --warm-white: #FEFCFA;
+    
+    /* Typographie */
+    --font-family: 'Immortal', 'Playfair Display', serif;
+    
+    /* Espacements */
+    --container-padding: 40px;
+    --section-spacing: 120px;
+    --step-spacing: 100px;
+    
+    /* Transitions */
+    --transition-smooth: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Ombres */
+    --shadow-light: 0 4px 15px rgba(250, 163, 7, 0.3);
+    --shadow-medium: 0 20px 60px rgba(157, 2, 8, 0.12);
+    --shadow-heavy: 0 35px 90px rgba(157, 2, 8, 0.18);
+}
+
+/* ===============================================
+   POLICES
 =============================================== */
 @font-face {
     font-family: 'Immortal';
-    src: url('data:font/woff2;base64,d09GMgABAAAAAAOcAAoAAAAABIAAAANRAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAgkIKgmyCKQsGAAE2AiQDCAQgBQYHMBuEA8iO0UuLw5gJk5NTziGeeN5/v//al+xJ/E8mSTyJJE0kPEIWsaTJVKJ5xhvP80/7y//M3szOzD+qM5s6K7OyDkLyYuq2bnAmgcUWyKADDzjwNg26gO0pG4KZmKYt9HxnSEzUOx8C3jo0/2ztUnoDANkCAE8vL8+w/0M/hHyYL+SbUyCQpwCcCBoaNgIea8JG5wRdF36ImfUDTwTIErCzgI4FXgDfAHRQWqeBaTJyGhIBCo+GhETM4nFe4mIuStzCRYnzwUWLU3rXwq35OXxcFMTjnL6+eBQM5Lj9hzL9FEzHM8PFvDF4KLNVnRUOKv+ZPJcZKM3NG5L9fMwrBIsrUy9n7mVPRO/EbiTvZc6F7kTPBW8EzsVuZU7Eb0fPBW7/0A+SD5I3Av8QfgJ9AvoK+Bv4O/hf0A/hpxAOcD/lAxw==') format('woff2'),
-         url('data:font/woff;base64,d09GRgABAAAAAAOcAAoAAAAABJAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAABCAAAABoAAAAcdAJmFkdERUYAAAEkAAAAHAAAAB4AJwAJR1BPUwAAAUAAAAP0AAAGHEvLJdNPUy8yAAAFNAAAAFEAAABgagm8+WNtYXAAAAWIAAAAUwAAAWIAGgOkaGVhZAAABdwAAAAvAAAANg8oISNobXR4AAAGJAAAAA8AAAAcC+kAA2xvY2EAAAY0AAAAEAAAABAB0gJAbWF4cAAABkQAAAAfAAAAIAEVAGNuYW1lAAAGZAAAAO4AAAGqzh8JXXBvc3QAAAQyAAAAQwAAAGZgZhFq') format('woff');
+    src: url('data:font/woff2;base64,d09GMgABAAAAAAOcAAoAAAAABIAAAANRAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAgkIKgmyCKQsGAAE2AiQDCAQgBQYHMBuEA8iO0UuLw5gJk5NTziGeeN5/v//al+xJ/E8mSTyJJE0kPEIWsaTJVKJ5xhvP80/7y//M3szOzD+qM5s6K7OyDkLyYuq2bnAmgcUWyKADDzjwNg26gO0pG4KZmKYt9HxnSEzUOx8C3jo0/2ztUnoDANkCAE8vL8+w/0M/hHyYL+SbUyCQpwCcCBoaNgIea8JG5wRdF36ImfUDTwTIErCzgI4FXgDfAHRQWqeBaTJyGhIBCo+GhETM4nFe4mIuStzCRYnzwUWLU3rXwq35OXxcFMTjnL6+eBQM5Lj9hzL9FEzHM8PFvDF4KLNVnRUOKv+ZPJcZKM3NG5L9fMwrBIsrUy9n7mVPRO/EbiTvZc6F7kTPBW8EzsVuZU7Eb0fPBW7/0A+SD5I3Av8QfgJ9AvoK+Bv4O/hf0A/hpxAOcD/lAxw==') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -26,25 +54,14 @@
     font-style: normal;
     font-display: swap;
 }
-/* ===============================================
-   VARIABLES CSS PROPRES
-=============================================== */
-:root {
-    --primary-red: #9D0208;
-    --secondary-orange: #FAA307;
-    --accent-orange: #E85D04;
-    --dark-text: #121212;
-    --light-bg: #F8F6F3;
-    --warm-white: #FEFCFA;
-    --font-family: 'Immortal', 'Playfair Display', serif;
-}
 
+/* ===============================================
+   BASE STYLES
+=============================================== */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-   
-
 }
 
 body {
@@ -53,38 +70,37 @@ body {
     color: var(--dark-text);
     line-height: 1.6;
     overflow-x: hidden;
-   
-  background-attachment: fixed;
-  min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
 }
 
 /* ===============================================
-   TIMELINE SECTION
+   SECTION TIMELINE PRINCIPALE
 =============================================== */
-.timeline-section::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.938); /* ✅ overlay blanc gras */
-  z-index: 0;
-  pointer-events: none;
-}
 .timeline-section {
-    -webkit-font-smoothing: antialiased;
+    position: relative;
     background: url('https://ledragonnier.com/wp-content/uploads/2025/07/Grains-de-bois-polies-et-detaillees.png') center center / cover no-repeat;
     background-attachment: fixed;
-    position: relative;
-    z-index: 1;
+    padding: var(--section-spacing) 0;
+}
 
+/* Overlay blanc pour lisibilité */
+.timeline-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.94);
+    z-index: 0;
+    pointer-events: none;
 }
 
 .timeline-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 var(--container-padding);
     position: relative;
+    z-index: 2;
 }
 
 /* ===============================================
@@ -95,7 +111,7 @@ body {
     margin-bottom: 100px;
     opacity: 0;
     transform: translateY(60px);
-    transition: all 0.7s ease;
+    transition: var(--transition-smooth);
 }
 
 .timeline-header.visible {
@@ -140,22 +156,23 @@ body {
 }
 
 .timeline-description {
+    font-family: var(--font-family);
     font-size: 1.2rem;
     color: var(--dark-text);
-    opacity: 0.8;
+    opacity: 0.85;
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.8;
 }
 
 /* ===============================================
-   LIGNE TIMELINE CONTINUE
+   LIGNE TIMELINE CENTRALE
 =============================================== */
 .timeline {
     position: relative;
     padding: 0;
     margin: 0;
-    z-index: 2;
+    z-index: 3;
 }
 
 .timeline::before {
@@ -164,7 +181,6 @@ body {
     left: 50%;
     top: 0;
     width: 4px;
-    /* ✅ ARRÊT de la ligne AVANT le CTA pour éviter qu'elle apparaisse */
     height: calc(100% - 100px);
     background: linear-gradient(180deg, 
         transparent 0%, 
@@ -176,7 +192,7 @@ body {
         rgba(250, 163, 7, 0.3) 95%,
         transparent 100%);
     transform: translateX(-50%);
-    z-index: -1;
+    z-index: 1;
     border-radius: 2px;
 }
 
@@ -185,10 +201,10 @@ body {
 =============================================== */
 .timeline-step {
     position: relative;
-    padding: 100px 0;
+    padding: var(--step-spacing) 0;
     opacity: 0;
     transform: translateY(80px);
-    transition: all 0.7s ease;
+    transition: var(--transition-smooth);
     z-index: 3;
 }
 
@@ -218,6 +234,7 @@ body {
     padding: 0 60px 0 0;
     max-width: 600px;
     justify-self: end;
+    position: relative;
 }
 
 .timeline-step:nth-child(even) .step-text {
@@ -248,7 +265,13 @@ body {
     border: 4px solid var(--warm-white);
     border-radius: 50%;
     z-index: 100;
-    box-shadow: 0 4px 15px rgba(250, 163, 7, 0.3);
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.step-marker:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(250, 163, 7, 0.4);
 }
 
 /* ===============================================
@@ -283,7 +306,11 @@ body {
     line-height: 1.8;
     color: var(--dark-text);
     opacity: 0.85;
-    margin: 0;
+    margin: 0 0 15px 0;
+}
+
+.step-description:last-child {
+    margin-bottom: 0;
 }
 
 /* ===============================================
@@ -296,7 +323,7 @@ body {
     opacity: 0;
     transform: translateY(60px) scale(0.95);
     transition: all 0.6s ease;
-    box-shadow: 0 20px 60px rgba(157, 2, 8, 0.12);
+    box-shadow: var(--shadow-medium);
     min-height: 380px;
     background: var(--dark-text);
 }
@@ -309,7 +336,7 @@ body {
 
 .step-image-container:hover {
     transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 35px 90px rgba(157, 2, 8, 0.18);
+    box-shadow: var(--shadow-heavy);
 }
 
 .step-image {
@@ -363,7 +390,7 @@ body {
 
 .connector-text {
     display: inline-block;
-    background: rgb(254, 252, 250);
+    background: var(--warm-white);
     color: var(--primary-red);
     padding: 15px 35px;
     border-radius: 25px;
@@ -372,11 +399,34 @@ body {
     letter-spacing: 0.5px;
     border: 2px solid rgba(250, 163, 7, 0.2);
     font-weight: 400;
-    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.connector-text:hover {
+    border-color: rgba(250, 163, 7, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(250, 163, 7, 0.2);
 }
 
 /* ===============================================
-   CTA FINALE - AVEC MICRO-ANIMATIONS NOBLES
+   IMAGES DÉCORATIVES SIMPLES
+=============================================== */
+.decorative-image {
+    text-align: center;
+    margin: 40px 0;
+    opacity: 0.4;
+}
+
+.decorative-image img {
+    width: 120px;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
+    filter: grayscale(100%) contrast(1.2);
+}
+
+/* ===============================================
+   CTA FINALE - RESTAURÉE COMPLÈTEMENT
 =============================================== */
 .cta-finale {
     position: relative;
@@ -388,442 +438,449 @@ body {
     z-index: 1;
 }
 
-/* ✅ Fond + flou + obscurcissement */
+/* Background */
 .cta-finale::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -2;
     background: url('https://ledragonnier.com/wp-content/uploads/2025/07/Grains-de-bois-polies-et-detaillees.png') center center / cover no-repeat;
-    opacity: 1;
+    background-attachment: fixed;
 }
-/* Overlay froid et net */
 
-.cta-overlay {
-    
-    z-index: 1;
+/* Overlay sombre */
+.cta-finale::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        180deg,
+        rgba(18, 18, 18, 0.4) 0%,
+        rgba(18, 18, 18, 0.8) 50%,
+        rgba(18, 18, 18, 1) 100%
+    );
+    pointer-events: none;
+}
+
+/* Main Container */
+.main-container {
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 20px;
 }
-.cta-finale::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    180deg,
-    rgba(18, 18, 18, 0.45) 0%,
-    rgba(18, 18, 18, 0.35) 50%,
-    rgba(18, 18, 18, 0.5) 100%
-  );
-  pointer-events: none;
-}
-/* Container avec états d'animation */
-.cta-container {
-    max-width: 900px;
+
+/* Content */
+.content {
+    position: relative;
+    z-index: 10;
     text-align: center;
+    max-width: 900px;
+    padding: 0 40px;
+}
+
+.subtitle {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    font-weight: 200;
+    text-align: center;
+}
+
+.title {
+    font-family: var(--font-family);
+    font-size: clamp(3.5rem, 8vw, 72px);
+    font-weight: 200;
+    line-height: 1.1;
+    margin-bottom: 40px;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    letter-spacing: -2px;
+}
+
+.description {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 3vw, 24px);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 50px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+    text-align: center;
+}
+
+#highlight {
+    font-weight: bold;
+    color: var(--secondary-orange);
+}
+
+.ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    gap: 15px;
+}
+
+.ornament::before,
+.ornament::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: #d4af37;
+    transition: width 0.3s ease;
+}
+
+.ornament:hover::before,
+.ornament:hover::after {
+    width: 80px;
+}
+
+.ornament-center {
+    width: 8px;
+    height: 8px;
+    background: #d4af37;
+    border-radius: 50%;
     position: relative;
 }
 
-/* ✅ TITRE - Animation fade-up */
-.cta-title {
-    font-family: 'Immortal', 'Playfair Display', serif;
-    font-size: clamp(3.2rem, 6.5vw, 6rem);
-    font-weight: 400;
-    color: #FEFCFA;
-    letter-spacing: 0.5px;
-    line-height: 1.05;
-    margin-bottom: 20px;
-    text-align: center;
-    
-    /* Ombre douce et naturelle */
-    text-shadow: 0 2px 12px rgba(18, 18, 18, 0.8);
-    word-spacing: 0.2em;
-    
-    /* ✅ Animation d'entrée */
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+.ornament-center::before,
+.ornament-center::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #d4af37;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-/* ✅ ORNEMENT NOBLE - Entre titre et sous-titre */
-.cta-ornament {
+.ornament-center::before {
+    left: -15px;
+}
+
+.ornament-center::after {
+    right: -15px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+/* ===============================================
+   BOUTON PRINCIPAL AVEC BORDURE ROTATIVE
+=============================================== */
+.create-btn {
+    --offset: 2px;
+    position: relative;
+    background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
+    color: #F8F6F3;
+    padding: 18px 45px;
+    font-family: var(--font-family);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    
+    /* Effet métal forgé */
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 4px 0 #4D0103,
+        0 8px 25px rgba(0, 0, 0, 0.4);
+        
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Bordure rotative subtile ultra-smooth */
+.create-btn::before {
+    content: '';
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(250, 163, 7, 0.01) 15deg,
+        rgba(250, 163, 7, 0.03) 30deg,
+        rgba(250, 163, 7, 0.06) 45deg,
+        rgba(250, 163, 7, 0.12) 60deg,
+        rgba(250, 163, 7, 0.25) 75deg,
+        rgba(250, 163, 7, 0.45) 90deg,
+        rgba(250, 163, 7, 0.7) 105deg,
+        #FAA307 120deg,
+        #E85D04 180deg,
+        rgba(232, 93, 4, 0.7) 195deg,
+        rgba(232, 93, 4, 0.45) 210deg,
+        rgba(232, 93, 4, 0.25) 225deg,
+        rgba(232, 93, 4, 0.12) 240deg,
+        rgba(232, 93, 4, 0.06) 255deg,
+        rgba(232, 93, 4, 0.03) 270deg,
+        rgba(232, 93, 4, 0.01) 285deg,
+        transparent 300deg,
+        transparent 360deg
+    );
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.1);
+    aspect-ratio: 1;
+    width: 100%;
+    animation: dragonnier-rotate 4s linear infinite;
+    z-index: 1;
+}
+
+/* Overlay pour créer l'effet de bordure */
+.create-btn::after {
+    content: '';
+    background: inherit;
+    border-radius: inherit;
+    position: absolute;
+    inset: var(--offset);
+    height: calc(100% - 2 * var(--offset));
+    width: calc(100% - 2 * var(--offset));
+    z-index: 2;
+}
+
+/* Texte du bouton par-dessus */
+.create-btn-text {
+    position: relative;
+    z-index: 10;
+    text-shadow: 0 0 4px rgba(255, 220, 180, 0.3);
+}
+
+/* Animation de rotation */
+@keyframes dragonnier-rotate {
+    from {
+        transform: translate(-50%, -50%) scale(1.1) rotate(0turn);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.1) rotate(1turn);
+    }
+}
+
+.create-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 6px 0 #4D0103,
+        0 12px 35px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #C5020C 0%, #B8020A 50%, #9D0208 100%);
+}
+
+/* Effet lame qui passe en biais (comme un \) au hover */
+.create-btn-blade {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -150%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(135deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 30%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        rgba(255, 255, 255, 0.1) 70%, 
+        transparent 100%);
+    transform: skewX(20deg);
+    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 15;
+    pointer-events: none;
+}
+
+.create-btn:hover .create-btn-blade {
+    left: 120%;
+}
+
+.create-btn:active {
+    transform: translateY(2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 0 #4D0103,
+        0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.view-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 16px 40px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: lowercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    font-family: var(--font-family);
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+}
+
+.view-btn::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.view-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-1px);
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+.view-btn:hover::before {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Left side decorative elements */
+.side-decoration {
+    position: absolute;
+    left: 50px;
+    top: 20%;
+    z-index: 20;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d4af37;
+    transform: rotate(45deg);
+    background: transparent;
+    animation: floatRotate 4s ease-in-out infinite;
+}
+
+/* Right side decorative elements */
+.side-decoration-right {
+    position: absolute;
+    right: 50px;
+    bottom: 20%;
+    z-index: 20;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d4af37;
+    transform: rotate(45deg);
+    background: transparent;
+    animation: floatRotateReverse 4s ease-in-out infinite;
+}
+
+/* Additional ornaments */
+.top-ornament {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.bottom-ornament {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(212, 175, 55, 0.6);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 35px auto;
-    
-    /* ✅ Animation d'entrée */
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+    animation: breathe 4s ease-in-out infinite;
 }
 
-.cta-ornament::before {
+.bottom-ornament::before {
     content: '';
-    width: 25px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #D4851F, transparent);
-    opacity: 0.7;
-}
-
-.cta-ornament-icon {
-    margin: 0 20px;
-    width: 30px;
+    width: 20px;
     height: 20px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20' fill='none'%3E%3C!-- Enclume stylisée --%3E%3Cpath d='M3 16 L27 16 M6 16 L6 13 L24 13 L24 16 M8 13 L8 10 L22 10 L22 13 M10 10 L10 8 L20 8 L20 10 M12 8 L12 6 L18 6 L18 8' stroke='%23D4851F' stroke-width='1.2' opacity='0.8' fill='none'/%3E%3C!-- Détail marteau --%3E%3Ccircle cx='15' cy='4' r='1' fill='%23D4851F' opacity='0.6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    opacity: 0.8;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 50%;
+    animation: innerSpin 8s linear infinite;
 }
 
-.cta-ornament::after {
-    content: '';
-    width: 25px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #D4851F, transparent);
-    opacity: 0.7;
+@keyframes floatRotate {
+    0%, 100% { 
+        transform: rotate(45deg) translateY(0px);
+        opacity: 0.8;
+    }
+    50% { 
+        transform: rotate(45deg) translateY(-8px);
+        opacity: 1;
+    }
 }
 
-/* ✅ SOUS-TITRE - Animation fade-up décalée */
-.cta-subtitle {
-    font-family: 'Immortal', 'Playfair Display', serif;
-    font-size: clamp(1.3rem, 2.8vw, 1.9rem);
-    font-style: italic;
-    font-weight: 400;
-    color: #D4851F;
-    margin-bottom: 70px;
-    line-height: 1.6;
-    text-align: center;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    
-    /* Contraste net */
-    text-shadow: 0 1px 8px rgba(18, 18, 18, 0.9);
-    opacity: 0.95;
-    
-    /* ✅ Animation d'entrée */
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s;
+@keyframes floatRotateReverse {
+    0%, 100% { 
+        transform: rotate(45deg) translateY(0px);
+        opacity: 0.8;
+    }
+    50% { 
+        transform: rotate(45deg) translateY(8px);
+        opacity: 1;
+    }
 }
 
-/* ICI GROUPE BOUTONS - Animation fade-up finale */
-/* aaa *//* GROUPE BOUTONS - Animation fade-up finale */
-.cta-buttons {
- display: flex;
- gap: clamp(30px, 5vw, 60px);
- justify-content: center;
- margin-top: 60px;
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 0.6;
+        width: 60px;
+    }
+    50% { 
+        opacity: 1;
+        width: 80px;
+    }
 }
 
-.cta-btn {
- padding: 22px 50px;
- font-family: 'Immortal', 'Georgia', serif;
- font-size: 1rem;
- letter-spacing: 1.5px;
- text-transform: uppercase;
- text-decoration: none;
- border-radius: 0;
- transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
- text-align: center;
- border: 2px solid transparent;
- position: relative;
- overflow: hidden;
- cursor: pointer;
+@keyframes breathe {
+    0%, 100% { 
+        transform: translateX(-50%) scale(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: translateX(-50%) scale(1.1);
+        opacity: 1;
+    }
 }
 
-/* Bouton Primaire - Rouge profond */
-.cta-btn.primary {
- background: #9D0208;
- color: #FEFCFA;
- min-width: 280px;
- font-weight: 500;
- border-color: #9D0208;
- box-shadow: 
-   0 4px 20px rgba(157, 2, 8, 0.25),
-   inset 0 -2px 0 rgba(18, 18, 18, 0.2);
- text-shadow: 0 1px 2px rgba(18, 18, 18, 0.3);
-}
-
-.cta-btn.primary::before {
- content: "⚒";
- position: absolute;
- left: 25px;
- top: 50%;
- transform: translateY(-50%);
- font-size: 1.2rem;
- opacity: 0.6;
- transition: all 0.3s ease;
-}
-
-/* Effet de brillance au hover */
-.cta-btn.primary::after {
- content: "";
- position: absolute;
- top: 0;
- left: -100%;
- width: 100%;
- height: 100%;
- background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
- transition: left 0.6s ease;
-}
-
-.cta-btn.primary:hover {
- background: #B91C1C;
- transform: translateY(-2px);
- box-shadow: 
-   0 6px 30px rgba(157, 2, 8, 0.35),
-   inset 0 -2px 0 rgba(18, 18, 18, 0.2);
-}
-
-.cta-btn.primary:hover::before {
- transform: translateY(-50%) translateX(3px);
- opacity: 0.8;
-}
-
-.cta-btn.primary:hover::after {
- left: 100%;
-}
-
-/* Bouton Secondaire - Contour doré */
-.cta-btn.secondary {
- background: transparent;
- color: #FAA307;
- border: 2px solid #FAA307;
- min-width: 240px;
- font-weight: 500;
- box-shadow: 
-   0 4px 20px rgba(250, 163, 7, 0.15),
-   inset 0 0 0 0 #FAA307;
- text-shadow: 0 1px 3px rgba(18, 18, 18, 0.4);
- transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.cta-btn.secondary::before {
- content: "◆";
- position: absolute;
- left: 25px;
- top: 50%;
- transform: translateY(-50%);
- font-size: 1rem;
- opacity: 0.7;
- color: #FAA307;
- transition: all 0.3s ease;
-}
-
-/* Remplissage progressif au hover */
-.cta-btn.secondary::after {
- content: "";
- position: absolute;
- top: 0;
- left: 0;
- width: 0;
- height: 100%;
- background: #FAA307;
- transition: width 0.3s ease;
- z-index: -1;
-}
-
-.cta-btn.secondary:hover {
- color: #FEFCFA;
- transform: translateY(-2px);
- box-shadow: 
-   0 6px 30px rgba(250, 163, 7, 0.3);
- border-color: #FAA307;
-}
-
-.cta-btn.secondary:hover::before {
- transform: translateY(-50%) translateX(3px);
- opacity: 1;
- color: #FEFCFA;
-}
-
-.cta-btn.secondary:hover::after {
- width: 100%;
-}
-
-/* Active state pour feedback tactile */
-.cta-btn:active {
- transform: translateY(0);
- box-shadow: 
-   0 2px 10px rgba(0, 0, 0, 0.2),
-   inset 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* Focus pour accessibilité */
-.cta-btn:focus {
- outline: none;
- box-shadow: 
-   0 0 0 3px rgba(250, 163, 7, 0.5),
-   0 4px 20px rgba(250, 163, 7, 0.25);
-}
-
-/* Animations d'entrée */
-@keyframes fadeInUp {
- from {
-   opacity: 0;
-   transform: translateY(30px);
- }
- to {
-   opacity: 1;
-   transform: translateY(0);
- }
-}
-
-.cta-buttons {
- animation: fadeInUp 0.8s ease-out 0.6s both;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
- .cta-buttons {
-   flex-direction: column;
-   align-items: center;
-   gap: 20px;
- }
- 
- .cta-btn {
-   width: 100%;
-   max-width: 320px;
-   padding: 20px 45px;
-   min-width: unset;
- }
- 
- .cta-btn.primary::before,
- .cta-btn.secondary::before {
-   left: 20px;
-   font-size: 1rem;
- }
-}
-
-@media (max-width: 480px) {
- .cta-btn {
-   padding: 18px 40px;
-   font-size: 0.95rem;
-   letter-spacing: 1.2px;
- }
- 
- .cta-btn.primary::before,
- .cta-btn.secondary::before {
-   left: 15px;
-   font-size: 0.9rem;
- }
-}
-/* ===============================================
-   ÉTATS D'ANIMATION ACTIVÉS
-=============================================== */
-.cta-finale.animate .cta-title,
-.cta-finale.animate .cta-ornament,
-.cta-finale.animate .cta-subtitle,
-.cta-finale.animate .cta-buttons {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes innerSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* ===============================================
-   RESPONSIVE MOBILE OPTIMISÉ
-=============================================== */
-@media (max-width: 768px) {
-    .cta-finale {
-        min-height: 85vh;
-    }
-    
-    .cta-overlay {
-        padding: 60px 20px;
-    }
-    
-    .cta-container {
-        /* ✅ Plus d'espace pour éviter le collage au manche */
-        margin: 0 15px;
-    }
-    
-    .cta-title {
-        margin-bottom: 15px;
-        word-spacing: 0.1em;
-        /* ✅ Ajustement mobile précis */
-        font-size: clamp(2.5rem, 8vw, 3.5rem);
-    }
-    
-    .cta-ornament {
-        margin: 25px auto;
-    }
-    
-    .cta-ornament-icon {
-        width: 25px;
-        height: 16px;
-        margin: 0 15px;
-    }
-    
-    .cta-subtitle {
-        margin-bottom: 50px;
-        /* ✅ Taille mobile optimisée */
-        font-size: clamp(1.1rem, 4vw, 1.4rem);
-        line-height: 1.5;
-    }
-    
-    
-}
-
-@media (max-width: 480px) {
-    .cta-overlay {
-        padding: 40px 15px;
-    }
-    
-    .cta-container {
-        margin: 0 10px;
-    }
-    
-    .cta-title {
-        /* ✅ Très petit écran - taille contrôlée */
-        font-size: clamp(2.2rem, 9vw, 3rem);
-        line-height: 1.1;
-    }
-    
-    .cta-subtitle {
-        font-size: clamp(1rem, 4.5vw, 1.3rem);
-        margin-bottom: 40px;
-    }
-    .cta-buttons {
-        flex-direction: column;
-        gap: 16px;
-    }
-    .cta-btn {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .cta-ornament-icon {
-        width: 20px;
-        height: 14px;
-        margin: 0 12px;
-    }
-}
-
-/* ===============================================
-   SUPPRESSION EFFETS VISTA
-=============================================== */
-.cta-container::before,
-.cta-container::after {
-    display: none;
-}
-
-.cta-btn::after {
-    display: none;
-}
-
-* {
-    backdrop-filter: none !important;
-}
-/* ===============================================
-   RESPONSIVE
+   RESPONSIVE OPTIMISÉ
 =============================================== */
 @media (max-width: 1024px) {
+    :root {
+        --container-padding: 30px;
+        --step-spacing: 80px;
+    }
+    
     .step-content {
         gap: 60px;
     }
@@ -838,8 +895,10 @@ body {
 }
 
 @media (max-width: 768px) {
-    .timeline-container {
-        padding: 0 20px;
+    :root {
+        --container-padding: 20px;
+        --section-spacing: 80px;
+        --step-spacing: 60px;
     }
     
     .timeline::before {
@@ -867,27 +926,37 @@ body {
     }
     
     .timeline-step {
-        padding: 60px 0;
+        padding: var(--step-spacing) 0;
     }
     
     .cta-finale {
         background-attachment: scroll;
     }
     
-    .cta-buttons {
+    .buttons-container {
         flex-direction: column;
         align-items: center;
+        gap: 20px;
     }
     
-    .cta-btn {
+    .create-btn,
+    .view-btn {
         width: 100%;
         max-width: 300px;
+    }
+    
+    .side-decoration,
+    .side-decoration-right,
+    .top-ornament,
+    .bottom-ornament {
+        display: none;
     }
 }
 
 @media (max-width: 480px) {
-    .timeline-section {
-        padding: 80px 0 60px 0;
+    :root {
+        --section-spacing: 60px;
+        --step-spacing: 40px;
     }
     
     .timeline-header {
@@ -897,14 +966,61 @@ body {
     .step-image {
         height: 280px;
     }
+    
+    .content {
+        padding: 0 20px;
+    }
+    
+    .title {
+        font-size: clamp(2.2rem, 9vw, 3rem);
+    }
+    
+    .description {
+        font-size: clamp(1rem, 4.5vw, 1.3rem);
+        margin-bottom: 40px;
+    }
+    
+    .create-btn,
+    .view-btn {
+        max-width: 280px;
+        padding: 15px 35px;
+    }
+    
+    .side-decoration,
+    .side-decoration-right,
+    .top-ornament,
+    .bottom-ornament {
+        display: none;
+    }
+}
+
+/* ===============================================
+   OPTIMISATIONS PERFORMANCE
+=============================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.step-image-container,
+.create-btn,
+.step-marker,
+.timeline::before {
+    will-change: transform;
 }
     </style>
 </head>
 <body>
 
-<!-- TIMELINE SECTION PROPRE -->
+<!-- SECTION TIMELINE NETTOYÉE -->
 <section class="timeline-section">
     <div class="timeline-container">
+        <!-- HEADER TIMELINE -->
         <header class="timeline-header">
             <span class="timeline-number">Processus de création</span>
             <h2 class="timeline-main-title">Dix étapes vers l'excellence</h2>
@@ -918,13 +1034,13 @@ body {
             <div class="timeline-step">
                 <div class="step-marker"></div>
                 <div class="step-content">
- <div class="step-text">
-            <div class="step-badge">ETAPE 1 </div>
-            <h3 class="step-title">DESIGN</h3>
-            <p class="step-description">Réalisation d'un croquis</p>
-            <p class="step-description">Choix des matériaux</p>
-            <p class="step-description"></p>Définition du type de couteau</p>
-          </div>
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 1</div>
+                        <h3 class="step-title">DESIGN</h3>
+                        <p class="step-description">Réalisation d'un croquis</p>
+                        <p class="step-description">Choix des matériaux</p>
+                        <p class="step-description">Définition du type de couteau</p>
+                    </div>
                     <div class="step-visual">
                         <div class="step-image-container">
                             <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=600&h=380&fit=crop&crop=center" 
@@ -937,6 +1053,11 @@ body {
                 </div>
             </div>
 
+            <!-- IMAGE DÉCORATIVE APRÈS ÉTAPE 1 -->
+            <div class="decorative-image">
+                <img src="https://images.rawpixel.com/image_png_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvam9iNjY2LTE3MS1wLWwxMDg0aXhlLnBuZw.png" alt="Ornement compas" loading="lazy" />
+            </div>
+
             <div class="story-connector">
                 <span class="connector-text">Ensuite, le geste s'affine...</span>
             </div>
@@ -946,16 +1067,10 @@ body {
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">Etape 2</div>
+                        <div class="step-badge">ÉTAPE 2</div>
                         <h3 class="step-title">SOUS-TRAITANCE</h3>
-                        <p class="step-description">
-Permet des prix abordables et d'accélérer le travail d'ornementation
-                        </p>
-                                             <p class="step-description">
-Préparation de la matière
-brute (découpe, traitements
-thermiques)
-                        </p>
+                        <p class="step-description">Permet des prix abordables et d'accélérer le travail d'ornementation</p>
+                        <p class="step-description">Préparation de la matière brute (découpe, traitements thermiques)</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -978,12 +1093,10 @@ thermiques)
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">Etape 3</div>
+                        <div class="step-badge">ÉTAPE 3</div>
                         <h3 class="step-title">PRÉPARATION</h3>
-                        <p class="step-description">
-                            Retouche des joints et contacts mécaniques
-                        </p>
-                        <p class="step-description"> Polissage des parties inaccessibles</p>
+                        <p class="step-description">Retouche des joints et contacts mécaniques</p>
+                        <p class="step-description">Polissage des parties inaccessibles</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -1006,10 +1119,10 @@ thermiques)
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">ETAPE 4</div>
+                        <div class="step-badge">ÉTAPE 4</div>
                         <h3 class="step-title">ORNEMENTATION</h3>
-                        <p class="step-description"> Guillochage </p>
-                        <p class="step-description"> Gravure</p>
+                        <p class="step-description">Guillochage</p>
+                        <p class="step-description">Gravure</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -1023,6 +1136,11 @@ thermiques)
                 </div>
             </div>
 
+            <!-- IMAGE DÉCORATIVE AVANT ÉTAPE 5 -->
+            <div class="decorative-image">
+                <img src="https://images.rawpixel.com/image_social_square/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2pvYjcxNC0wMTgteC5qcGc.jpg" alt="Ornement gravure" loading="lazy" />
+            </div>
+
             <div class="story-connector">
                 <span class="connector-text">Puis vient la lumière du polissage...</span>
             </div>
@@ -1032,10 +1150,9 @@ thermiques)
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">ETAPE 5</div>
+                        <div class="step-badge">ÉTAPE 5</div>
                         <h3 class="step-title">MONTAGE</h3>
-                        <p class="step-description">
-                            Montage des différentes pièces du couteau </p>
+                        <p class="step-description">Montage des différentes pièces du couteau</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -1058,14 +1175,10 @@ thermiques)
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">ETAPE 6</div>
+                        <div class="step-badge">ÉTAPE 6</div>
                         <h3 class="step-title">FAÇONNAGE</h3>
-                        <p class="step-description">
-                            Ponçage du couteau
-                        </p>
-                        <p class="step-description">
-                            donne son volume et son corps au produit
-                        </p>
+                        <p class="step-description">Ponçage du couteau</p>
+                        <p class="step-description">Donne son volume et son corps au produit</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -1079,6 +1192,11 @@ thermiques)
                 </div>
             </div>
 
+            <!-- IMAGE DÉCORATIVE APRÈS ÉTAPE 6 -->
+            <div class="decorative-image">
+                <img src="https://images.rawpixel.com/image_png_social_square/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L2pvYjcxMy0xMjEtcC5wbmc.png" alt="Ornement lame" loading="lazy" />
+            </div>
+
             <div class="story-connector">
                 <span class="connector-text">Tout s'assemble avec précision...</span>
             </div>
@@ -1088,11 +1206,9 @@ thermiques)
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">Étape 7</div>
+                        <div class="step-badge">ÉTAPE 7</div>
                         <h3 class="step-title">DÉMONTAGE</h3>
-                        <p class="step-description">
-                            Démontage des pièces du couteau
-                        </p>
+                        <p class="step-description">Démontage des pièces du couteau</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -1115,10 +1231,10 @@ thermiques)
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">Étape 8</div>
+                        <div class="step-badge">ÉTAPE 8</div>
                         <h3 class="step-title">POLISSAGE</h3>
                         <p class="step-description">Polissage des pièces du couteau</p>
-                        <p class="step-description">finissions différentes sur les différentes pièces</p>
+                        <p class="step-description">Finitions différentes sur les différentes pièces</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -1141,11 +1257,9 @@ thermiques)
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">REMONTAGE</div>
-                        <h3 class="step-title">Inspection artisanale</h3>
-                        <p class="step-description">
-                            Remontage final du couteau
-                        </p>
+                        <div class="step-badge">ÉTAPE 9</div>
+                        <h3 class="step-title">REMONTAGE</h3>
+                        <p class="step-description">Remontage final du couteau</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -1168,9 +1282,9 @@ thermiques)
                 <div class="step-marker"></div>
                 <div class="step-content">
                     <div class="step-text">
-                        <div class="step-badge">Étape 11</div>
-                        <h3 class="step-title">CONTROLE QUALITÉ </h3>
-                        <p class="step-description"> Vérification de la qualité du produit</p>
+                        <div class="step-badge">ÉTAPE 10</div>
+                        <h3 class="step-title">CONTRÔLE QUALITÉ</h3>
+                        <p class="step-description">Vérification de la qualité du produit</p>
                     </div>
                     <div class="step-visual">
                         <div class="step-image-container">
@@ -1187,37 +1301,53 @@ thermiques)
     </div>
 </section>
 
-<!-- CTA FINALE PROPRE -->
+<!-- CTA FINALE RESTAURÉE -->
 <section class="cta-finale">
-    <div class="cta-overlay">
-        <div class="cta-container">
-            <h1 class="cta-title">Forgez votre propre exception</h1>
-            <p class="cta-subtitle">Dans le silence de l'atelier, l'excellence prend forme entre vos mains.</p>
-            <div class="cta-buttons">
-                <a href="/atelier-de-montage" class="cta-btn primary">Créer mon couteau</a>
-                <a href="/creations" class="cta-btn secondary">Voir les créations</a>
+    <div class="main-container">
+        <!-- Ornements décoratifs -->
+        <div class="side-decoration"></div>
+        <div class="side-decoration-right"></div>
+        <div class="top-ornament"></div>
+        <div class="bottom-ornament"></div>
+
+        <!-- Contenu principal -->
+        <div class="content">
+            <div class="subtitle">STAGES DE COUTELLERIE AVEC LE DRAGONNIER</div>
+            <h1 class="title">Forgez votre première lame</h1>
+            
+            <div class="ornament">
+                <div class="ornament-center"></div>
+            </div>
+            
+            <p class="description">
+                Venez réserver une séance pour forger votre propre couteau avec <span id="highlight">Le Dragonnier</span><br>
+                Nous proposons des stages pour tous ceux qui souhaitent découvrir ce métier passionnant 
+                et créer leurs propres couteaux
+            </p>
+
+            <div class="buttons-container">
+                <button class="create-btn">
+                    <span class="create-btn-text">CRÉEZ VOTRE COUTEAU</span>
+                    <div class="create-btn-blade"></div>
+                </button>
+                <button class="view-btn">voir les créations</button>
             </div>
         </div>
     </div>
 </section>
 
 <script>
-// ✅ INTERSECTION OBSERVER TIMELINE + CTA COMBINÉ
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Fallback pour les navigateurs sans support
+    // Fallback pour navigateurs sans IntersectionObserver
     if (!('IntersectionObserver' in window)) {
         document.querySelectorAll('.timeline-header, .timeline-step, .story-connector').forEach(function(el) {
             el.classList.add('visible');
         });
-        // CTA avec classe différente
-        var cta = document.querySelector('.cta-finale');
-        if (cta) cta.classList.add('animate');
         return;
     }
 
-    // ✅ Observer pour TIMELINE (classe .visible)
-    var timelineObserver = new IntersectionObserver(function(entries) {
+    // Observer pour la timeline
+    const timelineObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
@@ -1229,55 +1359,30 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -100px 0px'
     });
 
-    // ✅ Observer pour CTA (classe .animate)
-    var ctaObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
-                ctaObserver.unobserve(entry.target);
-            }
-        });
-    }, { 
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    // ✅ Observer les éléments timeline
+    // Observer tous les éléments timeline
     document.querySelectorAll('.timeline-header, .timeline-step, .story-connector').forEach(function(el) {
         timelineObserver.observe(el);
     });
+
+    // Interactions des boutons
+    const createBtn = document.querySelector('.create-btn');
+    const viewBtn = document.querySelector('.view-btn');
     
-    // ✅ Observer le CTA séparément
-    var cta = document.querySelector('.cta-finale');
-    if (cta) ctaObserver.observe(cta);
-
-    // Performance : Gestion du scroll rapide (commenté pour le moment)
-    // var ticking = false;
-    // var lastScrollY = window.scrollY;
-
-    // function updateOnScroll() {
-    //     var currentScrollY = window.scrollY;
-    //     var scrollSpeed = Math.abs(currentScrollY - lastScrollY);
-        
-    //     if (scrollSpeed > 30) {
-    //         document.querySelectorAll('.timeline-step:not(.visible), .story-connector:not(.visible)').forEach(function(el) {
-    //             var rect = el.getBoundingClientRect();
-    //             if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
-    //                 el.classList.add('visible');
-    //             }
-    //         });
-    //     }
-        
-    //     lastScrollY = currentScrollY;
-    //     ticking = false;
-    // }
-
-    // window.addEventListener('scroll', function() {
-    //     if (!ticking) {
-    //         requestAnimationFrame(updateOnScroll);
-    //         ticking = true;
-    //     }
-    // }, { passive: true });
+    if (createBtn) {
+        createBtn.addEventListener('click', function() {
+            this.style.transform = 'scale(0.95) translateY(2px)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            console.log('Création de couteau personnalisé...');
+        });
+    }
+    
+    if (viewBtn) {
+        viewBtn.addEventListener('click', function() {
+            console.log('Découvrez nos créations...');
+        });
+    }
 });
 </script>
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgez votre propre exception</title>
-    <link href="https://fonts.googleapis.com/css2?family=Immortal&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Immortal&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -72,15 +72,15 @@
         }
 
         .description {
-            font-family: 'Immortal', serif;
-            font-size: 16px;
-            line-height: 1.7;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            line-height: 1.8;
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 50px;
-            max-width: 500px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
-            font-weight: 300;
+            font-weight: 500;
             text-align: center;
         }
 
@@ -138,37 +138,24 @@
         }
 
         /* ===============================================
-           BOUTON PRINCIPAL PREMIUM FORGE - ROUGE MOODBOARD
+           BOUTON PRINCIPAL AVEC BORDURE SUBTILE ULTRA-SMOOTH
         =============================================== */
         .create-btn {
+            --offset: 2px;
             position: relative;
-            background: linear-gradient(135deg, #9D0208 0%, #7A0106 50%, #4D0103 100%);
+            background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
             color: #F8F6F3;
             padding: 18px 45px;
             font-family: 'Immortal', serif;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
             cursor: pointer;
             border-radius: 6px;
             overflow: hidden;
-            transition: all 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            
-            /* Running border avec conic-gradient */
-            --angle: 0deg;
-            --border-size: 2px;
-            border: var(--border-size) solid transparent;
-            border-image: conic-gradient(
-                from var(--angle),
-                transparent 0deg 45deg,
-               
-                rgba(250, 163, 7, 0.6) 90deg 135deg,
-                rgba(250, 163, 7, 0.4) 180deg 225deg,
-                rgba(212, 175, 55, 0.2) 225deg 270deg,
-                transparent 270deg 315deg,
-                rgba(255, 196, 0, 0.1) 315deg 360deg
-            ) 1 stretch;
+            transition: all 0.3s ease;
+            border: none;
             
             /* Effet métal forgé */
             box-shadow: 
@@ -178,38 +165,71 @@
                 0 8px 25px rgba(0, 0, 0, 0.4);
                 
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-            
-            /* Animation du gradient qui tourne */
-            animation: border-rotate 13s linear infinite;
         }
 
-        /* Définition de la propriété CSS custom pour l'animation */
-        @property --angle {
-            syntax: "<angle>";
-            initial-value: 0deg;
-            inherits: false;
-        }
-
-        @keyframes border-rotate {
-            to {
-                --angle: 360deg;
-            }
-        }
-
-        /* Flash métallique au hover */
+        /* Bordure rotative subtile ultra-smooth */
         .create-btn::before {
             content: '';
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(250, 163, 7, 0.01) 15deg,
+                rgba(250, 163, 7, 0.03) 30deg,
+                rgba(250, 163, 7, 0.06) 45deg,
+                rgba(250, 163, 7, 0.12) 60deg,
+                rgba(250, 163, 7, 0.25) 75deg,
+                rgba(250, 163, 7, 0.45) 90deg,
+                rgba(250, 163, 7, 0.7) 105deg,
+                #FAA307 120deg,
+                #E85D04 180deg,
+                rgba(232, 93, 4, 0.7) 195deg,
+                rgba(232, 93, 4, 0.45) 210deg,
+                rgba(232, 93, 4, 0.25) 225deg,
+                rgba(232, 93, 4, 0.12) 240deg,
+                rgba(232, 93, 4, 0.06) 255deg,
+                rgba(232, 93, 4, 0.03) 270deg,
+                rgba(232, 93, 4, 0.01) 285deg,
+                transparent 300deg,
+                transparent 360deg
+            );
             position: absolute;
-            top: 0;
-            left: -100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.1);
+            aspect-ratio: 1;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
+            animation: dragonnier-rotate 4s linear infinite;
+            z-index: 1;
+        }
+
+        /* Overlay pour créer l'effet de bordure */
+        .create-btn::after {
+            content: '';
+            background: inherit;
+            border-radius: inherit;
+            position: absolute;
+            inset: var(--offset);
+            height: calc(100% - 2 * var(--offset));
+            width: calc(100% - 2 * var(--offset));
             z-index: 2;
         }
 
-        /* Effet métal brossé subtil - SUPPRIMÉ pour éviter conflit avec l'étincelle */
+        /* Texte du bouton par-dessus */
+        .create-btn-text {
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 0 4px rgba(255, 220, 180, 0.3);
+        }
+
+        /* Animation de rotation */
+        @keyframes dragonnier-rotate {
+            from {
+                transform: translate(-50%, -50%) scale(1.1) rotate(0turn);
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1.1) rotate(1turn);
+            }
+        }
 
         .create-btn:hover {
             transform: translateY(-2px);
@@ -218,14 +238,31 @@
                 inset 0 -1px 0 rgba(0, 0, 0, 0.3),
                 0 6px 0 #4D0103,
                 0 12px 35px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
-            
-            /* Accélération de la rotation au hover */
-            animation-duration: 1.5s;
+            background: linear-gradient(135deg, #C5020C 0%, #B8020A 50%, #9D0208 100%);
         }
 
-        .create-btn:hover::before {
-            left: 100%;
+        /* Effet lame qui passe en biais (comme un \) au hover */
+        .create-btn-blade {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -150%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(135deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.1) 30%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                rgba(255, 255, 255, 0.1) 70%, 
+                transparent 100%);
+            transform: skewX(20deg);
+            transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        .create-btn:hover .create-btn-blade {
+            left: 120%;
         }
 
         .create-btn:active {
@@ -237,18 +274,19 @@
         }
 
         .view-btn {
-            background: transparent;
-            color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             padding: 16px 40px;
-            font-size: 11px;
-            font-weight: 400;
+            font-size: 13px;
+            font-weight: 500;
             text-transform: lowercase;
             letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             font-family: 'Immortal', serif;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.15);
         }
 
         .view-btn::before {
@@ -263,9 +301,11 @@
         }
 
         .view-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
             color: white;
-            border-color: rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.8);
             transform: translateY(-1px);
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
         }
 
         .view-btn:hover::before {
@@ -447,6 +487,9 @@
                 max-width: 300px;
             }
         }
+        #highlight {
+    font-weight: bold;
+}
     </style>
 </head>
 <body>
@@ -474,13 +517,17 @@
             <div class="ornament">
                 <div class="ornament-center"></div>
             </div>
-            <p class="description">
-                Venez réserver une séance pour forger votre propre couteau avec le Dragonnier. 
-                Nous proposons des stages pour tous ceux qui souhaitent découvrir ce métier passionnant 
-                et créer leurs propres lames d'exception.
-            </p>
+<p class="description">
+    Venez réserver une séance pour forger votre propre couteau avec <span id=highlight>Le Dragonnier</strong></span><br>
+    Nous proposons des stages pour tous ceux qui souhaitent découvrir ce métier passionnant 
+    et créer leurs propres couteaux
+</p>
+
             <div class="buttons-container">
-                <button class="create-btn">CRÉEZ VOTRE COUTEAU</button>
+                <button class="create-btn">
+                    <span class="create-btn-text">CRÉEZ VOTRE COUTEAU</span>
+                    <div class="create-btn-blade"></div>
+                </button>
                 <button class="view-btn">voir les créations</button>
             </div>
         </div>

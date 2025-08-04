@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Dragonnier - Timeline Marges Corrigées</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+/* ===============================================
+   VARIABLES CSS CENTRALISÉES
+=============================================== */
+:root {
+    /* Couleurs principales */
+    --primary-red: #9D0208;
+    --secondary-orange: #FAA307;
+    --accent-orange: #E85D04;
+    --dark-text: #121212;
+    --light-bg: #F8F6F3;
+    --warm-white: #FEFCFA;
+    
+    /* Typographie */
+    --font-family: 'Immortal', 'Playfair Display', serif;
+    
+    /* Espacements - CORRIGÉS */
+    --container-padding: 40px;
+    --section-spacing: 100px;
+    --step-spacing: 80px;
+    --text-max-width: 600px;
+    --image-max-width: 600px;
+    
+    /* Animations */
+    --transition-smooth: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Ombres */
+    --shadow-light: 0 4px 15px rgba(250, 163, 7, 0.3);
+    --shadow-medium: 0 20px 60px rgba(157, 2, 8, 0.12);
+    --shadow-heavy: 0 35px 90px rgba(157, 2, 8, 0.18);
+}
+
+/* ===============================================
+   POLICES OPTIMISÉES (Format Data URI nettoyé)
+=============================================== */
+@font-face {
+    font-family: 'Immortal';
+    src: url('data:font/woff2;base64,d09GMgABAAAAAAOcAAoAAAAABIAAAANRAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAgkIKgmyCKQsGAAE2AiQDCAQgBQYHMBuEA8iO0UuLw5gJk5NTziGeeN5/v//al+xJ/E8mSTyJJE0kPEIWsaTJVKJ5xhvP80/7y//M3szOzD+qM5s6K7OyDkLyYuq2bnAmgcUWyKADDzjwNg26gO0pG4KZmKYt9HxnSEzUOx8C3jo0/2ztUnoDANkCAE8vL8+w/0M/hHyYL+SbUyCQpwCcCBoaNgIea8JG5wRdF36ImfUDTwTIErCzgI4FXgDfAHRQWqeBaTJyGhIBCo+GhETM4nFe4mIuStzCRYnzwUWLU3rXwq35OXxcFMTjnL6+eBQM5Lj9hzL9FEzHM8PFvDF4KLNVnRUOKv+ZPJcZKM3NG5L9fMwrBIsrUy9n7mVPRO/EbiTvZc6F7kTPBW8EzsVuZU7Eb0fPBW7/0A+SD5I3Av8QfgJ9AvoK+Bv4O/hf0A/hpxAOcD/lAxw==') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Immortal';
+    src: url('data:font/woff2;base64,d09GMgABAAAAAAO0AAoAAAAABIgAAANrAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAgkIKgmyCLwsGAAE2AiQDCAQgBQYHMBuGA8iO0UvLhJgJkxNTXk888/z/R/c99yV/J/608aeTTlsO1HigARpggCYYQQMJNJBAAwn0//f7y/fy3jm3szq7OquyKuugJK8tW7u3dcwJO8yYIGNqGu/EzwQ89RyyJK7Q8520NEk39V69A+gW5Q/gANPsApQ+ACDbgKenN3e49ow8I/s9gHxzChDIMwCHgAbAdgAP2tYwfAgJ5D+IP8gP/AMPAWQJmlRAx4Y3AHwD0EHpWsdxOkxMJWB3DRJpCGXgY7gU7Eo8tgjvVvyI/lHgVPBQ8g==') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ===============================================
+   BASE STYLES
+=============================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+/* ===============================================
+   SECTION TIMELINE PRINCIPALE
+=============================================== */
+.timeline-section {
+    position: relative;
+    background: url('https://ledragonnier.com/wp-content/uploads/2025/07/Grains-de-bois-polies-et-detaillees.png') center center / cover no-repeat;
+    background-attachment: fixed;
+    padding: var(--section-spacing) 0;
+}
+
+/* Overlay blanc pour lisibilité */
+.timeline-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.94);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.timeline-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    position: relative;
+    z-index: 2;
+}
+
+/* ===============================================
+   HEADER TIMELINE - MARGES CORRIGÉES
+=============================================== */
+.timeline-header {
+    text-align: center;
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: var(--transition-smooth);
+}
+
+.timeline-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-number {
+    display: block;
+    font-size: 1rem;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.timeline-main-title {
+    font-family: var(--font-family);
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--primary-red);
+    margin: 0 0 30px 0;
+    font-weight: 400;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.timeline-main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--secondary-orange), var(--accent-orange));
+    transition: width 1s ease 0.8s;
+}
+
+.timeline-header.visible .timeline-main-title::after {
+    width: 120px;
+}
+
+.timeline-description {
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    color: var(--dark-text);
+    opacity: 0.85;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* ===============================================
+   LIGNE TIMELINE CENTRALE
+=============================================== */
+.timeline {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    z-index: 3;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 4px;
+    height: calc(100% - 100px);
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(157, 2, 8, 0.4) 5%,
+        var(--primary-red) 15%, 
+        var(--accent-orange) 45%, 
+        var(--secondary-orange) 75%, 
+        rgba(250, 163, 7, 0.6) 90%,
+        rgba(250, 163, 7, 0.3) 95%,
+        transparent 100%);
+    transform: translateX(-50%);
+    z-index: 1;
+    border-radius: 2px;
+}
+
+/* ===============================================
+   ÉTAPES TIMELINE - MARGES STRICTEMENT ALIGNÉES
+=============================================== */
+.timeline-step {
+    position: relative;
+    padding: var(--step-spacing) 0;
+    opacity: 0;
+    transform: translateY(80px);
+    transition: var(--transition-smooth);
+    z-index: 3;
+}
+
+.timeline-step.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.step-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: flex-start;
+    min-height: 400px;
+}
+
+/* SUPPRESSION ALTERNANCE - LAYOUT UNIFORME */
+.step-content {
+    direction: ltr !important;
+}
+
+.step-content > * {
+    direction: ltr !important;
+}
+
+/* TEXTES TOUJOURS À GAUCHE */
+.step-text {
+    padding: 0;
+    max-width: var(--text-max-width);
+    justify-self: start; /* Toujours à gauche */
+    position: relative;
+    margin-right: 40px; /* Marge fixe par rapport à la ligne centrale */
+}
+
+/* IMAGES TOUJOURS À DROITE */
+.step-visual {
+    max-width: var(--image-max-width);
+    justify-self: end; /* Toujours à droite */
+    margin-left: 40px; /* Marge fixe par rapport à la ligne centrale */
+}
+
+/* Marqueurs timeline - Points orange simples */
+.step-marker {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    background: var(--secondary-orange);
+    border: 4px solid var(--warm-white);
+    border-radius: 50%;
+    z-index: 100;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.step-marker:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(250, 163, 7, 0.4);
+}
+
+/* ===============================================
+   CONTENU DES ÉTAPES OPTIMISÉ - MARGES INTERNES COHÉRENTES
+=============================================== */
+.step-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent-orange), var(--primary-red));
+    color: var(--warm-white);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 20px; /* Marge cohérente */
+    position: relative;
+    overflow: hidden;
+}
+
+.step-title {
+    font-family: var(--font-family);
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    color: var(--primary-red);
+    margin: 0 0 20px 0; /* Marge cohérente */
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    position: relative;
+}
+
+.step-description {
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--dark-text);
+    opacity: 0.85;
+    margin: 0 0 15px 0; /* Marge cohérente entre les paragraphes */
+}
+
+.step-description:last-child {
+    margin-bottom: 0;
+}
+
+/* ===============================================
+   IMAGES ÉTAPES - DIMENSIONS ET MARGES UNIFIÉES
+=============================================== */
+.step-image-container {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    transition: all 0.6s ease;
+    box-shadow: var(--shadow-medium);
+    width: 100%;
+    max-width: var(--image-max-width);
+    height: 380px; /* Hauteur fixe unifiée */
+    background: var(--dark-text);
+}
+
+.timeline-step.visible .step-image-container {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: 0.3s;
+}
+
+.step-image-container:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-heavy);
+}
+
+.step-image {
+    width: 100%;
+    height: 100%; /* Prend toute la hauteur du container */
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.step-image-container:hover .step-image {
+    transform: scale(1.05);
+}
+
+.image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(18, 18, 18, 0.9));
+    color: var(--warm-white);
+    padding: 40px 25px 20px;
+    font-size: 0.95rem;
+    font-style: italic;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+    z-index: 5;
+}
+
+.step-image-container:hover .image-caption {
+    transform: translateY(0);
+}
+
+/* ===============================================
+   IMAGES DÉCORATIVES - MARGES UNIFORMISÉES
+=============================================== */
+.decorative-image {
+    text-align: center;
+    margin: 60px 0; /* Marge cohérente */
+    opacity: 0.4;
+}
+
+.decorative-image img {
+    width: 120px;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
+    filter: grayscale(100%) contrast(1.2);
+}
+
+/* ===============================================
+   CONNECTEURS NARRATIFS - MARGES COHÉRENTES
+=============================================== */
+.story-connector {
+    text-align: center;
+    margin: 60px 0; /* Marge cohérente avec decorative-image */
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+    z-index: 200;
+}
+
+.story-connector.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.connector-text {
+    display: inline-block;
+    background: var(--warm-white);
+    color: var(--primary-red);
+    padding: 15px 35px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    border: 2px solid rgba(250, 163, 7, 0.2);
+    font-weight: 400;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.connector-text:hover {
+    border-color: rgba(250, 163, 7, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(250, 163, 7, 0.2);
+}
+
+/* Ornements sur les connecteurs */
+.connector-text::before,
+.connector-text::after {
+    content: '❦';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-orange);
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+.connector-text::before {
+    left: -25px;
+}
+
+.connector-text::after {
+    right: -25px;
+}
+
+/* ===============================================
+   CTA FINALE - MARGES ET ALIGNEMENTS PARFAITS
+=============================================== */
+.cta-finale {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Background */
+.cta-finale::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: url('https://ledragonnier.com/wp-content/uploads/2025/07/Grains-de-bois-polies-et-detaillees.png') center center / cover no-repeat;
+    background-attachment: fixed;
+}
+
+/* Overlay sombre */
+.cta-finale::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        180deg,
+        rgba(18, 18, 18, 0.4) 0%,
+        rgba(18, 18, 18, 0.8) 50%,
+        rgba(18, 18, 18, 1) 100%
+    );
+    pointer-events: none;
+}
+
+/* Content - ALIGNEMENT STRICT */
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.subtitle {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px; /* Marge cohérente */
+    font-weight: 200;
+    text-align: center;
+}
+
+.title {
+    font-family: var(--font-family);
+    font-size: clamp(3.5rem, 8vw, 72px);
+    font-weight: 200;
+    line-height: 1.1;
+    margin-bottom: 40px; /* Marge cohérente */
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    letter-spacing: -2px;
+    text-align: center;
+}
+
+.description {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 3vw, 24px);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 50px; /* Marge cohérente */
+    font-weight: 500;
+    text-align: center;
+    max-width: 800px;
+}
+
+#highlight {
+    font-weight: bold;
+    color: var(--secondary-orange);
+}
+
+.ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0; /* Marge cohérente */
+    gap: 15px;
+}
+
+.ornament::before,
+.ornament::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: #d4af37;
+    transition: width 0.3s ease;
+}
+
+.ornament:hover::before,
+.ornament:hover::after {
+    width: 80px;
+}
+
+.ornament-center {
+    width: 8px;
+    height: 8px;
+    background: #d4af37;
+    border-radius: 50%;
+    position: relative;
+}
+
+.ornament-center::before,
+.ornament-center::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #d4af37;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ornament-center::before {
+    left: -15px;
+}
+
+.ornament-center::after {
+    right: -15px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px; /* Marge cohérente */
+    flex-wrap: wrap;
+}
+
+/* ===============================================
+   BOUTON PRINCIPAL AVEC BORDURE ROTATIVE
+=============================================== */
+.create-btn {
+    --offset: 2px;
+    position: relative;
+    background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
+    color: #F8F6F3;
+    padding: 18px 45px;
+    font-family: var(--font-family);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    
+    /* Effet métal forgé */
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 4px 0 #4D0103,
+        0 8px 25px rgba(0, 0, 0, 0.4);
+        
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Bordure rotative subtile ultra-smooth */
+.create-btn::before {
+    content: '';
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(250, 163, 7, 0.01) 15deg,
+        rgba(250, 163, 7, 0.03) 30deg,
+        rgba(250, 163, 7, 0.06) 45deg,
+        rgba(250, 163, 7, 0.12) 60deg,
+        rgba(250, 163, 7, 0.25) 75deg,
+        rgba(250, 163, 7, 0.45) 90deg,
+        rgba(250, 163, 7, 0.7) 105deg,
+        #FAA307 120deg,
+        #E85D04 180deg,
+        rgba(232, 93, 4, 0.7) 195deg,
+        rgba(232, 93, 4, 0.45) 210deg,
+        rgba(232, 93, 4, 0.25) 225deg,
+        rgba(232, 93, 4, 0.12) 240deg,
+        rgba(232, 93, 4, 0.06) 255deg,
+        rgba(232, 93, 4, 0.03) 270deg,
+        rgba(232, 93, 4, 0.01) 285deg,
+        transparent 300deg,
+        transparent 360deg
+    );
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.1);
+    aspect-ratio: 1;
+    width: 100%;
+    animation: dragonnier-rotate 4s linear infinite;
+    z-index: 1;
+}
+
+/* Overlay pour créer l'effet de bordure */
+.create-btn::after {
+    content: '';
+    background: inherit;
+    border-radius: inherit;
+    position: absolute;
+    inset: var(--offset);
+    height: calc(100% - 2 * var(--offset));
+    width: calc(100% - 2 * var(--offset));
+    z-index: 2;
+}
+
+/* Texte du bouton par-dessus */
+.create-btn-text {
+    position: relative;
+    z-index: 10;
+    text-shadow: 0 0 4px rgba(255, 220, 180, 0.3);
+}
+
+/* Animation de rotation */
+@keyframes dragonnier-rotate {
+    from {
+        transform: translate(-50%, -50%) scale(1.1) rotate(0turn);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.1) rotate(1turn);
+    }
+}
+
+.create-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 6px 0 #4D0103,
+        0 12px 35px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #C5020C 0%, #B8020A 50%, #9D0208 100%);
+}
+
+/* Effet lame qui passe en biais (comme un \) au hover */
+.create-btn-blade {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -150%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(135deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 30%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        rgba(255, 255, 255, 0.1) 70%, 
+        transparent 100%);
+    transform: skewX(20deg);
+    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 15;
+    pointer-events: none;
+}
+
+.create-btn:hover .create-btn-blade {
+    left: 120%;
+}
+
+.create-btn:active {
+    transform: translateY(2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 0 #4D0103,
+        0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.view-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 16px 40px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: lowercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    font-family: var(--font-family);
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+}
+
+.view-btn::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.view-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-1px);
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+.view-btn:hover::before {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Left side decorative elements */
+.side-decoration {
+    position: absolute;
+    left: 50px;
+    top: 20%;
+    z-index: 20;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d4af37;
+    transform: rotate(45deg);
+    background: transparent;
+    animation: floatRotate 4s ease-in-out infinite;
+}
+
+/* Right side decorative elements */
+.side-decoration-right {
+    position: absolute;
+    right: 50px;
+    bottom: 20%;
+    z-index: 20;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d4af37;
+    transform: rotate(45deg);
+    background: transparent;
+    animation: floatRotateReverse 4s ease-in-out infinite;
+}
+
+/* Additional ornaments */
+.top-ornament {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.bottom-ornament {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(212, 175, 55, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: breathe 4s ease-in-out infinite;
+}
+
+.bottom-ornament::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 50%;
+    animation: innerSpin 8s linear infinite;
+}
+
+@keyframes floatRotate {
+    0%, 100% { 
+        transform: rotate(45deg) translateY(0px);
+        opacity: 0.8;
+    }
+    50% { 
+        transform: rotate(45deg) translateY(-8px);
+        opacity: 1;
+    }
+}
+
+@keyframes floatRotateReverse {
+    0%, 100% { 
+        transform: rotate(45deg) translateY(0px);
+        opacity: 0.8;
+    }
+    50% { 
+        transform: rotate(45deg) translateY(8px);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 0.6;
+        width: 60px;
+    }
+    50% { 
+        opacity: 1;
+        width: 80px;
+    }
+}
+
+@keyframes breathe {
+    0%, 100% { 
+        transform: translateX(-50%) scale(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: translateX(-50%) scale(1.1);
+        opacity: 1;
+    }
+}
+
+@keyframes innerSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===============================================
+   RESPONSIVE OPTIMISÉ - MARGES COHÉRENTES
+=============================================== */
+@media (max-width: 1024px) {
+    :root {
+        --container-padding: 30px;
+        --step-spacing: 60px;
+        --text-max-width: 500px;
+        --image-max-width: 500px;
+    }
+    
+    .step-content {
+        gap: 60px;
+    }
+    
+    .step-text,
+    .step-visual {
+        padding: 0 !important;
+        max-width: 100% !important;
+        justify-self: unset !important;
+        margin: 0 0 30px 0 !important; /* Marges uniformes en mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --container-padding: 20px;
+        --section-spacing: 80px;
+        --step-spacing: 50px;
+        --text-max-width: 100%;
+        --image-max-width: 100%;
+    }
+    
+    .timeline::before {
+        left: 30px;
+        transform: none;
+    }
+    
+    .step-content {
+        display: block !important;
+        direction: ltr !important;
+        padding-left: 70px;
+    }
+    
+    .step-text,
+    .step-visual {
+        padding: 0 !important;
+        max-width: 100% !important;
+        justify-self: unset !important;
+        margin: 0 0 30px 0 !important; /* Marges uniformes en mobile */
+    }
+    
+    .step-marker {
+        left: 30px;
+        transform: translateY(-50%);
+    }
+    
+    .timeline-step {
+        padding: var(--step-spacing) 0;
+    }
+    
+    .cta-finale {
+        background-attachment: scroll;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .create-btn,
+    .view-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .side-decoration,
+    .side-decoration-right,
+    .top-ornament,
+    .bottom-ornament {
+        display: none;
+    }
+    
+    /* Marges CTA cohérentes en mobile */
+    .subtitle {
+        margin-bottom: 25px;
+    }
+    
+    .title {
+        margin-bottom: 35px;
+    }
+    
+    .description {
+        margin-bottom: 40px;
+    }
+    
+    .ornament {
+        margin: 30px 0;
+    }
+    
+    .buttons-container {
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --section-spacing: 60px;
+        --step-spacing: 40px;
+    }
+    
+    .timeline-header {
+        margin-bottom: 60px;
+    }
+    
+    .step-image-container {
+        height: 280px;
+    }
+    
+    .content {
+        padding: 0 20px;
+    }
+    
+    .title {
+        font-size: clamp(2.2rem, 9vw, 3rem);
+    }
+    
+    .description {
+        font-size: clamp(1rem, 4.5vw, 1.3rem);
+        margin-bottom: 35px;
+    }
+    
+    .create-btn,
+    .view-btn {
+        max-width: 280px;
+        padding: 15px 35px;
+    }
+    
+    /* Marges encore plus serrées en très petit écran */
+    .timeline-number {
+        margin-bottom: 15px;
+    }
+    
+    .timeline-main-title {
+        margin-bottom: 25px;
+    }
+    
+    .step-badge {
+        margin-bottom: 15px;
+    }
+    
+    .step-title {
+        margin-bottom: 15px;
+    }
+    
+    .step-description {
+        margin-bottom: 12px;
+    }
+    
+    .decorative-image,
+    .story-connector {
+        margin: 40px 0;
+    }
+}
+
+/* ===============================================
+   OPTIMISATIONS PERFORMANCE
+=============================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.step-image-container,
+.create-btn,
+.step-marker,
+.timeline::before {
+    will-change: transform;
+}
+    </style>
+</head>
+<body>
+
+<!-- CTA FINALE RESTAURÉE -->
+<section class="cta-finale">
+    <div class="main-container">
+        <!-- Ornements décoratifs -->
+        <div class="side-decoration"></div>
+        <div class="side-decoration-right"></div>
+        <div class="top-ornament"></div>
+        <div class="bottom-ornament"></div>
+
+        <!-- Contenu principal -->
+        <div class="content">
+            <div class="subtitle">STAGES DE COUTELLERIE AVEC LE DRAGONNIER</div>
+            <h1 class="title">Forgez votre première lame</h1>
+            
+            <div class="ornament">
+                <div class="ornament-center"></div>
+            </div>
+            
+            <p class="description">
+                Venez réserver une séance pour forger votre propre couteau avec <span id="highlight">Le Dragonnier</span><br>
+                Nous proposons des stages pour tous ceux qui souhaitent découvrir ce métier passionnant 
+                et créer leurs propres couteaux
+            </p>
+
+            <div class="buttons-container">
+                <button class="create-btn">
+                    <span class="create-btn-text">CRÉEZ VOTRE COUTEAU</span>
+                    <div class="create-btn-blade"></div>
+                </button>
+                <button class="view-btn">voir les créations</button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- SECTION TIMELINE NETTOYÉE -->
+<section class="timeline-section">
+    <div class="timeline-container">
+        <!-- HEADER TIMELINE -->
+        <header class="timeline-header">
+            <span class="timeline-number">Processus de création</span>
+            <h2 class="timeline-main-title">Dix étapes vers l'excellence</h2>
+            <p class="timeline-description">
+                Chaque étape révèle une facette du métier, chaque geste porte l'héritage d'un savoir-faire transmis de génération en génération. Découvrez le processus complet de création d'un couteau artisanal.
+            </p>
+        </header>
+
+        <div class="timeline">
+            <!-- ÉTAPE 1 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 1</div>
+                        <h3 class="step-title">DESIGN</h3>
+                        <p class="step-description">Réalisation d'un croquis</p>
+                        <p class="step-description">Choix des matériaux</p>
+                        <p class="step-description">Définition du type de couteau</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Croquis et plans techniques de couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Les premiers traits qui donneront naissance au couteau</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE DÉCORATIVE APRÈS ÉTAPE 1 -->
+            <div class="decorative-image">
+                <img src="https://images.rawpixel.com/image_png_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvam9iNjY2LTE3MS1wLWwxMDg0aXhlLnBuZw.png" alt="Ornement compas" loading="lazy" />
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Ensuite, le geste s'affine...</span>
+            </div>
+
+            <!-- ÉTAPE 2 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 2</div>
+                        <h3 class="step-title">SOUS-TRAITANCE</h3>
+                        <p class="step-description">Permet des prix abordables et d'accélérer le travail d'ornementation</p>
+                        <p class="step-description">Préparation de la matière brute (découpe, traitements thermiques)</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://www.rapiddirect.com/wp-content/uploads-v0/2021/06/welding-process-in-sheet-metal-fabrication.jpg" 
+                                 class="step-image" 
+                                 alt="Préparation minutieuse des pièces"
+                                 loading="lazy">
+                            <div class="image-caption">L'attention portée aux moindres détails</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Le métal prend forme...</span>
+            </div>
+
+            <!-- ÉTAPE 3 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 3</div>
+                        <h3 class="step-title">PRÉPARATION</h3>
+                        <p class="step-description">Retouche des joints et contacts mécaniques</p>
+                        <p class="step-description">Polissage des parties inaccessibles</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://img.freepik.com/photos-premium/affutage-lame-creant-processus-meuleuse-bande-couteau-faisant-mains-maitre-se-bouchent_157402-342.jpg" 
+                                 class="step-image" 
+                                 alt="Façonnage et ponçage du couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Sculpter dans l'acier pour révéler l'âme</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Chaque détail se précise...</span>
+            </div>
+
+            <!-- ÉTAPE 4 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 4</div>
+                        <h3 class="step-title">ORNEMENTATION</h3>
+                        <p class="step-description">Guillochage</p>
+                        <p class="step-description">Gravure</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Assemblage des pièces du couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Quand chaque pièce trouve sa juste place</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE DÉCORATIVE AVANT ÉTAPE 5 -->
+            <div class="decorative-image">
+                <img src="https://images.rawpixel.com/image_social_square/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2pvYjcxNC0wMTgteC5qcGc.jpg" alt="Ornement gravure" loading="lazy" />
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Puis vient la lumière du polissage...</span>
+            </div>
+
+            <!-- ÉTAPE 5 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 5</div>
+                        <h3 class="step-title">MONTAGE</h3>
+                        <p class="step-description">Montage des différentes pièces du couteau</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1609205807107-e12e43b9b802?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Polissage des lames et manches"
+                                 loading="lazy">
+                            <div class="image-caption">L'éclat naît sous les gestes du maître</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">On sépare pour mieux parfaire...</span>
+            </div>
+
+            <!-- ÉTAPE 6 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 6</div>
+                        <h3 class="step-title">FAÇONNAGE</h3>
+                        <p class="step-description">Ponçage du couteau</p>
+                        <p class="step-description">Donne son volume et son corps au produit</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://img.freepik.com/photos-premium/affutage-lame-creant-processus-meuleuse-bande-couteau-faisant-mains-maitre-se-bouchent_157402-342.jpg" 
+                                 class="step-image" 
+                                 alt="Démontage méticuleux du couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Chaque pièce révèle ses secrets</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE DÉCORATIVE APRÈS ÉTAPE 6 -->
+            <div class="decorative-image">
+                <img src="https://images.rawpixel.com/image_png_social_square/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L2pvYjcxMy0xMjEtcC5wbmc.png" alt="Ornement lame" loading="lazy" />
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Tout s'assemble avec précision...</span>
+            </div>
+
+            <!-- ÉTAPE 7 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 7</div>
+                        <h3 class="step-title">DÉMONTAGE</h3>
+                        <p class="step-description">Démontage des pièces du couteau</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Remontage final du couteau"
+                                 loading="lazy">
+                            <div class="image-caption">Renaissance dans la précision absolue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Le fil se sculpte...</span>
+            </div>
+
+            <!-- ÉTAPE 8 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 8</div>
+                        <h3 class="step-title">POLISSAGE</h3>
+                        <p class="step-description">Polissage des pièces du couteau</p>
+                        <p class="step-description">Finitions différentes sur les différentes pièces</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1609205807107-e12e43b9b802?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Affûtage professionnel de la lame"
+                                 loading="lazy">
+                            <div class="image-caption">Quand l'acier rencontre la pierre sacrée</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Chaque pièce est contrôlée...</span>
+            </div>
+
+            <!-- ÉTAPE 9 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 9</div>
+                        <h3 class="step-title">REMONTAGE</h3>
+                        <p class="step-description">Remontage final du couteau</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Inspection minutieuse du couteau fini"
+                                 loading="lazy">
+                            <div class="image-caption">L'œil du maître ne laisse rien passer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-connector">
+                <span class="connector-text">Le couteau est prêt...</span>
+            </div>
+
+            <!-- ÉTAPE 10 -->
+            <div class="timeline-step">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-badge">ÉTAPE 10</div>
+                        <h3 class="step-title">CONTRÔLE QUALITÉ</h3>
+                        <p class="step-description">Vérification de la qualité du produit</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1609205807107-e12e43b9b802?w=600&h=380&fit=crop&crop=center" 
+                                 class="step-image" 
+                                 alt="Présentation du couteau dans son écrin"
+                                 loading="lazy">
+                            <div class="image-caption">L'écrin qui honore l'excellence</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fallback pour navigateurs sans IntersectionObserver
+    if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.timeline-header, .timeline-step, .story-connector').forEach(function(el) {
+            el.classList.add('visible');
+        });
+        return;
+    }
+
+    // Observer pour la timeline
+    const timelineObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                timelineObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    // Observer tous les éléments timeline
+    document.querySelectorAll('.timeline-header, .timeline-step, .story-connector').forEach(function(el) {
+        timelineObserver.observe(el);
+    });
+
+    // Interactions des boutons
+    const createBtn = document.querySelector('.create-btn');
+    const viewBtn = document.querySelector('.view-btn');
+    
+    if (createBtn) {
+        createBtn.addEventListener('click', function() {
+            this.style.transform = 'scale(0.95) translateY(2px)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            console.log('Création de couteau personnalisé...');
+        });
+    }
+    
+    if (viewBtn) {
+        viewBtn.addEventListener('click', function() {
+            console.log('Découvrez nos créations...');
+        });
+    }
+});
+</script>
+
+</body>
+</html>

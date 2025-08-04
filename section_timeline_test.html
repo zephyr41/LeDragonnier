@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Step 02 - Le Dragonnier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* VARIABLES CSS */
+        :root {
+            --noir-profond: #121212;
+            --bronze: #B87333;
+            --acier: #C0C0C0;
+            --bois: #8B4513;
+            --rouge-forge: #9D0208;
+            --orange-feu: #FAA307;
+            --blanc-cassé: #F8F6F3;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            background-color: var(--noir-profond);
+            color: var(--blanc-cassé);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ÉTAPE 2 - REPRENANT LE STYLE DE L'ÉTAPE 1 */
+        .timeline-step {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* SPLIT SCREEN LAYOUT */
+        .step-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* CÔTÉ GAUCHE - VISUEL */
+        .step-visual {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .step-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) brightness(0.9);
+            transition: transform 0.8s ease;
+        }
+
+        .timeline-step:hover .step-visual img {
+            transform: scale(1.05);
+        }
+
+        /* Overlay gradient */
+        .step-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                transparent 0%,
+                rgba(18, 18, 18, 0.4) 100%
+            );
+            pointer-events: none;
+        }
+
+        /* CÔTÉ DROIT - TEXTE */
+        .step-text {
+            padding: 80px;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Numéro d'étape */
+        .step-badge {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--bronze);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .step-badge::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--bronze);
+            opacity: 0.3;
+        }
+
+        /* Titre de l'étape */
+        .step-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--blanc-cassé);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* Sous-titre */
+        .step-description {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--orange-feu);
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* Liste des points */
+        .step-points {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .step-points li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--blanc-cassé);
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .step-points li:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        /* Puces personnalisées */
+        .step-points li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background: var(--bronze);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .step-points li:hover::before {
+            background: var(--rouge-forge);
+            transform: rotate(45deg) scale(1.2);
+        }
+
+        /* Citation */
+        .story-connector {
+            font-style: italic;
+            color: var(--acier);
+            padding-left: 20px;
+            border-left: 2px solid var(--bronze);
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        /* MARQUEUR CENTRAL */
+        .step-marker {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 24px;
+            height: 24px;
+            background: var(--rouge-forge);
+            border: 4px solid var(--noir-profond);
+            border-radius: 50%;
+            box-shadow: 0 0 0 8px rgba(157, 2, 8, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step:hover .step-marker {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 0 12px rgba(157, 2, 8, 0.3);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-badge {
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .step-title {
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .step-description {
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .step-points li {
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .story-connector {
+            animation: fadeInUp 0.8s ease 1s both;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .step-content {
+                grid-template-columns: 1fr;
+            }
+
+            .step-visual {
+                height: 400px;
+            }
+
+            .step-text {
+                padding: 60px 40px;
+            }
+
+            .step-marker {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .step-text {
+                padding: 40px 20px;
+            }
+
+            .step-visual {
+                height: 300px;
+            }
+
+            .timeline-step {
+                padding: 40px 0;
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ÉTAPE 2 - AVEC LE STYLE DE L'ÉTAPE 1 -->
+<section class="timeline-step">
+    <div class="step-marker"></div>
+    <div class="step-content">
+        <div class="step-visual">
+            <img src="https://images.unsplash.com/photo-1565630916779-e303be97b6f5?w=800&h=600&fit=crop" alt="Forge et préparation de l'acier" loading="lazy">
+        </div>
+        <div class="step-text">
+            <p class="step-badge">ÉTAPE 02</p>
+            <h2 class="step-title">SOUS-TRAITANCE</h2>
+            <p class="step-description">La préparation experte de la matière</p>
+            <ul class="step-points">
+                <li>Permet des prix abordables et d'accélérer le travail</li>
+                <li>Découpe et traitements thermiques spécialisés</li>
+                <li>Préparation de la matière brute</li>
+                <li>Préparation minutieuse des pièces</li>
+            </ul>
+            <blockquote class="story-connector">
+                L'attention portée aux moindres détails...
+            </blockquote>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
