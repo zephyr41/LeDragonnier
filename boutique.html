@@ -4,39 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrousel Couteaux - Le Dragonnier (WordPress Ready)</title>
-  <!-- Police Google Fonts valide -->
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* Reset spécifique au namespace pour éviter les conflits WordPress */
-.knives-carousel * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
-/* Variables CSS */
-.dragonnierCarrousel {
+/* VARIABLES ET RESET DANS L'ENCAPSULATION */
+.dragonnierCarousel {
   --primary-red: #9D0208;
   --secondary-orange: #FAA307;
   --accent-orange: #E85D04;
   --dark-text: #121212;
   --light-bg: #F5F5F3;
+  --font-family: 'Crimson Text', serif;
   --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --overlay-black: rgba(18, 18, 18, 0.65);
   --space-sm: 2rem;
-   background: var(--light-bg);
-
 }
 
-/* Titre de section Boutique */
-.carousel-section-title {
+.dragonnierCarousel * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* TITRE DE SECTION */
+.dragonnierCarousel .carousel-section-title {
   padding: 60px 0 40px 0;
   background: var(--light-bg);
   text-align: center;
 }
 
-.carousel-section-title h1 {
+.dragonnierCarousel .carousel-section-title h1 {
   font-family: var(--font-family);
   color: var(--primary-red);
   font-size: clamp(2.5rem, 4vw, 3.5rem);
@@ -49,7 +45,7 @@
   text-align: center;
 }
 
-.carousel-section-title h1::after {
+.dragonnierCarousel .carousel-section-title h1::after {
   content: '';
   position: absolute;
   bottom: -20px;
@@ -61,21 +57,10 @@
   transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s;
 }
 
-/* Full width pour WordPress - Force sur tous les appareils */
-.wp-site-blocks .alignfull, 
-.entry-content .alignfull,
-.knives-carousel {
-  margin-left: calc(50% - 50vw) !important;
-  margin-right: calc(50% - 50vw) !important;
-  width: 100vw !important;
-  max-width: 100vw !important;
-}
-
-/* Container principal avec correction hauteur mobile + admin bar WP */
-.knives-carousel {
+/* CONTAINER PRINCIPAL */
+.dragonnierCarousel .knives-carousel {
   position: relative;
   width: 100%;
-  /* Desktop : plein écran avec correction admin bar WordPress */
   height: calc(100svh - var(--wp-admin--admin-bar--height, 0px));
   min-height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px));
   margin: 0;
@@ -85,8 +70,8 @@
   z-index: 0;
 }
 
-/* Neutralisation des styles WordPress pour les boutons */
-.knives-carousel button {
+/* NEUTRALISATION STYLES WORDPRESS */
+.dragonnierCarousel button {
   appearance: none;
   background: none;
   border: none;
@@ -99,8 +84,7 @@
   cursor: pointer;
 }
 
-/* Neutralisation des styles WordPress pour les images */
-.knives-carousel img {
+.dragonnierCarousel img {
   display: block;
   max-width: none !important;
   width: 100%;
@@ -111,16 +95,15 @@
   border-radius: 0;
 }
 
-/* Container des slides avec largeur fixe */
-.knives-carousel .carousel-slides {
+/* SLIDES */
+.dragonnierCarousel .carousel-slides {
   display: flex;
   transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
   width: 400%; /* 4 slides = 400% */
   height: 100%;
 }
 
-/* Slide individuel */
-.knives-carousel .carousel-slide {
+.dragonnierCarousel .carousel-slide {
   width: 25%; /* 100% / 4 slides */
   height: 100%;
   position: relative;
@@ -130,15 +113,15 @@
   overflow: hidden;
 }
 
-/* Couche média avec effet Ken Burns */
-.knives-carousel .slide-media {
+/* MÉDIA AVEC EFFET KEN BURNS */
+.dragonnierCarousel .slide-media {
   position: absolute;
   inset: 0;
   overflow: hidden;
   z-index: 0;
 }
 
-.knives-carousel .slide-bg-image {
+.dragonnierCarousel .slide-bg-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -147,26 +130,25 @@
   transition: transform 12s ease-out;
 }
 
-/* Optimisation lazy loading - première image en eager */
-.knives-carousel .carousel-slide:first-child .slide-bg-image {
+.dragonnierCarousel .carousel-slide:first-child .slide-bg-image {
   loading: eager;
   fetchpriority: high;
 }
 
-.knives-carousel .carousel-slide.active .slide-bg-image {
+.dragonnierCarousel .carousel-slide.active .slide-bg-image {
   transform: scale(1) translateY(-2%);
 }
 
-/* Overlay */
-.knives-carousel .slide-overlay {
+/* OVERLAY */
+.dragonnierCarousel .slide-overlay {
   position: absolute;
   inset: 0;
   background: var(--overlay-black);
   z-index: 1;
 }
 
-/* Contenu du slide */
-.knives-carousel .slide-content {
+/* CONTENU DU SLIDE */
+.dragonnierCarousel .slide-content {
   position: relative;
   z-index: 2;
   text-align: left;
@@ -179,7 +161,7 @@
   margin-left: 100px;
 }
 
-/* Animations d'entrée */
+/* ANIMATIONS */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -191,29 +173,29 @@
   }
 }
 
-.knives-carousel .carousel-slide.active .slide-content > * {
+.dragonnierCarousel .carousel-slide.active .slide-content > * {
   animation: fadeInUp 0.6s ease-out forwards;
   opacity: 0;
 }
 
-.knives-carousel .carousel-slide.active .slide-title {
+.dragonnierCarousel .carousel-slide.active .slide-title {
   animation-delay: 0.1s;
 }
 
-.knives-carousel .carousel-slide.active .slide-subtitle {
+.dragonnierCarousel .carousel-slide.active .slide-subtitle {
   animation-delay: 0.2s;
 }
 
-.knives-carousel .carousel-slide.active .slide-btn {
+.dragonnierCarousel .carousel-slide.active .slide-btn {
   animation-delay: 0.3s;
 }
 
-.knives-carousel .carousel-slide.active .slide-description {
+.dragonnierCarousel .carousel-slide.active .slide-description {
   animation-delay: 0.4s;
 }
 
-/* Typographie avec spécificité élevée */
-.knives-carousel .slide-title {
+/* TYPOGRAPHIE */
+.dragonnierCarousel .slide-title {
   font-family: var(--font-family) !important;
   font-size: clamp(3.5rem, 6vw, 5rem) !important;
   color: white !important;
@@ -225,7 +207,7 @@
   text-decoration: none !important;
 }
 
-.knives-carousel .slide-subtitle {
+.dragonnierCarousel .slide-subtitle {
   font-family: var(--font-family) !important;
   color: var(--secondary-orange) !important;
   font-size: clamp(1rem, 1.8vw, 1.3rem) !important;
@@ -237,8 +219,8 @@
   text-decoration: none !important;
 }
 
-/* Prix du produit */
-.knives-carousel .slide-price {
+/* PRIX */
+.dragonnierCarousel .slide-price {
   font-family: var(--font-family) !important;
   color: var(--secondary-orange) !important;
   font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
@@ -250,7 +232,7 @@
   display: inline-block;
 }
 
-.knives-carousel .slide-price::before {
+.dragonnierCarousel .slide-price::before {
   content: '€';
   font-size: 0.75em;
   margin-right: 6px;
@@ -258,7 +240,7 @@
   font-weight: 500;
 }
 
-.knives-carousel .slide-price::after {
+.dragonnierCarousel .slide-price::after {
   content: '';
   position: absolute;
   bottom: -8px;
@@ -271,13 +253,13 @@
   transition: transform 0.6s ease;
 }
 
-.knives-carousel .carousel-slide.active .slide-price::after {
+.dragonnierCarousel .carousel-slide.active .slide-price::after {
   transform: scaleX(1);
   animation-delay: 0.25s;
 }
 
-/* Bouton avec neutralisation des styles WordPress */
-.knives-carousel .slide-btn {
+/* BOUTONS */
+.dragonnierCarousel .slide-btn {
   background: linear-gradient(135deg, var(--primary-red), #7A0106) !important;
   color: white !important;
   padding: 18px 40px !important;
@@ -300,7 +282,7 @@
   appearance: none !important;
 }
 
-.knives-carousel .slide-btn::before {
+.dragonnierCarousel .slide-btn::before {
   content: '';
   position: absolute;
   top: 0;
@@ -311,19 +293,19 @@
   transition: left 0.6s ease;
 }
 
-.knives-carousel .slide-btn:hover {
+.dragonnierCarousel .slide-btn:hover {
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 25px rgba(157, 2, 8, 0.4) !important;
   background: linear-gradient(135deg, #B8020A, var(--primary-red)) !important;
   text-decoration: none !important;
 }
 
-.knives-carousel .slide-btn:hover::before {
+.dragonnierCarousel .slide-btn:hover::before {
   left: 100%;
 }
 
-/* Description */
-.knives-carousel .slide-description {
+/* DESCRIPTION */
+.dragonnierCarousel .slide-description {
   font-size: clamp(1rem, 1.4vw, 1.1rem) !important;
   line-height: 1.8 !important;
   color: rgba(255, 255, 255, 0.85) !important;
@@ -337,8 +319,8 @@
   font-family: var(--font-family) !important;
 }
 
-/* Navigation avec z-index élevé */
-.knives-carousel .carousel-nav {
+/* NAVIGATION */
+.dragonnierCarousel .carousel-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -361,13 +343,13 @@
   text-decoration: none !important;
 }
 
-.knives-carousel .carousel-nav:hover {
+.dragonnierCarousel .carousel-nav:hover {
   opacity: 1 !important;
   background: rgba(255, 255, 255, 0.12) !important;
   border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
-.knives-carousel .carousel-nav::before {
+.dragonnierCarousel .carousel-nav::before {
   content: '';
   width: 10px;
   height: 10px;
@@ -375,24 +357,24 @@
   border-right: 2px solid white;
 }
 
-.knives-carousel .carousel-prev {
+.dragonnierCarousel .carousel-prev {
   left: 30px;
 }
 
-.knives-carousel .carousel-prev::before {
+.dragonnierCarousel .carousel-prev::before {
   transform: rotate(-135deg) translateX(2px);
 }
 
-.knives-carousel .carousel-next {
+.dragonnierCarousel .carousel-next {
   right: 30px;
 }
 
-.knives-carousel .carousel-next::before {
+.dragonnierCarousel .carousel-next::before {
   transform: rotate(45deg) translateX(-2px);
 }
 
-/* Pagination */
-.knives-carousel .carousel-pagination {
+/* PAGINATION */
+.dragonnierCarousel .carousel-pagination {
   position: absolute;
   bottom: 40px;
   left: 50%;
@@ -402,7 +384,7 @@
   z-index: 3;
 }
 
-.knives-carousel .pagination-dot {
+.dragonnierCarousel .pagination-dot {
   width: 10px !important;
   height: 10px !important;
   border-radius: 50% !important;
@@ -415,18 +397,18 @@
   outline: none !important;
 }
 
-.knives-carousel .pagination-dot:hover {
+.dragonnierCarousel .pagination-dot:hover {
   background: rgba(255, 255, 255, 0.5) !important;
 }
 
-.knives-carousel .pagination-dot.active {
+.dragonnierCarousel .pagination-dot.active {
   background: white !important;
   width: 30px !important;
   border-radius: 15px !important;
 }
 
-/* Indicateur tactile mobile */
-.knives-carousel .swipe-hint {
+/* INDICATEUR TACTILE */
+.dragonnierCarousel .swipe-hint {
   position: absolute;
   bottom: 100px;
   left: 50%;
@@ -445,68 +427,8 @@
   50% { opacity: 0.8; }
 }
 
-/* Responsive - Mobile */
-@media (max-width: 768px) {
-  /* Mobile : hauteur réduite sur le container principal */
-  .knives-carousel {
-    height: 65vh !important;
-    min-height: 65vh !important;
-  }
-
-  .knives-carousel .slide-content {
-    padding: 0 30px;
-    margin-left: 0;
-    max-width: 100%;
-    gap: 8px;
-  }
-  
-  .knives-carousel .slide-title {
-    font-size: 2.2rem !important;
-  }
-
-  .knives-carousel .slide-subtitle {
-    font-size: 0.9rem !important;
-  }
-
-  .knives-carousel .slide-price {
-    font-size: 1.6rem !important;
-    margin: 0 0 15px 0 !important;
-  }
-  
-  .knives-carousel .slide-description {
-    font-size: 0.9rem !important;
-    -webkit-line-clamp: 2;
-  }
-  
-  .knives-carousel .carousel-nav {
-    display: none;
-  }
-
-  .knives-carousel .swipe-hint {
-    display: block;
-    bottom: 20px;
-  }
-
-  .knives-carousel .carousel-pagination {
-    bottom: 20px;
-  }
-
-  .knives-carousel .slide-btn {
-    padding: 14px 30px !important;
-    font-size: 12px !important;
-    margin: 8px 0 12px 0 !important;
-  }
-}
-
-/* Desktop - optimisation des images */
-@media (min-width: 1024px) {
-  .knives-carousel .slide-bg-image {
-    object-position: center 40%;
-  }
-}
-
 /* SÉPARATEUR */
-.services-separator {
+.dragonnierCarousel .services-separator {
     height: 1px;
     background: linear-gradient(90deg, 
         transparent 0%, 
@@ -517,7 +439,7 @@
     position: relative;
 }
 
-.services-separator::before {
+.dragonnierCarousel .services-separator::before {
     content: '❦';
     position: absolute;
     top: -10px;
@@ -529,39 +451,97 @@
     padding: 0 15px;
 }
 
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+  .dragonnierCarousel .knives-carousel {
+    height: 65vh !important;
+    min-height: 65vh !important;
+  }
+
+  .dragonnierCarousel .slide-content {
+    padding: 0 30px;
+    margin-left: 0;
+    max-width: 100%;
+    gap: 8px;
+  }
+  
+  .dragonnierCarousel .slide-title {
+    font-size: 2.2rem !important;
+  }
+
+  .dragonnierCarousel .slide-subtitle {
+    font-size: 0.9rem !important;
+  }
+
+  .dragonnierCarousel .slide-price {
+    font-size: 1.6rem !important;
+    margin: 0 0 15px 0 !important;
+  }
+  
+  .dragonnierCarousel .slide-description {
+    font-size: 0.9rem !important;
+    -webkit-line-clamp: 2;
+  }
+  
+  .dragonnierCarousel .carousel-nav {
+    display: none;
+  }
+
+  .dragonnierCarousel .swipe-hint {
+    display: block;
+    bottom: 20px;
+  }
+
+  .dragonnierCarousel .carousel-pagination {
+    bottom: 20px;
+  }
+
+  .dragonnierCarousel .slide-btn {
+    padding: 14px 30px !important;
+    font-size: 12px !important;
+    margin: 8px 0 12px 0 !important;
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 1024px) {
+  .dragonnierCarousel .slide-bg-image {
+    object-position: center 40%;
+  }
+}
 </style>
 </head>
-<div class="dragonnierCarrousel">
 <body>
+  
+<div class="dragonnierCarousel">
   <div class="services-separator"></div>
   <div class="carousel-section-title">
-  <h1>Boutique</h1>
-</div>
-  <!-- Section alignfull pour WordPress -->
-  <div class="knives-carousel alignfull">
-    <!-- Container des slides -->
+    <h1>Boutique</h1>
+  </div>
+
+  <div class="knives-carousel">
     <div class="carousel-slides" id="carouselSlides">
-            <!-- Slide 1 Ornak -->
-    <div class="carousel-slide active" data-product-id="19093">
-      <div class="slide-media">
-        <img src="https://images.unsplash.com/photo-1543875929-c09f1e273428?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            alt="Ornak - Couteau de table élégant" 
-            class="slide-bg-image"
-            loading="lazy"
-            decoding="async">
-        <div class="slide-overlay"></div>
+      <!-- Slide 1 Ornak -->
+      <div class="carousel-slide active" data-product-id="19093">
+        <div class="slide-media">
+          <img src="https://images.unsplash.com/photo-1543875929-c09f1e273428?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+              alt="Ornak - Couteau de table élégant" 
+              class="slide-bg-image"
+              loading="lazy"
+              decoding="async">
+          <div class="slide-overlay"></div>
+        </div>
+        <div class="slide-content">
+          <h2 class="slide-title">Ornak</h2>
+          <p class="slide-subtitle">Le couteau de table</p>
+          <div class="slide-price"></div>
+          <a href="https://ledragonnier.com/index.php/produit/ornak-le-couteau-de-table/" class="slide-btn">Commander Ornak</a>
+          <p class="slide-description">
+            Ornak est une lame simple en apparence, mais travaillée dans le détail. Conçu pour sublimer l'usage quotidien avec sobriété et noblesse.
+          </p>
+        </div>
       </div>
-      <div class="slide-content">
-        <h2 class="slide-title">Ornak</h2>
-        <p class="slide-subtitle">Le couteau de table</p>
-        <div class="slide-price"></div> <!-- le prix sera injecté ici -->
-        <a href="https://ledragonnier.com/index.php/produit/ornak-le-couteau-de-table/" class="slide-btn">Commander Ornak</a>
-        <p class="slide-description">
-          Ornak est une lame simple en apparence, mais travaillée dans le détail. Conçu pour sublimer l'usage quotidien avec sobriété et noblesse.
-        </p>
-      </div>
-    </div>
-      
+        
       <!-- Slide 2: Sylvarak -->
       <div class="carousel-slide" data-product-id="19077">
         <div class="slide-media">
@@ -576,8 +556,8 @@
         <div class="slide-content">
           <h2 class="slide-title">Sylvarak</h2>
           <p class="slide-subtitle">Le couteau pliant</p>
-            <div class="slide-price"></div>
-          <a href="https://ledragonnier.com/index.php/produit/19077/ " class="slide-btn">Commander Sylvarak</a>
+          <div class="slide-price"></div>
+          <a href="https://ledragonnier.com/index.php/produit/19077/" class="slide-btn">Commander Sylvarak</a>
           <p class="slide-description">
             Discret et racé, Sylvarak est une lame de poche pensée pour accompagner le quotidien avec élégance. Inspiré des lames nomades et des dagues forestières.
           </p>
@@ -605,8 +585,6 @@
         </div>
       </div>
 
-
-
       <!-- Slide 4: Velkaran -->
       <div class="carousel-slide" data-product-id="19051">
         <div class="slide-media">
@@ -629,7 +607,7 @@
       </div>
     </div>
 
-    <!-- Navigation (desktop seulement) -->
+    <!-- Navigation -->
     <button class="carousel-nav carousel-prev" onclick="dragonnierCarousel.changeSlide(-1)" aria-label="Slide précédent"></button>
     <button class="carousel-nav carousel-next" onclick="dragonnierCarousel.changeSlide(1)" aria-label="Slide suivant"></button>
 
@@ -641,181 +619,164 @@
       <button class="pagination-dot" onclick="dragonnierCarousel.goToSlide(3)" aria-label="Velkaran"></button>
     </div>
 
-    <!-- Indicateur tactile mobile -->
     <div class="swipe-hint">← Glissez →</div>
   </div>
-  
 </div>
-  <script>
-    // Encapsulation dans un namespace pour éviter les conflits
-    window.dragonnierCarousel = (function() {
-      // Attendre que le DOM soit prêt
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
 
-      let currentSlide = 0;
-      const totalSlides = 4;
-      let slidesContainer, dots, slides, carousel;
-      let autoPlayInterval;
-      let isTransitioning = false;
-
-      function init() {
-        // Récupérer les éléments
-        slidesContainer = document.getElementById('carouselSlides');
-        if (!slidesContainer) return; // Sortir si pas trouvé
-        
-        dots = document.querySelectorAll('.knives-carousel .pagination-dot');
-        slides = document.querySelectorAll('.knives-carousel .carousel-slide');
-        carousel = document.querySelector('.knives-carousel');
-
-        // Correction dynamique de la largeur si nécessaire
-        const actualSlides = slides.length;
-        if (actualSlides !== totalSlides) {
-          slidesContainer.style.width = `${actualSlides * 100}%`;
-          slides.forEach(slide => {
-            slide.style.width = `${100 / actualSlides}%`;
-          });
-        }
-
-        // Démarrer
-        updateCarousel();
-        startAutoPlay();
-        setupEventListeners();
-      }
-
-      function updateCarousel() {
-        if (isTransitioning || !slidesContainer) return;
-        isTransitioning = true;
-
-        // Déplacer les slides
-        const translateX = -currentSlide * (100 / totalSlides);
-        slidesContainer.style.transform = `translateX(${translateX}%)`;
-        
-        // Mettre à jour les états actifs
-        slides.forEach((slide, index) => {
-          slide.classList.toggle('active', index === currentSlide);
-        });
-        
-        // Mettre à jour la pagination
-        dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === currentSlide);
-        });
-
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 800);
-      }
-
-      function changeSlide(direction) {
-        currentSlide += direction;
-        
-        // Boucle
-        if (currentSlide >= totalSlides) {
-          currentSlide = 0;
-        } else if (currentSlide < 0) {
-          currentSlide = totalSlides - 1;
-        }
-        
-        updateCarousel();
-      }
-
-      function goToSlide(slideIndex) {
-        if (slideIndex >= 0 && slideIndex < totalSlides) {
-          currentSlide = slideIndex;
-          updateCarousel();
-        }
-      }
-
-      function startAutoPlay() {
-        stopAutoPlay(); // S'assurer qu'il n'y a pas de double
-        autoPlayInterval = setInterval(() => {
-          changeSlide(1);
-        }, 7000);
-      }
-
-      function stopAutoPlay() {
-        if (autoPlayInterval) {
-          clearInterval(autoPlayInterval);
-          autoPlayInterval = null;
-        }
-      }
-
-      function setupEventListeners() {
-        if (!carousel) return;
-
-        // Auto-play pause/reprise
-        carousel.addEventListener('mouseenter', stopAutoPlay);
-        carousel.addEventListener('mouseleave', startAutoPlay);
-
-        // Navigation clavier
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowLeft') {
-            changeSlide(-1);
-            stopAutoPlay();
-            startAutoPlay();
-          } else if (e.key === 'ArrowRight') {
-            changeSlide(1);
-            stopAutoPlay();
-            startAutoPlay();
-          }
-        });
-
-        // Support tactile amélioré
-        let touchStartX = 0;
-        let touchEndX = 0;
-        let touchStartY = 0;
-        let touchEndY = 0;
-
-        carousel.addEventListener('touchstart', (e) => {
-          touchStartX = e.changedTouches[0].screenX;
-          touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
-
-        carousel.addEventListener('touchend', (e) => {
-          touchEndX = e.changedTouches[0].screenX;
-          touchEndY = e.changedTouches[0].screenY;
-          
-          const swipeThresholdX = 50;
-          const swipeThresholdY = 100;
-          
-          const diffX = touchStartX - touchEndX;
-          const diffY = Math.abs(touchStartY - touchEndY);
-          
-          // Swipe seulement si le mouvement horizontal > vertical
-          if (Math.abs(diffX) > swipeThresholdX && diffY < swipeThresholdY) {
-            if (diffX > 0) {
-              changeSlide(1); // Swipe gauche
-            } else {
-              changeSlide(-1); // Swipe droite
-            }
-            stopAutoPlay();
-            startAutoPlay();
-          }
-        }, { passive: true });
-
-        // Cacher l'indicateur de swipe après première interaction
-        carousel.addEventListener('touchend', () => {
-          const hint = carousel.querySelector('.swipe-hint');
-          if (hint) {
-            hint.style.display = 'none';
-          }
-        }, { once: true, passive: true });
-      }
-
-      // API publique
-      return {
-        changeSlide: changeSlide,
-        goToSlide: goToSlide,
-        startAutoPlay: startAutoPlay,
-        stopAutoPlay: stopAutoPlay
-      };
-    })();
-  </script>
-  
 <script>
+window.dragonnierCarousel = (function() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  let currentSlide = 0;
+  const totalSlides = 4;
+  let slidesContainer, dots, slides, carousel;
+  let autoPlayInterval;
+  let isTransitioning = false;
+
+  function init() {
+    slidesContainer = document.getElementById('carouselSlides');
+    if (!slidesContainer) return;
+    
+    dots = document.querySelectorAll('.dragonnierCarousel .pagination-dot');
+    slides = document.querySelectorAll('.dragonnierCarousel .carousel-slide');
+    carousel = document.querySelector('.dragonnierCarousel .knives-carousel');
+
+    const actualSlides = slides.length;
+    if (actualSlides !== totalSlides) {
+      slidesContainer.style.width = `${actualSlides * 100}%`;
+      slides.forEach(slide => {
+        slide.style.width = `${100 / actualSlides}%`;
+      });
+    }
+
+    updateCarousel();
+    startAutoPlay();
+    setupEventListeners();
+  }
+
+  function updateCarousel() {
+    if (isTransitioning || !slidesContainer) return;
+    isTransitioning = true;
+
+    const translateX = -currentSlide * (100 / totalSlides);
+    slidesContainer.style.transform = `translateX(${translateX}%)`;
+    
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === currentSlide);
+    });
+    
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentSlide);
+    });
+
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 800);
+  }
+
+  function changeSlide(direction) {
+    currentSlide += direction;
+    
+    if (currentSlide >= totalSlides) {
+      currentSlide = 0;
+    } else if (currentSlide < 0) {
+      currentSlide = totalSlides - 1;
+    }
+    
+    updateCarousel();
+  }
+
+  function goToSlide(slideIndex) {
+    if (slideIndex >= 0 && slideIndex < totalSlides) {
+      currentSlide = slideIndex;
+      updateCarousel();
+    }
+  }
+
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoPlayInterval = setInterval(() => {
+      changeSlide(1);
+    }, 7000);
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      autoPlayInterval = null;
+    }
+  }
+
+  function setupEventListeners() {
+    if (!carousel) return;
+
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        changeSlide(-1);
+        stopAutoPlay();
+        startAutoPlay();
+      } else if (e.key === 'ArrowRight') {
+        changeSlide(1);
+        stopAutoPlay();
+        startAutoPlay();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      
+      const swipeThresholdX = 50;
+      const swipeThresholdY = 100;
+      
+      const diffX = touchStartX - touchEndX;
+      const diffY = Math.abs(touchStartY - touchEndY);
+      
+      if (Math.abs(diffX) > swipeThresholdX && diffY < swipeThresholdY) {
+        if (diffX > 0) {
+          changeSlide(1);
+        } else {
+          changeSlide(-1);
+        }
+        stopAutoPlay();
+        startAutoPlay();
+      }
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', () => {
+      const hint = carousel.querySelector('.swipe-hint');
+      if (hint) {
+        hint.style.display = 'none';
+      }
+    }, { once: true, passive: true });
+  }
+
+  return {
+    changeSlide: changeSlide,
+    goToSlide: goToSlide,
+    startAutoPlay: startAutoPlay,
+    stopAutoPlay: stopAutoPlay
+  };
+})();
+
+// SCRIPT PRIX WOOCOMMERCE
 (function(){
   function productEndpoint(id){
     var pretty = "/wp-json/wc/store/v1/products/" + id;
@@ -826,7 +787,7 @@
     });
   }
 
-  document.querySelectorAll('[data-product-id]').forEach(function(card){
+  document.querySelectorAll('.dragonnierCarousel [data-product-id]').forEach(function(card){
     var id = card.getAttribute('data-product-id');
     var priceEl = card.querySelector('.slide-price');
     if(!id || !priceEl) return;
@@ -835,7 +796,7 @@
       .then(function(res){ return res.json(); })
       .then(function(prod){
         if (prod && prod.price_html) {
-          priceEl.innerHTML = prod.price_html; // prix formaté WooCommerce
+          priceEl.innerHTML = prod.price_html;
         } else {
           priceEl.textContent = '—';
         }
@@ -844,5 +805,6 @@
   });
 })();
 </script>
+
 </body>
 </html>

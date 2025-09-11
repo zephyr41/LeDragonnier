@@ -9,6 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Immortal:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
+ /* NOUVEAU CORRECTIF : plus puissant */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
         /* ================================================
         STYLES DU FICHIER 1 (CTA, TIMELINE, PORTFOLIO, CARROUSEL)
         ================================================ */
@@ -117,7 +122,7 @@
         }
 
         .description {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--font-family), serif;
             font-size: clamp(1.2rem, 3vw, 24px);
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.9);
@@ -254,6 +259,11 @@
         }
 
         .create-btn-text {
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 0 4px rgba(255, 220, 180, 0.3);
+        }
+        #btn-text{
             position: relative;
             z-index: 10;
             text-shadow: 0 0 4px rgba(255, 220, 180, 0.3);
@@ -1275,7 +1285,6 @@
             --dark-text: #121212;
             --light-bg: #F5F5F5;
             --font-family: 'Immortal', serif;
-            --body-font: 'Cormorant Garamond', serif;
             --space: 40px;
             --space-sm: 40px;
             --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1630,7 +1639,8 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
+      
         .dragonnierCarrousel {
             --primary-red: #9D0208;
             --secondary-orange: #FAA307;
@@ -1701,13 +1711,59 @@
             border: none;
             outline: none;
             text-decoration: none;
-            font-family: inherit;
+            font-family: var(--body-font);
             font-size: inherit;
             line-height: inherit;
             color: inherit;
             cursor: pointer;
         }
+        
+        /* PARTIE 1 : On restaure le bouton parent LUI-MÊME */
+        .knives-carousel button.create-btn {
+            /* Apparence générale et 3D */
+            position: relative;
+            background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
+            border: none;
+            border-radius: 6px;
+            padding: 18px 45px;
+            overflow: hidden;
+            width: 70%;
+            margin: 10px 0px;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1), 
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3), 
+                0 4px 0 #4D0103, 
+                0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
 
+            /* Style du texte pour qu'il soit identique au "bon" bouton */
+            color: #F8F6F3;
+            font-family: var(--font-family);
+            font-size: 13px;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            text-transform: uppercase; /* On met en majuscules comme le bon bouton */
+            letter-spacing: 2px;     /* On ajoute l'espacement comme le bon bouton */
+        }
+
+        /* PARTIE 2 : On restaure la SURFACE ROUGE (la couche ::after) */
+        /* C'EST LA PARTIE CRUCIALE QUI MANQUAIT */
+        .knives-carousel button.create-btn::after {
+            content: '';
+            background: inherit;
+            border-radius: inherit;
+            position: absolute;
+            inset: 2px; /* Correspond à la variable --offset */
+            height: calc(100% - 4px);
+            width: calc(100% - 4px);
+            z-index: 2;
+        }
+
+        /* PARTIE 3 : On s'assure que la LUEUR ANIMÉE (la couche ::before) reste bien derrière */
+        .knives-carousel button.create-btn::before {
+            content: '';
+            z-index: 1;
+}
         .knives-carousel img {
             display: block;
             max-width: none !important;
@@ -1794,7 +1850,7 @@
             animation-delay: 0.2s;
         }
 
-        .knives-carousel .carousel-slide.active .slide-btn {
+        .knives-carousel .carousel-slide.active  {
             animation-delay: 0.3s;
         }
 
@@ -1862,51 +1918,6 @@
         .knives-carousel .carousel-slide.active .slide-price::after {
             transform: scaleX(1);
             animation-delay: 0.25s;
-        }
-
-        .knives-carousel .slide-btn {
-            background: linear-gradient(135deg, var(--primary-red), #7A0106) !important;
-            color: white !important;
-            padding: 18px 40px !important;
-            font-family: var(--font-family) !important;
-            font-size: 14px !important;
-            font-weight: 500 !important;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            border-radius: 50px !important;
-            transition: all 0.3s ease !important;
-            border: none !important;
-            text-decoration: none !important;
-            display: inline-block;
-            margin: 10px 0 20px 0 !important;
-            box-shadow: 0 4px 15px rgba(157, 2, 8, 0.3) !important;
-            position: relative;
-            overflow: hidden;
-            outline: none !important;
-            appearance: none !important;
-        }
-
-        .knives-carousel .slide-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .knives-carousel .slide-btn:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 6px 25px rgba(157, 2, 8, 0.4) !important;
-            background: linear-gradient(135deg, #B8020A, var(--primary-red)) !important;
-            text-decoration: none !important;
-        }
-
-        .knives-carousel .slide-btn:hover::before {
-            left: 100%;
         }
 
         .knives-carousel .slide-description {
@@ -2036,6 +2047,32 @@
         }
 
         @media (max-width: 768px) {
+             .knives-carousel button.create-btn {
+            /* Apparence générale et 3D */
+            position: relative;
+            background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
+            border: none;
+            border-radius: 6px;
+            padding: 14px 10px;
+            overflow: hidden;
+            width: 70%;
+            margin: 10px 0px;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1), 
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3), 
+                0 4px 0 #4D0103, 
+                0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+
+            /* Style du texte pour qu'il soit identique au "bon" bouton */
+            color: #F8F6F3;
+            font-family: var(--font-family);
+            font-size: 13px;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            text-transform: uppercase; /* On met en majuscules comme le bon bouton */
+            letter-spacing: 2px;     /* On ajoute l'espacement comme le bon bouton */
+        }
             .knives-carousel {
                 height: 65vh !important;
                 min-height: 65vh !important;
@@ -2079,11 +2116,6 @@
                 bottom: 20px;
             }
 
-            .knives-carousel .slide-btn {
-                padding: 14px 30px !important;
-                font-size: 12px !important;
-                margin: 8px 0 12px 0 !important;
-            }
         }
 
         @media (min-width: 1024px) {
@@ -3132,6 +3164,7 @@
 
 <body>
 <div class="PresentationDragonnier">
+<div id="leo-presentation"></div>
         <section class="section-histoire">
           <div class="container">
             <div class="histoire-grid">
@@ -3278,7 +3311,7 @@
                         Découvrez les étapes essentielles de création d'un couteau artisanal,
                         du premier croquis à la pièce finie.
                     </p>
-                    <button class="discover-btn" onclick="toggleTimeline()">
+                    <button class="create-btn" onclick="toggleTimeline()">
                         <span id="btn-text">Découvrir les étapes</span>
                     </button>
                 </header>
@@ -3427,7 +3460,10 @@
                         </div>
                     </div>
                     <div class="creation-cta">
-                        <button class="service-btn primary-btn">Réserver un atelier</button>
+                    <button class="create-btn">
+                        <span class="create-btn-text">Réserver un atelier</span>
+                        <div class="create-btn-blade"></div>
+                    </button>
                     </div>
                 </div>
 
@@ -3458,7 +3494,7 @@
                                     </div>
                                     <div class="contact-block">
                                         <span class="contact-text">Prise de rendez-vous</span>
-                                        <a href="tel:0606060606" class="phone-number">06 06 06 06 06</a>
+                                        <a href="tel:06 87 46 32 58" class="phone-number">06 87 46 32 58</a>
                                     </div>
                                 </div>
                             </div>
@@ -3471,84 +3507,98 @@
   <div class="dragonnierCarrousel">
         <div class="services-separator"></div>
         <div class="carousel-section-title">
+<div id="boutique_anchor"></div>
             <h1>Boutique</h1>
         </div>
-        <div class="knives-carousel alignfull">
-            <div class="carousel-slides" id="carouselSlides">
-                <div class="carousel-slide active" data-product-id="19093">
-                    <div class="slide-media">
-                        <img src="https://images.unsplash.com/photo-1543875929-c09f1e273428?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ornak - Couteau de table élégant" class="slide-bg-image" loading="lazy" decoding="async">
-                        <div class="slide-overlay"></div>
-                    </div>
-                    <div class="slide-content">
-                        <h2 class="slide-title">Ornak</h2>
-                        <p class="slide-subtitle">Le couteau de table</p>
-                        <div class="slide-price"></div>
-                        <a href="https://ledragonnier.com/index.php/produit/ornak-le-couteau-de-table/" class="slide-btn">Commander Ornak</a>
-                        <p class="slide-description">
-                            Ornak est une lame simple en apparence, mais travaillée dans le détail. Conçu pour sublimer l'usage quotidien avec sobriété et noblesse.
-                        </p>
-                    </div>
-                </div>
-                <div class="carousel-slide" data-product-id="19077">
-                    <div class="slide-media">
-                        <img src="https://images.unsplash.com/photo-1640687700961-423c172133e7?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sylvarak - Couteau pliant artisanal" class="slide-bg-image" loading="eager" fetchpriority="high" decoding="async">
-                        <div class="slide-overlay"></div>
-                    </div>
-                    <div class="slide-content">
-                        <h2 class="slide-title">Sylvarak</h2>
-                        <p class="slide-subtitle">Le couteau pliant</p>
-                        <div class="slide-price"></div>
-                        <a href="https://ledragonnier.com/index.php/produit/19077/ " class="slide-btn">Commander Sylvarak</a>
-                        <p class="slide-description">
-                            Discret et racé, Sylvarak est une lame de poche pensée pour accompagner le quotidien avec élégance. Inspiré des lames nomades et des dagues forestières.
-                        </p>
-                    </div>
-                </div>
-                <div class="carousel-slide" data-product-id="19084">
-                    <div class="slide-media">
-                        <img src="https://images.unsplash.com/photo-1602063239056-b531b101065d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Feranak - Couteau d'office de précision" class="slide-bg-image" loading="lazy" decoding="async">
-                        <div class="slide-overlay"></div>
-                    </div>
-                    <div class="slide-content">
-                        <h2 class="slide-title">Feranak</h2>
-                        <p class="slide-subtitle">Le couteau d'office</p>
-                        <div class="slide-price"></div>
-                        <a href="https://ledragonnier.com/index.php/produit/feranak-le-couteau-doffice/" class="slide-btn">Commander Feranak</a>
-                        <p class="slide-description">
-                            Taillé pour la précision, Feranak est la lame du geste juste. Sa prise en main directe et son équilibre millimétré en font un outil redoutable en cuisine.
-                        </p>
-                    </div>
-                </div>
-                <div class="carousel-slide" data-product-id="19051">
-                    <div class="slide-media">
-                        <img src="https://images.pexels.com/photos/952478/pexels-photo-952478.jpeg" alt="Velkaran - Couteau de cuisine professionnel" class="slide-bg-image" loading="lazy" decoding="async">
-                        <div class="slide-overlay"></div>
-                    </div>
-                    <div class="slide-content">
-                        <h2 class="slide-title">Velkaran</h2>
-                        <p class="slide-subtitle">Le couteau de cuisine</p>
-                        <div class="slide-price"></div>
-                        <a href="https://ledragonnier.com/index.php/produit/sylvarak-le-couteau-pliant/" class="slide-btn">Commander Velkaran</a>
-                        <p class="slide-description">
-                            Modèle le plus imposant de la famille, Velkaran incarne la puissance maîtrisée. Sa lame généreuse en fait un véritable outil de chef.
-                        </p>
-                    </div>
-                </div>
+ <div class="knives-carousel alignfull">
+    <div class="carousel-slides" id="carouselSlides">
+        <div class="carousel-slide active" data-product-id="19093">
+            <div class="slide-media">
+                <img src="https://images.unsplash.com/photo-1543875929-c09f1e273428?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ornak - Couteau de table élégant" class="slide-bg-image" loading="lazy" decoding="async">
+                <div class="slide-overlay"></div>
             </div>
-            <button class="carousel-nav carousel-prev" onclick="dragonnierCarousel.changeSlide(-1)" aria-label="Slide précédent"></button>
-            <button class="carousel-nav carousel-next" onclick="dragonnierCarousel.changeSlide(1)" aria-label="Slide suivant"></button>
-            <div class="carousel-pagination">
-                <button class="pagination-dot active" onclick="dragonnierCarousel.goToSlide(0)" aria-label="Ornak"></button>
-                <button class="pagination-dot" onclick="dragonnierCarousel.goToSlide(1)" aria-label="Sylvarak"></button>
-                <button class="pagination-dot" onclick="dragonnierCarousel.goToSlide(2)" aria-label="Feranak"></button>
-                <button class="pagination-dot" onclick="dragonnierCarousel.goToSlide(3)" aria-label="Velkaran"></button>
+            <div class="slide-content">
+                <h2 class="slide-title">Ornak</h2>
+                <p class="slide-subtitle">Le couteau de table</p>
+                <div class="slide-price"></div>
+                <button class="create-btn">
+                    <span class="create-btn-text">Commander Ornak</span>
+                    <div class="create-btn-blade"></div>
+                </button>
+                <p class="slide-description">
+                    Ornak est une lame simple en apparence, mais travaillée dans le détail. Conçu pour sublimer l'usage quotidien avec sobriété et noblesse.
+                </p>
             </div>
-            <div class="swipe-hint">← Glissez →</div>
         </div>
+        <div class="carousel-slide" data-product-id="19077">
+            <div class="slide-media">
+                <img src="https://images.unsplash.com/photo-1640687700961-423c172133e7?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sylvarak - Couteau pliant artisanal" class="slide-bg-image" loading="eager" fetchpriority="high" decoding="async">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Sylvarak</h2>
+                <p class="slide-subtitle">Le couteau pliant</p>
+                <div class="slide-price"></div>
+                <button class="create-btn">
+                    <span class="create-btn-text">Commander Sylvarak</span>
+                    <div class="create-btn-blade"></div>
+                </button>
+                <p class="slide-description">
+                    Discret et racé, Sylvarak est une lame de poche pensée pour accompagner le quotidien avec élégance. Inspiré des lames nomades et des dagues forestières.
+                </p>
+            </div>
+        </div>
+        <div class="carousel-slide" data-product-id="19084">
+            <div class="slide-media">
+                <img src="https://images.unsplash.com/photo-1602063239056-b531b101065d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Feranak - Couteau d'office de précision" class="slide-bg-image" loading="lazy" decoding="async">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Feranak</h2>
+                <p class="slide-subtitle">Le couteau d'office</p>
+                <div class="slide-price"></div>
+                <button class="create-btn">
+                    <span class="create-btn-text">Commander Feranak</span>
+                    <div class="create-btn-blade"></div>
+                </button>
+                <p class="slide-description">
+                    Taillé pour la précision, Feranak est la lame du geste juste. Sa prise en main directe et son équilibre millimétré en font un outil redoutable en cuisine.
+                </p>
+            </div>
+        </div>
+        <div class="carousel-slide" data-product-id="19051">
+            <div class="slide-media">
+                <img src="https://images.pexels.com/photos/952478/pexels-photo-952478.jpeg" alt="Velkaran - Couteau de cuisine professionnel" class="slide-bg-image" loading="lazy" decoding="async">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Velkaran</h2>
+                <p class="slide-subtitle">Le couteau de cuisine</p>
+                <div class="slide-price"></div>
+                <button class="create-btn">
+                    <span class="create-btn-text">Commander Velkaran</span>
+                    <div class="create-btn-blade"></div>
+                </button>
+                <p class="slide-description">
+                    Modèle le plus imposant de la famille, Velkaran incarne la puissance maîtrisée. Sa lame généreuse en fait un véritable outil de chef.
+                </p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-nav carousel-prev" onclick="dragonnierCarousel.changeSlide(-1)" aria-label="Slide précédent"></button>
+    <button class="carousel-nav carousel-next" onclick="dragonnierCarousel.changeSlide(1)" aria-label="Slide suivant"></button>
+    <div class="carousel-pagination">
+        <button class="pagination-dot active" onclick="dragonnierCarousel.goToSlide(0)" aria-label="Ornak"></button>
+        <button class="pagination-dot" onclick="dragonnierCarousel.goToSlide(1)" aria-label="Sylvarak"></button>
+        <button class="pagination-dot" onclick="dragonnierCarousel.goToSlide(2)" aria-label="Feranak"></button>
+        <button class="pagination-dot" onclick="dragonnierCarousel.goToSlide(3)" aria-label="Velkaran"></button>
+    </div>
+    <div class="swipe-hint">← Glissez →</div>
+</div>
     </div>
     <div class="dragonnierPortfolio">
         <section>
+            <div id="creation_anchor"></div>
             <div class="section-title">
                 <h1 class="h1-title">Mes Créations</h1>
             </div>
@@ -3556,7 +3606,7 @@
                 <img src="https://www.rustictown.com/cdn/shop/articles/What_type_of_leather_is_most_durable_1080x_ef36694d-8a64-47ce-9f3e-dd2af3f7cd2d.webp?v=1742815679&width=1024" alt="Créations uniques Le Dragonnier" class="section-image">
                 <div class="section-content">
                     <h3 class="h3-title">Créations Uniques</h3>
-                    <p>Découvrez nos couteaux classiques revisités en version premium. Chaque modèle allie fonctionnalité et raffinement, conçu pour les connaisseurs qui recherchent l'excellence dans chaque détail.</p>
+                    <p class="formula-desc">Découvrez nos couteaux classiques revisités en version premium. Chaque modèle allie fonctionnalité et raffinement, conçu pour les connaisseurs qui recherchent l'excellence dans chaque détail.</p>
                     <p>Du couteau pliant discret au chef imposant, notre gamme signature incarne notre savoir-faire artisanal dans des créations pensées pour durer.</p>
                     <button class="view-btn">Découvrir la collection</button>
                 </div>
@@ -3579,6 +3629,8 @@
                 </div>
                 <h3 class="h3-title">Venez en discuter avec nous autour d'un café à l'atelier</h3>
                 <div class="cta-buttons">
+                    <div id="prestations_anchor"></div>
+
                     <button class="create-btn">
                         <span class="create-btn-text">Contactez nous</span>
                         <div class="create-btn-blade"></div>
@@ -3589,6 +3641,8 @@
         </div>
         <div class="services-separator"></div>
         <div class="section-title">
+        
+
             <h1 class="h1-title">Question fréquentes</h1>
         </div>
         <div class="faq-container">
