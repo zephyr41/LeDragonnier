@@ -1719,15 +1719,15 @@ html, body {
         }
         
         /* PARTIE 1 : On restaure le bouton parent LUI-MÊME */
-        .knives-carousel button.create-btn {
+        .knives-carousel a.create-btn {
+            text-align: center;
             /* Apparence générale et 3D */
-            position: relative;
             background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
             border: none;
             border-radius: 6px;
-            padding: 18px 45px;
+            padding: 18px 5px;
             overflow: hidden;
-            width: 70%;
+            width: 60%;
             margin: 10px 0px;
             box-shadow: 
                 inset 0 1px 0 rgba(255, 255, 255, 0.1), 
@@ -1742,13 +1742,12 @@ html, body {
             font-size: 13px;
             font-weight: 600;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-            text-transform: uppercase; /* On met en majuscules comme le bon bouton */
             letter-spacing: 2px;     /* On ajoute l'espacement comme le bon bouton */
         }
 
         /* PARTIE 2 : On restaure la SURFACE ROUGE (la couche ::after) */
         /* C'EST LA PARTIE CRUCIALE QUI MANQUAIT */
-        .knives-carousel button.create-btn::after {
+        .knives-carousel a.create-btn::after {
             content: '';
             background: inherit;
             border-radius: inherit;
@@ -1760,7 +1759,7 @@ html, body {
         }
 
         /* PARTIE 3 : On s'assure que la LUEUR ANIMÉE (la couche ::before) reste bien derrière */
-        .knives-carousel button.create-btn::before {
+        .knives-carousel a.create-btn::before {
             content: '';
             z-index: 1;
 }
@@ -2047,7 +2046,7 @@ html, body {
         }
 
         @media (max-width: 768px) {
-             .knives-carousel button.create-btn {
+             .knives-carousel a.create-btn {
             /* Apparence générale et 3D */
             position: relative;
             background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
@@ -2055,7 +2054,7 @@ html, body {
             border-radius: 6px;
             padding: 14px 10px;
             overflow: hidden;
-            width: 70%;
+            width: 60%;
             margin: 10px 0px;
             box-shadow: 
                 inset 0 1px 0 rgba(255, 255, 255, 0.1), 
@@ -2067,7 +2066,7 @@ html, body {
             /* Style du texte pour qu'il soit identique au "bon" bouton */
             color: #F8F6F3;
             font-family: var(--font-family);
-            font-size: 13px;
+            font-size: 9px;
             font-weight: 600;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
             text-transform: uppercase; /* On met en majuscules comme le bon bouton */
@@ -2082,15 +2081,18 @@ html, body {
                 padding: 0 30px;
                 margin-left: 0;
                 max-width: 100%;
-                gap: 8px;
+                gap: 30px;
+                 align-items: center;
+                text-align: center; /* Centre aussi le texte des titres */
             }
-
+            
             .knives-carousel .slide-title {
                 font-size: 2.2rem !important;
             }
 
             .knives-carousel .slide-subtitle {
                 font-size: 0.9rem !important;
+                margin-top: -17px!important;
             }
 
             .knives-carousel .slide-price {
@@ -2101,6 +2103,8 @@ html, body {
             .knives-carousel .slide-description {
                 font-size: 0.9rem !important;
                 -webkit-line-clamp: 2;
+                width: 100%; /* Elle prend toute la largeur disponible */
+                text-align: center; /* Et son texte est aligné à gauche pour la lisibilité */
             }
 
             .knives-carousel .carousel-nav {
@@ -2115,6 +2119,11 @@ html, body {
             .knives-carousel .carousel-pagination {
                 bottom: 20px;
             }
+  .knives-carousel .slide-title { order: 1; }
+    .knives-carousel .slide-subtitle { order: 2; }
+    .knives-carousel .slide-price { order: 3; }
+    .knives-carousel .slide-description { order: 4; }
+    .knives-carousel a.create-btn { order: 5; } /* On met le bouton en dernier */
 
         }
 
@@ -3158,7 +3167,35 @@ html, body {
           -moz-osx-font-smoothing: grayscale;
           text-rendering: optimizeLegibility;
         }
+#creation_anchor{
+      scroll-margin-top: 30px; /* Hauteur du menu sur ORDINATEUR */
+}
+#boutique_anchor{
+    scroll-margin-top: 30px; /* À remplacer par la hauteur de votre menu sur mobile */
+  }
+  #prestations_anchor{
+    scroll-margin-top: 200px; /* À remplacer par la hauteur de votre menu sur mobile */
+  }
+/* 2. POUR LES TABLETTES */
+@media (max-width: 992px) {
+  #creation_anchor {
+    scroll-margin-top: 70px; /* À remplacer par la hauteur de votre menu sur tablette */
+  }
+}
 
+
+/* 3. POUR LES MOBILES */
+@media (max-width: 768px) {
+  #creation_anchor {
+    scroll-margin-top: 70px; /* À remplacer par la hauteur de votre menu sur mobile */
+  }
+  #boutique_anchor{
+    scroll-margin-top: 140px; /* À remplacer par la hauteur de votre menu sur mobile */
+  }
+  #prestations_anchor{
+    scroll-margin-top: 100px; /* À remplacer par la hauteur de votre menu sur mobile */
+  }
+}
     </style>
 </head>
 
@@ -3218,6 +3255,8 @@ html, body {
         <section class="section-portrait">
           <div class="container">
             <div class="section-title">
+                <div id="anchor-presentation"></div>
+
               <h2>Qui je suis ?</h2>
             </div>
             
@@ -3265,6 +3304,8 @@ html, body {
             <div class="side-decoration"></div>
             <div class="side-decoration-right"></div>
             <div class="content">
+            
+
                 <div class="subtitle">STAGES DE COUTELLERIE AVEC LE DRAGONNIER</div>
                 <h1 class="title">Forgez votre première lame</h1>
                 <div class="ornament">
@@ -3421,6 +3462,7 @@ html, body {
         <section class="services-section">
             <div class="timeline-container">
                 <header class="services-header">
+                    <div id="prestations_anchor"></div>
                     <h2 class="services-title">Nos Services</h2>
                     <p class="services-subtitle">
                         Créez votre couteau ou confiez-nous l'entretien de vos lames
@@ -3500,17 +3542,21 @@ html, body {
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </section>
+        
     </div>
   <div class="dragonnierCarrousel">
         <div class="services-separator"></div>
+        
         <div class="carousel-section-title">
-<div id="boutique_anchor"></div>
+            <div id="boutique_anchor"></div>
             <h1>Boutique</h1>
         </div>
  <div class="knives-carousel alignfull">
+    <div id="boutique_anchor"></div>
     <div class="carousel-slides" id="carouselSlides">
         <div class="carousel-slide active" data-product-id="19093">
             <div class="slide-media">
@@ -3521,10 +3567,10 @@ html, body {
                 <h2 class="slide-title">Ornak</h2>
                 <p class="slide-subtitle">Le couteau de table</p>
                 <div class="slide-price"></div>
-                <button class="create-btn">
-                    <span class="create-btn-text">Commander Ornak</span>
-                    <div class="create-btn-blade"></div>
-                </button>
+                <a href="https://ledragonnier.com/index.php/produit/ornak-le-couteau-de-table/" class="create-btn">
+                        <span class="create-btn-text">Commander Ornak</span>
+                            <div class="create-btn-blade"></div>
+                </a>
                 <p class="slide-description">
                     Ornak est une lame simple en apparence, mais travaillée dans le détail. Conçu pour sublimer l'usage quotidien avec sobriété et noblesse.
                 </p>
@@ -3539,10 +3585,10 @@ html, body {
                 <h2 class="slide-title">Sylvarak</h2>
                 <p class="slide-subtitle">Le couteau pliant</p>
                 <div class="slide-price"></div>
-                <button class="create-btn">
-                    <span class="create-btn-text">Commander Sylvarak</span>
-                    <div class="create-btn-blade"></div>
-                </button>
+                <a href="https://ledragonnier.com/index.php/produit/sylvarak-couteau-pliant/" class="create-btn">
+                        <span class="create-btn-text">Commander Sylvarak</span>
+                            <div class="create-btn-blade"></div>
+                </a>
                 <p class="slide-description">
                     Discret et racé, Sylvarak est une lame de poche pensée pour accompagner le quotidien avec élégance. Inspiré des lames nomades et des dagues forestières.
                 </p>
@@ -3557,10 +3603,10 @@ html, body {
                 <h2 class="slide-title">Feranak</h2>
                 <p class="slide-subtitle">Le couteau d'office</p>
                 <div class="slide-price"></div>
-                <button class="create-btn">
-                    <span class="create-btn-text">Commander Feranak</span>
-                    <div class="create-btn-blade"></div>
-                </button>
+                <a href="https://ledragonnier.com/index.php/produit/feranak-couteau-pliant/" class="create-btn">
+                        <span class="create-btn-text">Commander Feranak</span>
+                            <div class="create-btn-blade"></div>
+                </a>
                 <p class="slide-description">
                     Taillé pour la précision, Feranak est la lame du geste juste. Sa prise en main directe et son équilibre millimétré en font un outil redoutable en cuisine.
                 </p>
@@ -3575,10 +3621,10 @@ html, body {
                 <h2 class="slide-title">Velkaran</h2>
                 <p class="slide-subtitle">Le couteau de cuisine</p>
                 <div class="slide-price"></div>
-                <button class="create-btn">
-                    <span class="create-btn-text">Commander Velkaran</span>
-                    <div class="create-btn-blade"></div>
-                </button>
+                    <a href="https://ledragonnier.com/index.php/produit/sylvarak-le-couteau-pliant/" class="create-btn">
+                        <span class="create-btn-text">Commander Velkaran</span>
+                            <div class="create-btn-blade"></div>
+                    </a>
                 <p class="slide-description">
                     Modèle le plus imposant de la famille, Velkaran incarne la puissance maîtrisée. Sa lame généreuse en fait un véritable outil de chef.
                 </p>
@@ -3596,9 +3642,10 @@ html, body {
     <div class="swipe-hint">← Glissez →</div>
 </div>
     </div>
+        <div id="creation_anchor"></div>
     <div class="dragonnierPortfolio">
         <section>
-            <div id="creation_anchor"></div>
+            
             <div class="section-title">
                 <h1 class="h1-title">Mes Créations</h1>
             </div>
@@ -3624,12 +3671,13 @@ html, body {
         <div class="services-separator"></div>
         <div class="cta-banner">
             <div class="cta-content">
+                
                 <div class="section-title">
                     <h1 class="h1-title">Un projet sur mesure</h1>
                 </div>
                 <h3 class="h3-title">Venez en discuter avec nous autour d'un café à l'atelier</h3>
                 <div class="cta-buttons">
-                    <div id="prestations_anchor"></div>
+                    
 
                     <button class="create-btn">
                         <span class="create-btn-text">Contactez nous</span>
@@ -3672,6 +3720,7 @@ html, body {
             </details>
         </div>
     </div>
+</body>
 
     <script>
         // --- SCRIPTS DU FICHIER CTA & TIMELINE ---
@@ -4012,6 +4061,5 @@ html, body {
             }
         });
     </script>
-</body>
 
 </html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Grille Bento Améliorée</title>
+<style>
+/* --- VARIABLES DE DESIGN (COHÉRENTES AVEC VOTRE MARQUE) --- */
+:root {
+    --primary-red: #9D0208;
+    --secondary-orange: #FAA307;
+    --dark-text: #2c2c2c;
+    --light-bg: #F8F6F3;
+    --block-bg: #ffffff;
+    --font-family-titles: 'Immortal', 'Playfair Display', serif;
+    
+    --gap: 20px;
+    --border-radius: 16px;
+    --transition-speed: 0.4s;
+    --border-color-soft: #f0f0f0;
+}
+
+/* --- GRILLE BENTO --- */
+#grille-bento-container-js .bento-grid-couteaux {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1.5fr 1fr 1fr;
+    gap: var(--gap);
+    max-width: 850px; 
+    margin: 60px auto;
+    aspect-ratio: 1 / 1.1; 
+}
+
+/* --- Placement des blocs --- */
+#grille-bento-container-js .block-velkaran { grid-area: 1 / 1 / 2 / 3; }
+#grille-bento-container-js .block-sylvarak { grid-area: 2 / 1 / 4 / 2; }
+#grille-bento-container-js .block-feranak { grid-area: 2 / 2 / 3 / 3; }
+#grille-bento-container-js .block-ornak { grid-area: 3 / 2 / 4 / 3; }
+
+/* --- Style de chaque bloc --- */
+#grille-bento-container-js .bento-block {
+    background-color: var(--block-bg);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--dark-text);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    border: 1px solid var(--border-color-soft);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.05);
+}
+
+#grille-bento-container-js .bento-block:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.06), 0 5px 10px rgba(0,0,0,0.08);
+}
+
+#grille-bento-container-js .bento-image-wrapper {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+}
+
+#grille-bento-container-js .bento-image-wrapper img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#grille-bento-container-js .bento-block:hover .bento-image-wrapper img {
+    transform: scale(1.05);
+}
+
+#grille-bento-container-js .bento-text-content {
+    padding: 1.75rem;
+    background-color: var(--block-bg);
+}
+
+
+/* === STYLE FINAL POUR LES TEXTES (TAILLES AJUSTÉES) === */
+
+/* Style du Nom du Couteau (ex: "Velkaran") */
+#grille-bento-container-js .bento-text-content h2 {
+    font-family: var(--font-family-titles);
+    color: var(--dark-text);
+    /* CHANGEMENT ICI : Taille de police réduite pour un meilleur équilibre */
+    font-size: clamp(1.8rem, 3vw, 2.4rem); 
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 1.1; /* CHANGEMENT ICI : Un peu plus d'air pour la lisibilité */
+    text-transform: none;
+    margin: 0;
+    margin-bottom: 0.75rem;
+}
+
+/* Style du Sous-titre - COPIÉ DE VOTRE .slide-subtitle */
+#grille-bento-container-js .bento-text-content p {
+    font-family: var(--font-family-titles) !important;
+    color: var(--secondary-orange) !important;
+    /* CHANGEMENT ICI : Taille de police réduite */
+    font-size: 0.9rem !important; 
+    font-weight: 400 !important;
+    margin: 0 !important;
+    text-transform: uppercase;
+    /* CHANGEMENT ICI : Espacement légèrement réduit pour la lisibilité */
+    letter-spacing: 2.5px;
+    opacity: 0.9;
+}
+
+/* === FIN DES NOUVEAUX STYLES === */
+
+
+#grille-bento-container-js .badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    z-index: 2;
+    font-family: 'Montserrat', sans-serif;
+}
+#grille-bento-container-js .badge.cuisine { background-color: #f5a623; color: #fff; }
+#grille-bento-container-js .badge.pliant { background-color: #d0021b; color: #fff; }
+#grille-bento-container-js .badge.office { background-color: #e67e22; color: #fff; }
+#grille-bento-container-js .badge.table { background-color: #4a4a4a; color: #fff; }
+
+/* --- Responsive Mobile --- */
+@media (max-width: 900px) {
+    #grille-bento-container-js .bento-grid-couteaux {
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 768px) {
+    #grille-bento-container-js .bento-grid-couteaux {
+        display: flex;
+        flex-direction: column;
+        aspect-ratio: auto;
+    }
+    #grille-bento-container-js .bento-text-content h2 {
+        font-size: 1.8rem; /* Taille ajustée pour mobile */
+    }
+    #grille-bento-container-js .bento-text-content p {
+        font-size: 0.8rem !important; /* Taille ajustée pour mobile */
+    }
+}
+</style>
+</head>
+<body>
+
+
+
+  <div id="grille-bento-container-js"></div>
+
+</body>
+</body>
+<script>
+// Ce code doit aller dans votre fichier /js/grille-bento-fetch.js
+// Ce code doit aller dans votre fichier /js/grille-bento-fetch.js
+
+document.addEventListener('DOMContentLoaded', async function() {
+
+    // --- Configuration avec vos SKUs en minuscules ---
+    const produitsSKUs = {
+        'block-velkaran': 'velkaran',
+        'block-sylvarak': 'sylvarak',
+        'block-feranak':  'feranak',
+        'block-ornak':    'ornak'
+    };
+
+    const container = document.getElementById('grille-bento-container-js');
+    if (!container) return; 
+
+    container.innerHTML = '<p style="text-align:center;">Chargement des créations...</p>';
+
+    async function fetchProductBySKU(sku) {
+        try {
+            const response = await fetch(`/wp-json/wc/store/v1/products?sku=${sku}`);
+            if (!response.ok) throw new Error(`Erreur API pour SKU ${sku}`);
+            const products = await response.json();
+            if (products.length === 0) throw new Error(`Produit non trouvé pour SKU ${sku}`);
+            return products[0];
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    try {
+        const fetchPromises = Object.entries(produitsSKUs).map(([cssClass, sku]) => 
+            fetchProductBySKU(sku).then(productData => ({ cssClass, productData }))
+        );
+
+        const results = await Promise.all(fetchPromises);
+
+        container.innerHTML = ''; 
+        
+        const gridWrapper = document.createElement('div');
+        gridWrapper.className = 'bento-grid-couteaux';
+
+        results.forEach(({ cssClass, productData }) => {
+            if (!productData) return;
+
+            const blockLink = document.createElement('a');
+            blockLink.href = productData.permalink;
+            blockLink.className = 'bento-block ' + cssClass;
+
+            const imageWrapper = document.createElement('div');
+            imageWrapper.className = 'bento-image-wrapper';
+
+            const img = document.createElement('img');
+            img.src = productData.images[0]?.src || '';
+            img.alt = productData.images[0]?.alt || productData.name;
+            
+            const badge = document.createElement('span');
+            badge.className = 'badge';
+            
+            let badgeText = '';
+            if (cssClass.includes('velkaran')) { badge.classList.add('cuisine'); badgeText = 'Cuisine'; }
+            if (cssClass.includes('sylvarak')) { badge.classList.add('pliant'); badgeText = 'Pliant'; }
+            if (cssClass.includes('feranak')) { badge.classList.add('office'); badgeText = 'Office'; }
+            if (cssClass.includes('ornak')) { badge.classList.add('table'); badgeText = 'Table'; }
+            badge.textContent = badgeText;
+            
+            const textContent = document.createElement('div');
+            textContent.className = 'bento-text-content';
+
+            const title = document.createElement('h2');
+            const description = document.createElement('p');
+
+            // =================================================================
+            // === MODIFICATION PRINCIPALE ICI : On sépare le titre en deux ===
+            // =================================================================
+            const nomComplet = productData.name;
+            const parts = nomComplet.split(' — '); // On casse le titre au niveau du " — "
+
+            const nomPrincipal = parts[0]; // La première partie (ex: "Velkaran")
+            // S'il y a une deuxième partie, on la prend, sinon on laisse vide.
+            const sousTitre = parts.length > 1 ? '— ' + parts[1] : ''; 
+
+            title.innerHTML = nomPrincipal; // Le h2 ne contient que le nom
+            description.innerHTML = sousTitre; // Le p contient le reste
+            // =================================================================
+            // === FIN DE LA MODIFICATION ===
+            // =================================================================
+
+            imageWrapper.appendChild(img);
+            imageWrapper.appendChild(badge);
+            textContent.appendChild(title);
+            textContent.appendChild(description);
+            blockLink.appendChild(imageWrapper);
+            blockLink.appendChild(textContent);
+            gridWrapper.appendChild(blockLink);
+        });
+        
+        container.appendChild(gridWrapper);
+
+    } catch (error) {
+        container.innerHTML = '<p style="text-align:center; color: red;">Erreur lors du chargement des produits.</p>';
+        console.error("Erreur lors de la récupération des produits de la grille Bento:", error);
+    }
+});
+</script>
+</html>

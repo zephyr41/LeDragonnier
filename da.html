@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Référence Design - Le Dragonnier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Immortal:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #9D0208;
+      --secondary-orange: #FAA307;
+      --accent-orange: #E85D04;
+      --dark-text: #121212;
+      --light-bg: #F5F5F5;
+      --font-family: 'Immortal', serif;
+      --space: 40px;
+      --space-sm: 40px;
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: var(--font-family);
+      background: var(--light-bg);
+      color: var(--dark-text);
+      padding: var(--space);
+    }
+
+    .section-title h1 {
+      font-family: var(--font-family);
+      color: var(--primary-red);
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      margin: 0 0 var(--space-sm) 0;
+      font-weight: 400;
+      letter-spacing: 2px;
+      position: relative;
+      cursor: default;
+      transition: var(--transition-smooth);
+      text-align: center;
+    }
+    
+    .section-title h1::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--secondary-orange) 0%, var(--accent-orange) 100%);
+      transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s;
+    }
+    
+    h2 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      color: var(--primary-red);
+      margin: 0 0 20px 0;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    h3 {
+      font-family: var(--font-family);
+      color: var(--secondary-orange);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin: 0 0 8px 0;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+    }
+
+    .subtitle {
+      font-family: var(--font-family);
+      color: var(--accent-orange);
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .separation {
+      height: 2px;
+      background: var(--primary-red);
+      margin: calc(var(--space) * 2) 0;
+      opacity: 0.3;
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, rgba(250, 163, 7, 0.08) 0%, rgba(232, 93, 4, 0.05) 100%);
+      padding: 25px 30px;
+      border-left: 4px solid var(--secondary-orange);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: var(--accent-orange);
+      margin: 35px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .highlight::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      bottom: -2px;
+      left: -6px;
+      background: linear-gradient(120deg, rgba(250, 163, 7, 0.1) 0%, rgba(232, 93, 4, 0.05) 100%);
+      border-radius: 0 14px 14px 0;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.6s ease 0.3s;
+    }
+    
+    .highlight::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+      transition: left 0.8s ease;
+    }
+    
+    .highlight:hover::after {
+      left: 100%;
+    }
+
+    /* ===============================================
+       BOUTONS - TES STYLES + VARIANTES
+    =============================================== */
+
+    .create-btn {
+      --offset: 2px;
+      position: relative;
+      background: linear-gradient(135deg, #B8020A 0%, #9D0208 50%, #7A0106 100%);
+      color: #F8F6F3;
+      padding: 18px 45px;
+      font-family: var(--font-family);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 4px 0 #4D0103,
+        0 8px 25px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .create-btn::before {
+      content: '';
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(250, 163, 7, 0.01) 15deg,
+        rgba(250, 163, 7, 0.03) 30deg,
+        rgba(250, 163, 7, 0.06) 45deg,
+        rgba(250, 163, 7, 0.12) 60deg,
+        rgba(250, 163, 7, 0.25) 75deg,
+        rgba(250, 163, 7, 0.45) 90deg,
+        rgba(250, 163, 7, 0.7) 105deg,
+        #FAA307 120deg,
+        #E85D04 180deg,
+        rgba(232, 93, 4, 0.7) 195deg,
+        rgba(232, 93, 4, 0.45) 210deg,
+        rgba(232, 93, 4, 0.25) 225deg,
+        rgba(232, 93, 4, 0.12) 240deg,
+        rgba(232, 93, 4, 0.06) 255deg,
+        rgba(232, 93, 4, 0.03) 270deg,
+        rgba(232, 93, 4, 0.01) 285deg,
+        transparent 300deg,
+        transparent 360deg
+      );
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.1);
+      aspect-ratio: 1;
+      width: 100%;
+      animation: dragonnier-rotate 4s linear infinite;
+      z-index: 1;
+    }
+
+    .create-btn::after {
+      content: '';
+      background: inherit;
+      border-radius: inherit;
+      position: absolute;
+      inset: var(--offset);
+      height: calc(100% - 2 * var(--offset));
+      width: calc(100% - 2 * var(--offset));
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .create-btn-text {
+      position: relative;
+      z-index: 10;
+      text-shadow: 0 0 4px rgba(255, 220, 180, 0.3);
+    }
+
+    @keyframes dragonnier-rotate {
+      from {
+        transform: translate(-50%, -50%) scale(1.1) rotate(0turn);
+      }
+      to {
+        transform: translate(-50%, -50%) scale(1.1) rotate(1turn);
+      }
+    }
+
+    .create-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 6px 0 #4D0103,
+        0 12px 35px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(135deg, #C5020C 0%, #B8020A 50%, #9D0208 100%);
+    }
+
+    .create-btn-blade {
+      position: absolute;
+      top: -50%;
+      left: -150%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(135deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 30%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        rgba(255, 255, 255, 0.1) 70%, 
+        transparent 100%);
+      transform: skewX(20deg);
+      transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    .create-btn:hover .create-btn-blade {
+      left: 120%;
+    }
+
+    .view-btn {
+      background: transparent;
+      color: var(--secondary-orange);
+      border: 2px solid var(--secondary-orange);
+      padding: 16px 40px;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: lowercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      font-family: var(--font-family);
+      border-radius: 6px;
+    }
+
+    .view-btn:hover {
+      background: var(--secondary-orange);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 15px rgba(250, 163, 7, 0.3);
+    }
+
+    /* ===============================================
+       BOUTONS MANQUANTS + FORMS
+    =============================================== */
+
+    /* Bouton secondaire simple */
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary-red);
+      border: 2px solid var(--primary-red);
+      padding: 16px 35px;
+      font-family: var(--font-family);
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-red);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(157, 2, 8, 0.3);
+    }
+
+
+
+    /* ===============================================
+       FORMS
+    =============================================== */
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-family);
+      color: var(--dark-text);
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px 20px;
+      font-family: var(--font-family);
+      font-size: 1rem;
+      color: var(--dark-text);
+      background: white;
+      border: 2px solid rgba(157, 2, 8, 0.15);
+      border-radius: 8px;
+      transition: var(--transition-smooth);
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--secondary-orange);
+      box-shadow: 0 0 0 3px rgba(250, 163, 7, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 15px 20px;
+      font-family: var(--font-family);
+      font-size: 1rem;
+      color: var(--dark-text);
+      background: white;
+      border: 2px solid rgba(157, 2, 8, 0.15);
+      border-radius: 8px;
+      transition: var(--transition-smooth);
+      outline: none;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-textarea:focus {
+      border-color: var(--secondary-orange);
+      box-shadow: 0 0 0 3px rgba(250, 163, 7, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="section-title">
+    <h1>Titre Principal H1</h1>
+  </div>
+  
+  <h2>Sous-titre H2</h2>
+ 
+  <>Léo Jaudon</h3>
+  <p class="subtitle">Le Dragonnier</p>
+  
+  <p>Texte normal de paragraphe pour voir le rendu de base.</p>
+  
+  <p class="highlight">
+    Installé aujourd'hui à Pézenas, il conçoit des pièces uniques où chaque étape – du choix des matériaux à la finition – reflète un engagement authentique pour l'artisanat et le travail bien fait.
+  </p>
+  
+  <div class="separation"></div>
+  
+  <h2>Card Produit</h2>
+  
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1594736797933-d0f06ba62b67?w=400&h=200&fit=crop" alt="Couteau" class="card-image">
+    <h4 class="card-title">Couteau Pliant Olivier</h4>
+    <div class="card-price">85€</div>
+    <p class="card-text">Couteau pliant avec manche en bois d'olivier, lame forgée main. Idéal pour les amateurs d'artisanat.</p>
+  </div>
+  
+  <div class="separation"></div>
+  
+  <h2>Boutons</h2>
+  
+  <!-- Ton bouton principal -->
+  <button class="create-btn">
+    <span class="create-btn-text">CRÉEZ VOTRE COUTEAU</span>
+    <div class="create-btn-blade"></div>
+  </button>
+  
+  <!-- Ton bouton view -->
+  <button class="view-btn">voir les créations</button>
+  
+  <!-- Boutons ajoutés -->
+  <button class="btn-secondary">Bouton Secondaire</button>
+  <button class="btn-orange">Bouton Orange</button>
+  
+  <div class="separation"></div>
+  
+  <h2>Formulaires</h2>
+  
+  <div class="form-group">
+    <label class="form-label">Nom complet</label>
+    <input type="text" class="form-input" placeholder="Votre nom">
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-input" placeholder="votre@email.com">
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label">Message</label>
+    <textarea class="form-textarea" placeholder="Votre message..."></textarea>
+  </div>
+  
+  <button class="create-btn">
+    <span class="create-btn-text">ENVOYER</span>
+    <div class="create-btn-blade"></div>
+  </button>
+</body>
+</html>
