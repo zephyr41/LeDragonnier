@@ -3671,20 +3671,10 @@ Je vous propose deux options, la demi-journée ou une journée complète.
 
     </div>
   <div class="dragonnierCarrousel">
-        <div class="services-separator"></div>
-
         <div class="carousel-section-title">
             <div id="boutique_anchor"></div>
             <h1>Boutique</h1>
         </div>
-
-        <section class="products-showcase">
-            <div class="timeline-container">
-                <div class="products-grid" id="productsGrid">
-                    <div class="loading-state">Chargement des produits...</div>
-                </div>
-            </div>
-        </section>
 
  <div class="knives-carousel alignfull">
     <div id="boutique_anchor"></div>
@@ -3774,6 +3764,15 @@ Je vous propose deux options, la demi-journée ou une journée complète.
     </div>
     <div class="swipe-hint">← Glissez →</div>
 </div>
+
+        <section class="products-showcase">
+            <div class="timeline-container">
+                <div class="products-grid" id="productsGrid">
+                    <div class="loading-state">Chargement des produits...</div>
+                </div>
+            </div>
+        </section>
+
     </div>
         <div id="creation_anchor"></div>
     <div class="dragonnierPortfolio">
@@ -4223,7 +4222,7 @@ Je travaille principalement avec des essences locales : olivier, buis, cade mais
                 let html = '';
                 products.forEach(product => {
                     const image = product.images[0]?.src || '';
-                    const price = product.prices?.formatted_price || 'Sur demande';
+                    const price = product.prices?.formatted_price || '';
                     const link = product.permalink || '#';
                     const name = product.name || 'Produit sans nom';
 
