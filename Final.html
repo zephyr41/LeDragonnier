@@ -3669,24 +3669,23 @@ Je vous propose deux options, la demi-journée ou une journée complète.
             </div>
         </section>
 
-        <section class="products-showcase">
-            <div class="timeline-container">
-                <h2 class="products-title">Nos Couteaux</h2>
-                <p class="products-subtitle">Découvrez nos créations signature</p>
-                <div class="products-grid" id="productsGrid">
-                    <div class="loading-state">Chargement...</div>
-                </div>
-            </div>
-        </section>
-
     </div>
   <div class="dragonnierCarrousel">
         <div class="services-separator"></div>
-        
+
         <div class="carousel-section-title">
             <div id="boutique_anchor"></div>
             <h1>Boutique</h1>
         </div>
+
+        <section class="products-showcase">
+            <div class="timeline-container">
+                <div class="products-grid" id="productsGrid">
+                    <div class="loading-state">Chargement des produits...</div>
+                </div>
+            </div>
+        </section>
+
  <div class="knives-carousel alignfull">
     <div id="boutique_anchor"></div>
     <div class="carousel-slides" id="carouselSlides">
@@ -4201,16 +4200,23 @@ Je travaille principalement avec des essences locales : olivier, buis, cade mais
             if (!productsGrid) return;
 
             try {
-                const response = await fetch('/wp-json/wc/store/v1/products?per_page=8&orderby=menu_order&order=asc');
+                console.log('🛍️ Chargement des produits...');
+
+                // Essayer l'API WooCommerce Store
+                const apiUrl = `${window.location.origin}/wp-json/wc/store/v1/products?per_page=8&orderby=menu_order&order=asc`;
+                console.log('📍 URL API:', apiUrl);
+
+                const response = await fetch(apiUrl);
 
                 if (!response.ok) {
                     throw new Error(`Erreur HTTP: ${response.status}`);
                 }
 
                 const products = await response.json();
+                console.log('✅ Produits reçus:', products.length);
 
-                if (products.length === 0) {
-                    productsGrid.innerHTML = '<div class="loading-state">Aucun produit trouvé</div>';
+                if (!Array.isArray(products) || products.length === 0) {
+                    productsGrid.innerHTML = '<div class="loading-state">Aucun produit disponible</div>';
                     return;
                 }
 
@@ -4219,14 +4225,15 @@ Je travaille principalement avec des essences locales : olivier, buis, cade mais
                     const image = product.images[0]?.src || '';
                     const price = product.prices?.formatted_price || 'Sur demande';
                     const link = product.permalink || '#';
+                    const name = product.name || 'Produit sans nom';
 
                     html += `
                         <a href="${link}" class="product-card">
                             <div class="product-image">
-                                <img src="${image}" alt="${product.name}" loading="lazy">
+                                ${image ? `<img src="${image}" alt="${name}" loading="lazy">` : '<div style="background: var(--light-bg); width: 100%; height: 100%;"></div>'}
                             </div>
                             <div class="product-info">
-                                <h3 class="product-name">${product.name}</h3>
+                                <h3 class="product-name">${name}</h3>
                                 <p class="product-price">${price}</p>
                             </div>
                         </a>
@@ -4234,10 +4241,14 @@ Je travaille principalement avec des essences locales : olivier, buis, cade mais
                 });
 
                 productsGrid.innerHTML = html;
+                console.log('✨ Produits affichés avec succès');
 
             } catch (error) {
-                console.error('Erreur chargement produits:', error);
-                productsGrid.innerHTML = '<div class="loading-state">Erreur lors du chargement</div>';
+                console.error('❌ Erreur chargement produits:', error);
+                productsGrid.innerHTML = `<div class="loading-state">
+                    <p>Impossible de charger les produits</p>
+                    <small style="opacity: 0.6; margin-top: 10px; display: block;">${error.message}</small>
+                </div>`;
             }
         });
     </script>
