@@ -735,123 +735,6 @@ html, body {
             }
         }
 
-        .products-showcase {
-            background: var(--light-bg);
-            padding: var(--section-spacing) 0;
-            border-top: 1px solid rgba(157, 2, 8, 0.1);
-        }
-
-        .products-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--primary-red);
-            margin-bottom: 20px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-align: center;
-            position: relative;
-        }
-
-        .products-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--secondary-orange), var(--accent-orange));
-            transition: width 1s ease 0.3s;
-        }
-
-        .products-subtitle {
-            font-size: 1.2rem;
-            color: var(--dark-text);
-            opacity: 0.8;
-            text-align: center;
-            margin: 40px 0 60px 0;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin: 0;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(157, 2, 8, 0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(157, 2, 8, 0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            background: var(--dark-text);
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
-        }
-
-        .product-info {
-            padding: 25px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-name {
-            font-size: 1.3rem;
-            color: var(--primary-red);
-            margin: 0 0 10px 0;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .product-price {
-            font-size: 1.2rem;
-            color: var(--secondary-orange);
-            font-weight: 600;
-            margin: 10px 0 0 0;
-        }
-
-        .loading-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--dark-text);
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-
         .services-section {
             background: var(--light-bg);
             padding: var(--section-spacing) 0;
@@ -3764,15 +3647,6 @@ Je vous propose deux options, la demi-journée ou une journée complète.
     </div>
     <div class="swipe-hint">← Glissez →</div>
 </div>
-
-        <section class="products-showcase">
-            <div class="timeline-container">
-                <div class="products-grid" id="productsGrid">
-                    <div class="loading-state">Chargement des produits...</div>
-                </div>
-            </div>
-        </section>
-
     </div>
         <div id="creation_anchor"></div>
     <div class="dragonnierPortfolio">
@@ -4189,65 +4063,6 @@ Je travaille principalement avec des essences locales : olivier, buis, cade mais
                 criticalImages.forEach(img => {
                 imageObserver.observe(img);
                 });
-            }
-        });
-
-        // Chargement des produits pour la section showcase
-        document.addEventListener('DOMContentLoaded', async function() {
-            const productsGrid = document.getElementById('productsGrid');
-
-            if (!productsGrid) return;
-
-            try {
-                console.log('🛍️ Chargement des produits...');
-
-                // Essayer l'API WooCommerce Store
-                const apiUrl = `${window.location.origin}/wp-json/wc/store/v1/products?per_page=8&orderby=menu_order&order=asc`;
-                console.log('📍 URL API:', apiUrl);
-
-                const response = await fetch(apiUrl);
-
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP: ${response.status}`);
-                }
-
-                const products = await response.json();
-                console.log('✅ Produits reçus:', products.length);
-
-                if (!Array.isArray(products) || products.length === 0) {
-                    productsGrid.innerHTML = '<div class="loading-state">Aucun produit disponible</div>';
-                    return;
-                }
-
-                let html = '';
-                products.forEach(product => {
-                    const image = product.images[0]?.src || '';
-                    const price = product.prices?.formatted_price || '';
-                    const link = product.permalink || '#';
-                    const name = product.name || 'Produit sans nom';
-
-                    html += `
-                        <a href="${link}" class="product-card">
-                            <div class="product-image">
-                                ${image ? `<img src="${image}" alt="${name}" loading="lazy">` : '<div style="background: var(--light-bg); width: 100%; height: 100%;"></div>'}
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">${name}</h3>
-                                <p class="product-price">${price}</p>
-                            </div>
-                        </a>
-                    `;
-                });
-
-                productsGrid.innerHTML = html;
-                console.log('✨ Produits affichés avec succès');
-
-            } catch (error) {
-                console.error('❌ Erreur chargement produits:', error);
-                productsGrid.innerHTML = `<div class="loading-state">
-                    <p>Impossible de charger les produits</p>
-                    <small style="opacity: 0.6; margin-top: 10px; display: block;">${error.message}</small>
-                </div>`;
             }
         });
     </script>
