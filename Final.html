@@ -547,16 +547,18 @@ html, body {
         .step-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: flex-start;
+            gap: 60px;
+            align-items: center;
         }
 
         .step-text {
-            padding: 0 40px 0 0;
+            padding: 0;
         }
 
         .step-visual {
-            max-width: 600px;
+            width: 100%;
+            height: 200px;
+            max-width: none;
         }
 
         .step-marker {
@@ -607,27 +609,28 @@ html, body {
         }
 
         .step-image-container {
-            border-radius: 16px;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow-medium);
-            transition: var(--transition-smooth);
-            background: var(--dark-text);
+            box-shadow: 0 10px 30px rgba(157, 2, 8, 0.1);
+            transition: all 0.3s ease;
         }
 
         .step-image-container:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-heavy);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(157, 2, 8, 0.12);
         }
 
         .step-image {
             width: 100%;
-            height: 380px;
+            height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            display: block;
         }
 
-        .step-image-container:hover .step-image {
-            transform: scale(1.05);
+        .step-image-container:hover {
+            box-shadow: 0 15px 40px rgba(157, 2, 8, 0.15);
         }
 
         @media (max-width: 768px) {
@@ -651,8 +654,8 @@ html, body {
                 transform: translateY(-50%);
             }
 
-            .step-image {
-                height: 300px;
+            .step-visual {
+                height: 160px;
             }
 
             .buttons-container {
