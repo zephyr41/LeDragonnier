@@ -1,323 +1,302 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique - Le Dragonnier</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Immortal:wght@400;500&display=swap" rel="stylesheet">
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Boutique - Le Dragonnier</title>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Immortal:wght@400;500&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-red: #9D0208;
-            --secondary-orange: #FAA307;
-            --accent-orange: #E85D04;
-            --dark-text: #121212;
-            --light-bg: #F8F6F3;
-            --warm-white: #FEFCFA;
-            --font-family: 'Immortal', 'Playfair Display', serif;
-        }
-
-        html, body {
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        header {
-            background: white;
-            padding: 30px 0;
-            border-bottom: 1px solid rgba(157, 2, 8, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary-red);
-            text-decoration: none;
-        }
-
-        nav a {
-            color: var(--dark-text);
-            text-decoration: none;
-            margin-left: 40px;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--primary-red);
-        }
-
-        .page-header {
-            text-align: center;
-            padding: 100px 0 60px 0;
-        }
-
-        .page-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--primary-red);
-            margin-bottom: 20px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            position: relative;
-        }
-
-        .page-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--secondary-orange), var(--accent-orange));
-        }
-
-        .page-subtitle {
-            font-size: 1.2rem;
-            color: var(--dark-text);
-            opacity: 0.8;
-            margin-top: 40px;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            padding: 60px 0;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(157, 2, 8, 0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(157, 2, 8, 0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            background: var(--dark-text);
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
-        }
-
-        .product-info {
-            padding: 25px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-name {
-            font-size: 1.3rem;
-            color: var(--primary-red);
-            margin: 0 0 10px 0;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .product-price {
-            font-size: 1.2rem;
-            color: var(--secondary-orange);
-            font-weight: 600;
-            margin: 10px 0 0 0;
-        }
-
-        .loading-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--dark-text);
-            font-size: 1.1rem;
-        }
-
-        footer {
-            background: var(--dark-text);
-            color: white;
-            padding: 60px 0;
-            margin-top: 100px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        footer a {
-            color: var(--secondary-orange);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
 
+            :root {
+                --primary-red: #9D0208;
+                --secondary-orange: #FAA307;
+                --accent-orange: #E85D04;
+                --dark-text: #121212;
+                --light-bg: #F8F6F3;
+                --warm-white: #FEFCFA;
+                --font-family: 'Immortal', 'Playfair Display', serif;
+            }
+
+            html, body {
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            body {
+                font-family: var(--font-family);
+                background-color: var(--light-bg);
+                color: var(--dark-text);
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 40px;
+            }
+
+
             .page-header {
-                padding: 60px 0 40px 0;
+                text-align: center;
+                padding: 30px 0 0 0;
+            }
+
+            .page-title {
+                font-size: clamp(2.5rem, 5vw, 4rem);
+                color: var(--primary-red);
+                margin-bottom: 20px;
+                font-weight: 400;
+                letter-spacing: 2px;
+                position: relative;
+            }
+
+            .page-title::after {
+                content: '';
+                position: absolute;
+                bottom: -15px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 120px;
+                height: 3px;
+                background: linear-gradient(90deg, var(--secondary-orange), var(--accent-orange));
+            }
+
+            .page-subtitle {
+                font-size: 1.2rem;
+                color: var(--dark-text);
+                opacity: 0.8;
+                margin-top: 16px;
+                margin-bottom: 30px;
             }
 
             .products-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 24px;
+                padding: 0;
+                margin-bottom: 60px;
             }
 
-            nav {
-                display: none;
+            .product-card {
+                background: #fff;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+                cursor: pointer;
+                text-decoration: none;
+                color: inherit;
+                display: flex;
+                flex-direction: column;
             }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">Le Dragonnier</a>
-                <nav>
-                    <a href="index.html">Accueil</a>
-                    <a href="boutique.html">Boutique</a>
-                    <a href="#contact">Contact</a>
-                </nav>
-            </div>
-        </div>
-    </header>
 
-    <main>
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">Boutique</h1>
-                <p class="page-subtitle">Découvrez nos créations artisanales</p>
-            </div>
+            .product-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            }
 
-            <div class="products-grid" id="productsGrid">
-                <div class="loading-state">Chargement des produits...</div>
-            </div>
-        </div>
-    </main>
+            .product-image {
+                width: 100%;
+                background: #fff;
+                position: relative;
+            }
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Le Dragonnier. Tous droits réservés.</p>
-            <p style="margin-top: 20px;">
-                <a href="#">Conditions générales</a> •
-                <a href="#">Politique de confidentialité</a> •
-                <a href="tel:+33687463258">06 87 46 32 58</a>
-            </p>
-        </div>
-    </footer>
+            .product-image::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--primary-red), var(--secondary-orange));
+            }
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            const productsGrid = document.getElementById('productsGrid');
+            .product-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
 
-            if (!productsGrid) return;
+            .product-info {
+                padding: 22px 22px 24px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
 
-            try {
-                console.log('🛍️ Chargement des produits...');
+            .product-name {
+                font-size: 1.4rem;
+                color: var(--dark-text);
+                margin: 0 0 12px 0;
+                font-weight: 400;
+            }
 
-                const apiUrl = `${window.location.origin}/wp-json/wc/store/v1/products?per_page=20&orderby=menu_order&order=asc`;
-                console.log('📍 URL API:', apiUrl);
+            .product-price-label {
+                font-size: 0.75rem;
+                color: var(--primary-red);
+                margin: 0 0 3px 0;
+            }
 
-                const response = await fetch(apiUrl);
+            .product-price {
+                font-size: 1.25rem;
+                color: var(--secondary-orange);
+                font-weight: 600;
+                margin: 0 0 14px 0;
+            }
 
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP: ${response.status}`);
+            .product-description {
+                font-size: 0.85rem;
+                color: #555;
+                line-height: 1.6;
+                flex: 1;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                margin-bottom: 0;
+            }
+
+            .product-btn {
+                display: block;
+                text-align: center;
+                background: var(--primary-red);
+                color: white;
+                padding: 11px 16px;
+                font-family: var(--font-family);
+                font-size: 0.7rem;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                border-radius: 4px;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background 0.2s ease;
+                margin-top: 24px;
+            }
+
+            .product-btn:hover {
+                background: var(--accent-orange);
+            }
+
+            .loading-state {
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 60px 20px;
+                color: var(--dark-text);
+                font-size: 1.1rem;
+            }
+
+
+            @media (max-width: 768px) {
+                .container {
+                    padding: 0 20px;
                 }
 
-                const products = await response.json();
-                console.log('✅ Produits reçus:', products.length);
-
-                if (!Array.isArray(products) || products.length === 0) {
-                    productsGrid.innerHTML = '<div class="loading-state">Aucun produit disponible</div>';
-                    return;
+                .page-header {
+                    padding: 60px 0 40px 0;
                 }
 
-                let html = '';
-                products.forEach(product => {
-                    const image = product.images[0]?.src || '';
-                    const price = product.prices?.formatted_price || '';
-                    const link = product.permalink || '#';
-                    const name = product.name || 'Produit sans nom';
+                .products-grid {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
 
-                    html += `
-                        <a href="${link}" class="product-card">
-                            <div class="product-image">
-                                ${image ? `<img src="${image}" alt="${name}" loading="lazy">` : '<div style="background: var(--light-bg); width: 100%; height: 100%;"></div>'}
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">${name}</h3>
-                                <p class="product-price">${price}</p>
-                            </div>
-                        </a>
-                    `;
-                });
-
-                productsGrid.innerHTML = html;
-                console.log('✨ Produits affichés avec succès');
-
-            } catch (error) {
-                console.error('❌ Erreur chargement produits:', error);
-                productsGrid.innerHTML = `<div class="loading-state">
-                    <p>Impossible de charger les produits</p>
-                    <small style="opacity: 0.6; margin-top: 10px; display: block;">${error.message}</small>
-                </div>`;
+                nav {
+                    display: none;
+                }
             }
-        });
-    </script>
-</body>
-</html>
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title">Boutique</h1>
+                    <p class="page-subtitle">Découvrez nos créations artisanales</p>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <div class="loading-state">Chargement des produits...</div>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', async function() {
+                const productsGrid = document.getElementById('productsGrid');
+
+                if (!productsGrid) return;
+
+                try {
+                    console.log('🛍️ Chargement des produits...');
+
+                    const apiUrl = `${window.location.origin}/wp-json/wc/store/v1/products?per_page=20&orderby=menu_order&order=asc`;
+                    console.log('📍 URL API:', apiUrl);
+
+                    const response = await fetch(apiUrl);
+
+                    if (!response.ok) {
+                        throw new Error(`Erreur HTTP: ${response.status}`);
+                    }
+
+                    const products = await response.json();
+                    console.log('✅ Produits reçus:', products.length);
+
+                    if (!Array.isArray(products) || products.length === 0) {
+                        productsGrid.innerHTML = '<div class="loading-state">Aucun produit disponible</div>';
+                        return;
+                    }
+
+                    let html = '';
+                    products.forEach(product => {
+                        const image = product.images[0]?.src || '';
+                        const link = product.permalink || '#';
+                        const name = product.name || 'Produit sans nom';
+                        const hasRange = product.prices?.price_range;
+                        const priceLabel = hasRange ? 'À partir de' : '';
+                        const minorUnit = product.prices?.currency_minor_unit ?? 2;
+                        const rawPrice = hasRange ? product.prices.price_range.min_amount : product.prices?.price;
+                        const priceHtml = rawPrice
+                            ? (parseInt(rawPrice) / Math.pow(10, minorUnit)).toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + (product.prices?.currency_suffix || ' €')
+                            : '';
+                        const rawDesc = product.short_description || product.description || '';
+                        const desc = rawDesc.replace(/<[^>]*>/g, '').trim();
+
+                        html += `
+                            <a href="${link}" class="product-card">
+                                <div class="product-image">
+                                    ${image ? `<img src="${image}" alt="${name}" loading="lazy">` : '<div style="background: var(--light-bg); width: 100%; height: 100%;"></div>'}
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">${name}</h3>
+                                    ${priceLabel ? `<p class="product-price-label">${priceLabel}</p>` : ''}
+                                    <p class="product-price">${priceHtml}</p>
+                                    ${desc ? `<p class="product-description">${desc}</p>` : ''}
+                                    <span class="product-btn">DÉCOUVRIR</span>
+                                </div>
+                            </a>
+                        `;
+                    });
+
+                    productsGrid.innerHTML = html;
+                    console.log('✨ Produits affichés avec succès');
+
+                } catch (error) {
+                    console.error('❌ Erreur chargement produits:', error);
+                    productsGrid.innerHTML = `<div class="loading-state">
+                        <p>Impossible de charger les produits</p>
+                        <small style="opacity: 0.6; margin-top: 10px; display: block;">${error.message}</small>
+                    </div>`;
+                }
+            });
+        </script>
+    </body>
+    </html>
