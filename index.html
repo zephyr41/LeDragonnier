@@ -416,6 +416,51 @@
             border-radius: calc(var(--radius-lg) - 8px);
         }
 
+        /* Mini carrousel en fondu (vitrine de l'atelier) */
+        .dg-fade img {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+
+        .dg-fade img.is-active {
+            opacity: 1;
+        }
+
+        .dg-fade-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 22px;
+            z-index: 2;
+            display: flex;
+            gap: 10px;
+            transform: translateX(-50%);
+        }
+
+        .dg-fade-dots button {
+            position: relative;
+            width: 8px;
+            height: 8px;
+            padding: 0;
+            border: 0;
+            border-radius: 999px;
+            background: rgba(250, 246, 238, 0.6);
+            cursor: pointer;
+            transition: width 0.35s ease, background-color 0.35s ease;
+        }
+
+        .dg-fade-dots button::after {
+            content: '';
+            position: absolute;
+            inset: -12px -6px;
+        }
+
+        .dg-fade-dots button.is-active {
+            width: 24px;
+            background: var(--paper-light);
+        }
+
 
         .dg-portrait {
             aspect-ratio: 4 / 5;
@@ -1043,69 +1088,40 @@
             color: var(--muted);
         }
 
+        /* Label + bouton téléphone, même modèle que sous les formules */
         .dg-book {
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            grid-column: 1 / -1;
-            gap: 16px 20px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
             margin-top: 32px;
-            padding: 20px 24px;
-            border-radius: var(--radius);
-            background: var(--paper-light);
-            border: 1px solid rgba(194, 133, 42, 0.5);
         }
 
         .dg-book .dg-btn {
             flex: none;
-            margin-left: auto;
         }
 
-        .dg-book-icon {
-            display: grid;
-            place-items: center;
-            width: 44px;
-            height: 44px;
-            flex: none;
-            border-radius: 50%;
-            background: var(--red);
-            color: var(--paper-light);
+        /* Bouton numéro de téléphone : plus grand que les boutons d'action */
+        .dg-btn--phone {
+            gap: 14px;
+            padding: 18px 38px;
+            font-size: 1.15rem;
+            letter-spacing: 0.12em;
         }
 
-        .dg-book-icon svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .dg-book-text {
-            flex: 1 1 auto;
-            min-width: max-content;
+        .dg-btn.dg-btn--phone svg {
+            width: 22px;
+            height: 22px;
         }
 
         .dg .dg-book-label {
-            margin: 0 0 4px;
-            font-size: var(--fs-label);
+            margin: 0;
+            font-size: 0.95rem;
             line-height: 1.4;
             font-weight: 600;
             letter-spacing: 0.16em;
             text-transform: uppercase;
             color: var(--ochre);
-        }
-
-        .dg-book-phone {
-            display: inline-flex;
-            align-items: center;
-            min-height: 44px;
-            font-family: var(--display);
-            font-size: clamp(1.4rem, 1.2rem + 0.6vw, 1.6rem);
-            line-height: 1.1;
-            color: var(--ink);
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .dg-book-phone:hover {
-            color: var(--red);
         }
 
         .dg .dg-sharpen-price {
@@ -1620,18 +1636,8 @@
                 width: 100%;
             }
 
-            .dg-book {
-                padding: 20px;
-            }
-
             .dg-book .dg-btn {
-                flex: 1 1 100%;
-                margin-left: 0;
-            }
-
-            .dg-book-text {
-                flex: 1;
-                min-width: 0;
+                align-self: stretch;
             }
 
             .dg-band-corners span {
@@ -1964,7 +1970,6 @@
                 aspect-ratio: 16 / 10;
             }
 
-            .dg-sc-cta,
             .dg-sc-foot .dg-btn {
                 width: 100%;
             }
@@ -2230,16 +2235,28 @@
             color: var(--muted);
         }
 
+        /* Trois niveaux : l'accroche (1re phrase, Lora medium), le détail
+           (texte courant, plus clair), puis le programme sous un filet. */
         .dg .dg-fo-desc {
-            margin: 0 0 22px;
-            font-size: 1.0625rem;
-            font-weight: 400;
-            line-height: 1.55;
+            margin: 0 0 24px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        .dg-fo-hook {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1.4;
             color: var(--ink-strong);
         }
 
         .dg .dg-fo-label {
-            margin: 0 0 10px;
+            margin: 0 0 12px;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
             font-size: var(--fs-label);
             font-weight: 600;
             letter-spacing: 0.16em;
@@ -2257,7 +2274,8 @@
 
         .dg-fo-list li {
             position: relative;
-            padding-left: 30px;
+            padding-left: 28px;
+            font-size: 0.95rem;
             line-height: 1.5;
             color: var(--muted);
         }
@@ -2296,6 +2314,11 @@
         .dg-fo-foot {
             margin-top: clamp(32px, 5vh, 56px);
             text-align: center;
+        }
+
+        .dg .dg-fo-foot .dg-book-label {
+            margin: 32px 0 14px;
+            color: var(--ochre);
         }
 
         .dg .dg-fo-foot p {
@@ -2524,8 +2547,17 @@
                     </figure>
                 </div>
                 <div class="dg-split-media">
-                    <figure class="dg-frame dg-video">
-                        <img src="https://ledragonnier.com/wp-content/uploads/2026/10/velkaran-intro-scaled.png" width="2560" height="1454" alt="Couteaux Le Dragonnier en vitrine à l'atelier de Pézenas" loading="eager">
+                    <figure class="dg-frame dg-video dg-fade" aria-roledescription="carrousel" aria-label="La vitrine de l'atelier">
+                        <img class="is-active" src="https://ledragonnier.com/wp-content/uploads/2026/10/velkaran-intro-scaled.png" width="2560" height="1454" alt="Couteaux Le Dragonnier en vitrine à l'atelier de Pézenas" loading="eager">
+                        <img src="https://ledragonnier.com/wp-content/uploads/2026/10/WhatsApp-Image-2026-10-10-at-20.10.00-2-scaled.jpeg" width="2560" height="1920" alt="Couteaux de cuisine Velkaran en vitrine" loading="lazy">
+                        <img src="https://ledragonnier.com/wp-content/uploads/2026/10/WhatsApp-Image-2026-10-10-at-20.10.00-1-scaled.jpeg" width="2560" height="1920" alt="Couteaux de table Ornak en vitrine" loading="lazy">
+                        <img src="https://ledragonnier.com/wp-content/uploads/2026/10/WhatsApp-Image-2026-10-10-at-20.10.00-scaled.jpeg" width="2560" height="1920" alt="Couteaux Feranak et Ornak en vitrine" loading="lazy">
+                        <div class="dg-fade-dots">
+                            <button type="button" class="is-active" aria-label="Photo 1"></button>
+                            <button type="button" aria-label="Photo 2"></button>
+                            <button type="button" aria-label="Photo 3"></button>
+                            <button type="button" aria-label="Photo 4"></button>
+                        </div>
                     </figure>
                 </div>
             </div>
@@ -2672,7 +2704,10 @@
                             Dès 85&nbsp;€ par personne
                         </li>
                     </ul>
-                    <a href="tel:+33687463258" class="dg-btn dg-sc-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Réserver&nbsp;: 06 87 46 32 58</a>
+                    <div class="dg-book">
+                        <p class="dg-book-label">Réserver par téléphone</p>
+                        <a href="tel:+33687463258" class="dg-btn dg-btn--phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 87 46 32 58</a>
+                    </div>
                 </div>
                 <figure class="dg-frame dg-sc-photo">
                     <img src="https://ledragonnier.com/wp-content/uploads/2026/10/Gemini-Generated-Image-Workshop-Recreation-scaled.jpeg" width="1400" height="727" alt="Stage de coutellerie à l'atelier Le Dragonnier de Pézenas" loading="lazy">
@@ -2709,7 +2744,7 @@
                             <h3>3 heures</h3>
                             <p class="dg-fo-price">85&nbsp;€<small>/pers</small></p>
                         </div>
-                        <p class="dg-fo-desc">Votre première prise en main du métier. À l'établi, à mes côtés, vous montez votre Sylvarak, manche en olivier, et vous repartez avec.</p>
+                        <p class="dg-fo-desc"><span class="dg-fo-hook">Vous repartez avec votre Sylvarak.</span> Votre première prise en main du métier, à l'établi, à mes côtés. Manche en olivier.</p>
                         <p class="dg-fo-label">Programme · 3&nbsp;h</p>
                         <ul class="dg-fo-list">
                             <li>Vous assemblez lame, ressort et platines</li>
@@ -2719,7 +2754,7 @@
                 </article>
 
                 <article class="dg-fo-card dg-fo-card--featured">
-                    <span class="dg-fo-badge">L'expérience complète</span>
+                    <span class="dg-fo-badge">Idéal pour offrir</span>
                     <figure class="dg-fo-media">
                         <img src="https://ledragonnier.com/wp-content/uploads/2026/10/Leo_image_2-scaled.jpeg" width="1400" height="781" alt="Montage d'un couteau pliant pendant un stage à l'atelier Le Dragonnier" loading="lazy">
                     </figure>
@@ -2728,12 +2763,13 @@
                             <h3>1 journée</h3>
                             <p class="dg-fo-price">300&nbsp;€<small>/pers</small></p>
                         </div>
-                        <p class="dg-fo-desc">Je vous apprends le guillochage, la gravure qui décore le dos de la lame. Vous gravez la vôtre, puis vous montez votre couteau dans le bois de votre choix.</p>
+                        <p class="dg-fo-desc"><span class="dg-fo-hook">Manche au choix, ressort guilloché.</span> Une journée pour vous initier au guillochage, puis monter votre couteau dans l'essence de votre choix.</p>
                         <p class="dg-fo-label">Programme · 9h–18h</p>
                         <ul class="dg-fo-list">
-                            <li><strong>Matin :</strong> vous apprenez le guillochage, la gravure décorative du dos de la lame</li>
+                            <li><strong>Matin :</strong> vous apprenez le guillochage, le motif décoratif du ressort</li>
                             <li>Vous choisissez le bois de votre manche</li>
-                            <li><strong>Après-midi :</strong> vous montez votre couteau et assistez à son polissage</li>
+                            <li><strong>Après-midi :</strong> vous assemblez lame, ressort et platines</li>
+                            <li>Vous assistez au polissage de votre couteau</li>
                         </ul>
                         <p class="dg-fo-note">* Ces horaires peuvent être aménagés au&#8209;delà de 3&nbsp;personnes.</p>
                     </div>
@@ -2741,8 +2777,9 @@
             </div>
 
             <div class="dg-fo-foot">
-                <p>5 personnes maximum, pour que chacun ait l'artisan à ses côtés.</p>
-                <a href="tel:+33687463258" class="dg-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Réserver par téléphone&nbsp;: 06 87 46 32 58</a>
+                <p>5 personnes maximum, pour que chacun m'ait à ses côtés.</p>
+                <p class="dg-book-label">Réserver par téléphone</p>
+                <a href="tel:+33687463258" class="dg-btn dg-btn--phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 87 46 32 58</a>
             </div>
         </div>
     </section>
@@ -2771,12 +2808,8 @@
                     </ul>
 
                     <div class="dg-book">
-                        <span class="dg-book-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
-                        <div class="dg-book-text">
-                            <p class="dg-book-label">Sur rendez-vous, par téléphone</p>
-                            <a href="tel:+33687463258" class="dg-book-phone">06 87 46 32 58</a>
-                        </div>
-                        <a href="tel:+33687463258" class="dg-btn">Prendre rendez-vous</a>
+                        <p class="dg-book-label">Sur rendez-vous, par téléphone</p>
+                        <a href="tel:+33687463258" class="dg-btn dg-btn--phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 87 46 32 58</a>
                     </div>
                 </div>
             </div>
@@ -2874,7 +2907,7 @@
             <div class="dg-creations">
                 <article class="dg-creation">
                     <figure class="dg-frame">
-                        <img src="" alt="Créations uniques Le Dragonnier" loading="lazy">
+                        <img src="https://ledragonnier.com/wp-content/uploads/2026/10/Screenshot-2026-10-10-at-20.07.17-scaled.png" width="2560" height="1446" alt="Détail gravé d'une pièce unique Le Dragonnier" loading="lazy">
                     </figure>
                     <h3>Créations Uniques</h3>
                     <p>Découvrez mes couteaux dans des versions uniques. La créativité est mise en avant sur ces pièces. Venez découvrir un panel de possibilités. Couteau pliant ou couteau de chef, découvrez mon savoir-faire artisanal au travers de mes créations pensées pour durer.</p>
@@ -2882,7 +2915,7 @@
                 </article>
                 <article class="dg-creation">
                     <figure class="dg-frame">
-                        <img src="" alt="Portfolio des créations" loading="lazy">
+                        <img src="https://ledragonnier.com/wp-content/uploads/2026/10/WhatsApp-Image-2026-10-10-at-20.12.51.jpeg" width="2048" height="945" alt="Couteau pliant Le Dragonnier, manche en bois, posé sur la pierre" loading="lazy">
                     </figure>
                     <h3>Portfolio</h3>
                     <p>Chaque pièce raconte une histoire, celle d'une rencontre entre l'artisan et son client. Parcourez mes réalisations sur mesure, témoins de la diversité et de la richesse de mon art.</p>
@@ -3090,6 +3123,37 @@
                 .catch(function () {});
         });
     })();
+
+    // Mini carrousel en fondu : défile toutes les 5 s, sauf si l'utilisateur réduit les animations.
+    document.querySelectorAll('.dg-fade').forEach(function (fade) {
+        var imgs = fade.querySelectorAll('img');
+        var dots = fade.querySelectorAll('.dg-fade-dots button');
+        var current = 0;
+        var timer = null;
+
+        function show(i) {
+            imgs[current].classList.remove('is-active');
+            dots[current].classList.remove('is-active');
+            current = (i + imgs.length) % imgs.length;
+            imgs[current].classList.add('is-active');
+            dots[current].classList.add('is-active');
+        }
+
+        function start() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            timer = setInterval(function () { show(current + 1); }, 5000);
+        }
+
+        dots.forEach(function (dot, i) {
+            dot.addEventListener('click', function () {
+                clearInterval(timer);
+                show(i);
+                start();
+            });
+        });
+
+        start();
+    });
 </script>
 </body>
 </html>
