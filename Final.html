@@ -1820,7 +1820,7 @@ html, body {
             height: 100%;
             object-fit: cover;
             object-position: center;
-            transform: scale(1.15);
+            transform: scale(1.05);
             transition: transform 12s ease-out;
         }
 
@@ -1836,24 +1836,42 @@ html, body {
         .knives-carousel .slide-overlay {
             position: absolute;
             inset: 0;
-            background: var(--overlay-black);
+            background: linear-gradient(to top, rgba(18, 18, 18, 0.88) 0%, rgba(18, 18, 18, 0.35) 45%, rgba(18, 18, 18, 0.1) 100%);
             z-index: 1;
         }
 
         .knives-carousel .slide-content {
-            position: relative;
+            position: absolute;
+            inset: 0;
             z-index: 2;
-            text-align: left;
-            max-width: 650px;
-            padding: 0 60px;
             display: flex;
             flex-direction: column;
+            justify-content: flex-end;
             align-items: flex-start;
-            gap: 15px;
-            margin-left: 100px;
+            padding: 0 80px 60px;
+            gap: 12px;
+            pointer-events: none;
+            max-width: 700px;
         }
 
-        .knives-carousel .carousel-slide.active .slide-content>* {
+        .knives-carousel .slide-content-top {
+            display: contents;
+        }
+
+        .knives-carousel .slide-content-bottom {
+            display: contents;
+        }
+
+        .knives-carousel .slide-content-top > *,
+        .knives-carousel .slide-content-bottom > * {
+            pointer-events: all;
+        }
+
+        .knives-carousel .carousel-slide.active .slide-title,
+        .knives-carousel .carousel-slide.active .slide-subtitle,
+        .knives-carousel .carousel-slide.active .slide-price,
+        .knives-carousel .carousel-slide.active .slide-description,
+        .knives-carousel .carousel-slide.active .create-btn {
             animation: fadeInUp 0.6s ease-out forwards;
             opacity: 0;
         }
@@ -1866,8 +1884,12 @@ html, body {
             animation-delay: 0.2s;
         }
 
-        .knives-carousel .carousel-slide.active  {
+        .knives-carousel .carousel-slide.active .slide-price {
             animation-delay: 0.3s;
+        }
+
+        .knives-carousel .carousel-slide.active .create-btn {
+            animation-delay: 0.4s;
         }
 
         .knives-carousel .carousel-slide.active .slide-description {
@@ -2092,12 +2114,10 @@ html, body {
             }
 
             .knives-carousel .slide-content {
-                padding: 0 30px;
-                margin-left: 0;
+                padding: 0 25px 35px;
                 max-width: 100%;
-                gap: 30px;
-                 align-items: center;
-                text-align: center; /* Centre aussi le texte des titres */
+                align-items: center;
+                text-align: center;
             }
             
             .knives-carousel .slide-title {
@@ -2146,7 +2166,7 @@ html, body {
                 object-position: center 40%;
             }
         }
-        
+
         /* ===============================================
            STYLES DU FICHIER 2 (HISTOIRE & PORTRAIT)
         =============================================== */
@@ -3564,75 +3584,91 @@ Je vous propose deux options, la demi-journée ou une journée complète.
     <div class="carousel-slides" id="carouselSlides">
         <div class="carousel-slide" data-product-id="19077">
             <div class="slide-media">
-                <img src="" alt="Sylvarak - Couteau pliant artisanal" class="slide-bg-image" loading="eager" fetchpriority="high" decoding="async">
+                <img src="http://ledragonnier.com/wp-content/uploads/2026/04/Sylvarak_1-scaled.png" alt="Sylvarak - Couteau pliant artisanal" class="slide-bg-image" loading="eager" fetchpriority="high" decoding="async">
                 <div class="slide-overlay"></div>
             </div>
             <div class="slide-content">
-                <h2 class="slide-title">Sylvarak</h2>
-                <p class="slide-subtitle">Le couteau pliant</p>
-                <div class="slide-price"></div>
-                <a href="" class="create-btn">
+                <div class="slide-content-top">
+                    <h2 class="slide-title">Sylvarak</h2>
+                    <p class="slide-subtitle">Le couteau pliant</p>
+                </div>
+                <div class="slide-content-bottom">
+                    <div class="slide-price"></div>
+                    <a href="https://ledragonnier.com/index.php/produit/sylvarak-couteau-pliant/" class="create-btn">
                         <span class="create-btn-text">Commander Sylvarak</span>
-                            <div class="create-btn-blade"></div>
-                </a>
-                <p class="slide-description">
-                    Sylvarak est un couteau de poche, fin et léger. Il saura vous accompagner sur votre chemin.
-                </p>
+                        <div class="create-btn-blade"></div>
+                    </a>
+                    <p class="slide-description">
+                        Sylvarak est un couteau de poche, fin et léger. Il saura vous accompagner sur votre chemin.
+                    </p>
+                </div>
             </div>
         </div>
         <div class="carousel-slide active" data-product-id="19093">
             <div class="slide-media">
-                <img src="" alt="Ornak - Couteau de table élégant" class="slide-bg-image" loading="lazy" decoding="async">
+                <img src="http://ledragonnier.com/wp-content/uploads/2026/04/Ornak_1-scaled.png" alt="Ornak - Couteau de table élégant" class="slide-bg-image" loading="lazy" decoding="async">
                 <div class="slide-overlay"></div>
             </div>
             <div class="slide-content">
-                <h2 class="slide-title">Ornak</h2>
-                <p class="slide-subtitle">Le couteau de table</p>
-                <div class="slide-price"></div>
-                <a href="" class="create-btn">
+                <div class="slide-content-top">
+                    <h2 class="slide-title">Ornak</h2>
+                    <p class="slide-subtitle">Le couteau de table</p>
+                </div>
+                <div class="slide-content-bottom">
+                    <div class="slide-price"></div>
+                    <a href="https://ledragonnier.com/index.php/produit/ornak-le-couteau-de-table/" class="create-btn">
                         <span class="create-btn-text">Commander Ornak</span>
-                            <div class="create-btn-blade"></div>
-                </a>
-                <p class="slide-description">
-                    à partir de 25€ unité - Vendu par 4 ou par 6
-                    Ornak est un couteau simple, épurée, qui mettra en valeur votre table pour profiter pleinement de vos repas. 
-                </p>
+                        <div class="create-btn-blade"></div>
+                    </a>
+                    <p class="slide-description">
+                        à partir de 25€ unité - Vendu par 4 ou par 6.
+                        Ornak est un couteau simple, épuré, qui mettra en valeur votre table.
+                    </p>
+                </div>
             </div>
         </div>
         <div class="carousel-slide" data-product-id="19051">
             <div class="slide-media">
-                <img src="" alt="Velkaran - Couteau de cuisine professionnel" class="slide-bg-image" loading="lazy" decoding="async">
+                <img src="http://ledragonnier.com/wp-content/uploads/2026/04/Velkaran_2-scaled.png" alt="Velkaran - Couteau de cuisine professionnel" class="slide-bg-image" loading="lazy" decoding="async">
                 <div class="slide-overlay"></div>
             </div>
             <div class="slide-content">
-                <h2 class="slide-title">Velkaran</h2>
-                <p class="slide-subtitle">Le couteau de cuisine</p>
-                <div class="slide-price"></div>
-                    <a href="" class="create-btn">
+                <div class="slide-content-top">
+                    <h2 class="slide-title">Velkaran</h2>
+                    <p class="slide-subtitle">Le couteau de cuisine</p>
+                </div>
+                <div class="slide-content-bottom">
+                    <div class="slide-price"></div>
+                    <a href="https://ledragonnier.com/index.php/produit/velkaran-couteau-cuisine/" class="create-btn">
                         <span class="create-btn-text">Commander Velkaran</span>
-                            <div class="create-btn-blade"></div>
+                        <div class="create-btn-blade"></div>
                     </a>
-                <p class="slide-description">
-                    Velkaran est le couteau de chef parfait pour cuisiner. Laissez sa ligne majestueuse <br> vous séduire.
-                </p>
+                    <p class="slide-description">
+                        Velkaran est le couteau de chef parfait pour cuisiner. Laissez sa ligne majestueuse vous séduire.
+                    </p>
+                </div>
             </div>
         </div>
         <div class="carousel-slide" data-product-id="19084">
             <div class="slide-media">
-                <img src="" alt="Feranak - Couteau d'office de précision" class="slide-bg-image" loading="lazy" decoding="async">
+                <img src="http://ledragonnier.com/wp-content/uploads/2026/04/Feranak_1-scaled.png" alt="Feranak - Couteau d'office de précision" class="slide-bg-image" loading="lazy" decoding="async">
                 <div class="slide-overlay"></div>
             </div>
             <div class="slide-content">
-                <h2 class="slide-title">Feranak</h2>
-                <p class="slide-subtitle">Le couteau d'office</p>
-                <div class="slide-price"></div>
-                <a href="https://ledragonnier.com/index.php/produit/feranak-le-couteau-doffice/" class="create-btn">
+                <div class="slide-content-top">
+                    <h2 class="slide-title">Feranak</h2>
+                    <p class="slide-subtitle">Le couteau d’office</p>
+                </div>
+                <div class="slide-content-bottom">
+                    <div class="slide-price"></div>
+                    <a href="https://ledragonnier.com/index.php/produit/feranak-le-couteau-doffice/" class="create-btn">
                         <span class="create-btn-text">Commander Feranak</span>
-                            <div class="create-btn-blade"></div>
-                </a>
-                <p class="slide-description">
-                    Feranak est là pour vous accompagner aux fourneaux. Petit et polyvalent, il est parfait en complément d’un bon couteau de chef.
-                </p>
+                        <div class="create-btn-blade"></div>
+                    </a>
+                    <p class="slide-description">
+                        Feranak est là pour vous accompagner aux fourneaux. Petit et polyvalent, il est parfait en complément d’un bon couteau de chef.
+                    </p>
+                </div>
             </div>
         </div>
         
